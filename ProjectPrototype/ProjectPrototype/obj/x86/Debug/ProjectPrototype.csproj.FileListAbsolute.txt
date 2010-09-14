@@ -1,0 +1,8 @@
+C:\dev\ProjectPrototype\ProjectPrototype\bin\x86\Debug\Content\Sprites\greenShip.xnb
+C:\dev\ProjectPrototype\ProjectPrototype\bin\x86\Debug\ProjectPrototype.exe
+C:\dev\ProjectPrototype\ProjectPrototype\bin\x86\Debug\ProjectPrototype.pdb
+C:\dev\ProjectPrototype\ProjectPrototype\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\dev\ProjectPrototype\ProjectPrototype\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\dev\ProjectPrototype\ProjectPrototype\obj\x86\Debug\ProjectPrototype.exe
+C:\dev\ProjectPrototype\ProjectPrototype\obj\x86\Debug\ProjectPrototype.pdb
+C:\dev\ProjectPrototype\ProjectPrototype\bin\x86\Debug\Content\Sprites\asteroid.xnb
