@@ -1,1 +1,6 @@
 glob:ProjectPrototype/ProjectPrototype.suo
+glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/cachefile-314f44e7-04ab-40c6-ab32-07d8d4d1c816-targetpath.txt
+glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ResolveAssemblyReference.cache
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/DevilHead.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/Bullet.xnb
+glob:ProjectPrototype/ProjectPrototype/Content/obj/x86/Debug/ContentPipeline.xml

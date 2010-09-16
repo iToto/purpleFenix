@@ -22,12 +22,19 @@ namespace ProjectPrototype
         SpriteBatch spriteBatch;
         Rectangle viewportRect;
 
-        GameObject greenShip;
+        Player greenShip;
         GameObject[] enemies;
+        Bullet[] bullets;
+
+#if !XBOX
+        KeyboardState previousKeyboardState;
+#endif
+        GamePadState previousGamepadState;
 
         Random random = new Random();
 
         const int maxAsteroids = 5;
+        const int maxBullets = 60;
 
         public Game1()
         {
@@ -57,17 +64,29 @@ namespace ProjectPrototype
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            greenShip = new GameObject(Content.Load<Texture2D>("Sprites\\greenShip"));
-            greenShip.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height - 60);
+            greenShip = new Player(Content.Load<Texture2D>("Sprites\\greenShip"));
+            greenShip.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, 
+                graphics.GraphicsDevice.Viewport.Height - 60);
+            greenShip.center.X = greenShip.position.X + (greenShip.sprite.Width / 2);
+            greenShip.center.Y = greenShip.position.Y + (greenShip.sprite.Height / 2);
 
             enemies = new GameObject[maxAsteroids];
             for (int i = 0; i < maxAsteroids; ++i)
             {
-                enemies[i] = new GameObject(Content.Load<Texture2D>("Sprites\\asteroid"));
-                enemies[i].position = new Vector2(random.Next(100), random.Next(100));
+                enemies[i] = new GameObject(Content.Load<Texture2D>("Sprites\\DevilHead"));
+                enemies[i].position = new Vector2(
+                    random.Next(graphics.GraphicsDevice.Viewport.Width), 
+                    random.Next(graphics.GraphicsDevice.Viewport.Height));
             }
 
-            viewportRect = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
+            bullets = new Bullet[maxBullets];
+            for (int i = 0; i < maxBullets; ++i)
+            {
+                bullets[i] = new Bullet(Content.Load<Texture2D>("Sprites\\Bullet"));
+            }
+
+            viewportRect = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, 
+                graphics.GraphicsDevice.Viewport.Height);
             // TODO: use this.Content to load your game content here
 
         }
@@ -88,6 +107,21 @@ namespace ProjectPrototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            HandleInput();
+
+            greenShip.Update(ref viewportRect);
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Update(ref viewportRect);
+            }
+
+            // TODO: Add your update logic here
+
+            base.Update(gameTime);
+        }
+
+        public void HandleInput()
+        {
 #if !XBOX
             KeyboardState keyboardState = Keyboard.GetState();
 #endif
@@ -101,30 +135,23 @@ namespace ProjectPrototype
             }
 
 #if !XBOX
-            if (keyboardState.IsKeyDown(Keys.Left))
+            greenShip.HandleInput(ref keyboardState, ref previousKeyboardState);
+            if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
             {
-                greenShip.position.X -= 4.0f;
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = greenShip.position;
+                        bullet.velocity.Y = -4.0f;
+                        bullet.alive = true;
+                        break;
+                    }
+                }
             }
-
-            if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                greenShip.position.X += 4.0f;
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Up))
-            {
-                greenShip.position.Y -= 4.0f;
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Down))
-            {
-                greenShip.position.Y += 4.0f;
-            }
+            previousKeyboardState = keyboardState;
 #endif
-
-            // TODO: Add your update logic here
-
-            base.Update(gameTime);
+            previousGamepadState = gamepadState;
         }
 
         /// <summary>
@@ -138,7 +165,15 @@ namespace ProjectPrototype
             spriteBatch.Draw(greenShip.sprite, greenShip.position, Color.White);
             foreach (GameObject enemy in enemies)
             {
-                spriteBatch.Draw(enemy.sprite, enemy.position, Color.Violet);
+                spriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
+            }
+
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.alive)
+                {
+                    spriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
+                }
             }
             spriteBatch.End();
             // TODO: Add your drawing code here
