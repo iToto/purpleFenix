@@ -4,3 +4,11 @@ glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ResolveAssemblyReference.ca
 glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/DevilHead.xnb
 glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/Bullet.xnb
 glob:ProjectPrototype/ProjectPrototype/Content/obj/x86/Debug/ContentPipeline.xml
+glob:ProjectPrototype/ProjectPrototype/Content/obj/x86/Debug/Content.contentproj.FileListAbsolute.txt
+glob:ProjectPrototype/ProjectPrototype/ProjectPrototype.csproj.Debug.cachefile
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/greenShip.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/ProjectPrototype.exe
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/ProjectPrototype.pdb
+glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ProjectPrototype.csproj.FileListAbsolute.txt
+glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ProjectPrototype.exe
+glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ProjectPrototype.pdb
