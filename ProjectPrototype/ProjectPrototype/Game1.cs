@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -23,8 +24,8 @@ namespace ProjectPrototype
         Rectangle viewportRect;
 
         Player greenShip;
-        GameObject[] enemies;
-        Bullet[] bullets;
+        List<GameObject> enemies = new List<GameObject>();
+        List<Bullet> bullets = new List<Bullet>();
 
 #if !XBOX
         KeyboardState previousKeyboardState;
@@ -65,24 +66,25 @@ namespace ProjectPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             greenShip = new Player(Content.Load<Texture2D>("Sprites\\greenShip"));
-            greenShip.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, 
+            greenShip.rectangle.Location = new Point(graphics.GraphicsDevice.Viewport.Width / 2,
                 graphics.GraphicsDevice.Viewport.Height - 60);
-            greenShip.center.X = greenShip.position.X + (greenShip.sprite.Width / 2);
-            greenShip.center.Y = greenShip.position.Y + (greenShip.sprite.Height / 2);
 
-            enemies = new GameObject[maxAsteroids];
+            //enemies.Add(new = new GameObject[maxAsteroids];
             for (int i = 0; i < maxAsteroids; ++i)
             {
-                enemies[i] = new GameObject(Content.Load<Texture2D>("Sprites\\DevilHead"));
-                enemies[i].position = new Vector2(
+                enemies.Add(new GameObject(Content.Load<Texture2D>("Sprites\\DevilHead")));
+                //enemies[i] = new GameObject(Content.Load<Texture2D>("Sprites\\DevilHead"));
+                enemies[i].rectangle.Location = new Point(
                     random.Next(graphics.GraphicsDevice.Viewport.Width), 
                     random.Next(graphics.GraphicsDevice.Viewport.Height));
+                enemies[i].alive = true;
             }
 
-            bullets = new Bullet[maxBullets];
+            //bullets = new Bullet[maxBullets];
             for (int i = 0; i < maxBullets; ++i)
             {
-                bullets[i] = new Bullet(Content.Load<Texture2D>("Sprites\\Bullet"));
+                bullets.Add(new Bullet(Content.Load<Texture2D>("Sprites\\Bullet")));
+                //bullets[i] = new Bullet(Content.Load<Texture2D>("Sprites\\Bullet"));
             }
 
             viewportRect = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, 
@@ -113,6 +115,17 @@ namespace ProjectPrototype
             foreach (Bullet bullet in bullets)
             {
                 bullet.Update(ref viewportRect);
+
+                foreach (GameObject enemy in enemies)
+                {
+                    if (bullet.rectangle.Intersects(enemy.rectangle))
+                    {
+                        bullet.alive = false;
+                        enemy.alive = false;
+                        enemies.RemoveAt(enemies.IndexOf(enemy));
+                        break;
+                    }
+                }
             }
 
             // TODO: Add your update logic here
@@ -142,7 +155,7 @@ namespace ProjectPrototype
                 {
                     if (!bullet.alive)
                     {
-                        bullet.position = greenShip.position;
+                        bullet.rectangle.Location = greenShip.rectangle.Location;
                         bullet.velocity.Y = -4.0f;
                         bullet.alive = true;
                         break;
@@ -162,17 +175,20 @@ namespace ProjectPrototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
-            spriteBatch.Draw(greenShip.sprite, greenShip.position, Color.White);
+            spriteBatch.Draw(greenShip.sprite, greenShip.rectangle, Color.White);
             foreach (GameObject enemy in enemies)
             {
-                spriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
+                if (enemy.alive)
+                {
+                    spriteBatch.Draw(enemy.sprite, enemy.rectangle, Color.White);
+                }
             }
 
             foreach (Bullet bullet in bullets)
             {
                 if (bullet.alive)
                 {
-                    spriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
+                    spriteBatch.Draw(bullet.sprite, bullet.rectangle, Color.White);
                 }
             }
             spriteBatch.End();
