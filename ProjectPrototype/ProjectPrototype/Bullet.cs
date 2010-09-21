@@ -28,11 +28,11 @@ namespace ProjectPrototype
         {
             if (this.alive)
             {
-                this.position.X += this.velocity.X;
-                this.position.Y += this.velocity.Y;
+                this.rectangle.X += (int)this.velocity.X;
+                this.rectangle.Y += (int)this.velocity.Y;
             }
 
-            if (!viewportRect.Contains(new Point((int)this.position.X, (int)this.position.Y)))
+            if (!viewportRect.Contains(new Point((int)this.rectangle.Location.X, (int)this.rectangle.Location.Y)))
             {
                 this.alive = false;
             }
