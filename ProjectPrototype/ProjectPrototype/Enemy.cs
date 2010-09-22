@@ -11,26 +11,23 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.Diagnostics;
 
 namespace ProjectPrototype
 {
-    class GameObject
+    class Enemy : GameObject
     {
-        public Texture2D sprite;
-        public float rotation;
-        public Vector2 velocity;
-        public Vector2 position;
-        public Vector2 center;
-        public bool alive;
-
-        public GameObject(Texture2D loadedTexture)
+        public Enemy(Texture2D loadedTexture)
+            : base(loadedTexture)
         {
-            rotation = 0.0f;
-            position = Vector2.Zero;
-            center = Vector2.Zero;
-            sprite = loadedTexture;
-            velocity = Vector2.Zero;
-            alive = false;
+            this.velocity.X = 1;
+        }
+
+        public void Update(ref Rectangle viewportRect)
+        {
+            //Debug.Print( "Y: "+Math.Sin(this.rectangle.X/10));
+            this.position.Y = (float)Math.Sin(this.position.X/10) * 10;
+            this.position.X += this.velocity.X;
         }
     }
 }

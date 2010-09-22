@@ -24,7 +24,7 @@ namespace ProjectPrototype
         Rectangle viewportRect;
 
         Player greenShip;
-        List<GameObject> enemies = new List<GameObject>();
+        List<Enemy> enemies = new List<Enemy>();
         List<Bullet> bullets = new List<Bullet>();
 
 #if !XBOX
@@ -66,17 +66,20 @@ namespace ProjectPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             greenShip = new Player(Content.Load<Texture2D>("Sprites\\greenShip"));
-            greenShip.rectangle.Location = new Point(graphics.GraphicsDevice.Viewport.Width / 2,
+            greenShip.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                 graphics.GraphicsDevice.Viewport.Height - 60);
+            greenShip.center = new Vector2(greenShip.position.X + greenShip.sprite.Width / 2,
+                greenShip.position.Y + greenShip.sprite.Height / 2);
 
-            //enemies.Add(new = new GameObject[maxAsteroids];
             for (int i = 0; i < maxAsteroids; ++i)
             {
-                enemies.Add(new GameObject(Content.Load<Texture2D>("Sprites\\DevilHead")));
-                //enemies[i] = new GameObject(Content.Load<Texture2D>("Sprites\\DevilHead"));
-                enemies[i].rectangle.Location = new Point(
+                enemies.Add(new Enemy(Content.Load<Texture2D>("Sprites\\DevilHead")));
+                enemies[i].position = new Vector2(
                     random.Next(graphics.GraphicsDevice.Viewport.Width), 
                     random.Next(graphics.GraphicsDevice.Viewport.Height));
+                enemies[i].center = new Vector2(
+                    enemies[i].position.X + enemies[i].sprite.Width / 2,
+                    enemies[i].position.Y + enemies[i].sprite.Height / 2);
                 enemies[i].alive = true;
             }
 
@@ -84,7 +87,6 @@ namespace ProjectPrototype
             for (int i = 0; i < maxBullets; ++i)
             {
                 bullets.Add(new Bullet(Content.Load<Texture2D>("Sprites\\Bullet")));
-                //bullets[i] = new Bullet(Content.Load<Texture2D>("Sprites\\Bullet"));
             }
 
             viewportRect = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, 
@@ -116,9 +118,15 @@ namespace ProjectPrototype
             {
                 bullet.Update(ref viewportRect);
 
-                foreach (GameObject enemy in enemies)
+                foreach (Enemy enemy in enemies)
                 {
-                    if (bullet.rectangle.Intersects(enemy.rectangle))
+                    Rectangle bulletRect = new Rectangle((int)bullet.position.X, (int)bullet.position.Y, 
+                        bullet.sprite.Width, bullet.sprite.Height);
+
+                    Rectangle enemyRect = new Rectangle((int)enemy.position.X, (int)enemy.position.Y,
+                        enemy.sprite.Width, enemy.sprite.Height);
+
+                    if (bulletRect.Intersects(enemyRect))
                     {
                         bullet.alive = false;
                         enemy.alive = false;
@@ -126,6 +134,11 @@ namespace ProjectPrototype
                         break;
                     }
                 }
+            }
+
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(ref viewportRect);
             }
 
             // TODO: Add your update logic here
@@ -155,7 +168,9 @@ namespace ProjectPrototype
                 {
                     if (!bullet.alive)
                     {
-                        bullet.rectangle.Location = greenShip.rectangle.Location;
+                        bullet.position = greenShip.position;
+                        bullet.center = new Vector2(bullet.position.X + bullet.sprite.Width / 2, 
+                            bullet.position.Y + bullet.sprite.Height / 2);
                         bullet.velocity.Y = -4.0f;
                         bullet.alive = true;
                         break;
@@ -175,12 +190,12 @@ namespace ProjectPrototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
-            spriteBatch.Draw(greenShip.sprite, greenShip.rectangle, Color.White);
+            spriteBatch.Draw(greenShip.sprite, greenShip.position, Color.White);
             foreach (GameObject enemy in enemies)
             {
                 if (enemy.alive)
                 {
-                    spriteBatch.Draw(enemy.sprite, enemy.rectangle, Color.White);
+                    spriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
                 }
             }
 
@@ -188,7 +203,7 @@ namespace ProjectPrototype
             {
                 if (bullet.alive)
                 {
-                    spriteBatch.Draw(bullet.sprite, bullet.rectangle, Color.White);
+                    spriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
                 }
             }
             spriteBatch.End();

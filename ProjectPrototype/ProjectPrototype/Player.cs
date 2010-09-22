@@ -27,27 +27,29 @@ namespace ProjectPrototype
 
         public void Update(ref Rectangle viewportRect)
         {
-            this.rectangle.X += (int)this.velocity.X;
-            this.rectangle.Y += (int)this.velocity.Y;
+            this.position.X += this.velocity.X;
+            this.center.X += this.velocity.X;
+            this.position.Y += this.velocity.Y;
+            this.center.Y += this.velocity.Y;
 
-            if (this.rectangle.X < 0)
+            if (this.position.X < 0)
             {
-                this.rectangle.X = 0;
+                this.position.X = 0;
             }
 
-            if (this.rectangle.X > viewportRect.Width)
+            if (this.position.X > viewportRect.Width)
             {
-                this.rectangle.X = viewportRect.Width;
+                this.position.X = viewportRect.Width;
             }
 
-            if (this.rectangle.Y < 0)
+            if (this.position.Y < 0)
             {
-                this.rectangle.Y = 0;
+                this.position.Y = 0;
             }
 
-            if (this.rectangle.Y > viewportRect.Height)
+            if (this.position.Y > viewportRect.Height)
             {
-                this.rectangle.Y = viewportRect.Height;
+                this.position.Y = viewportRect.Height;
             }
         }
 
