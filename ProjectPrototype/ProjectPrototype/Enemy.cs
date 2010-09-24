@@ -20,14 +20,17 @@ namespace ProjectPrototype
         public Enemy(Texture2D loadedTexture)
             : base(loadedTexture)
         {
+            Random random = new Random();
+
             this.velocity.X = 1;
+            this.velocity.Y = 1;
         }
 
         public void Update(ref Rectangle viewportRect)
         {
-            //Debug.Print( "Y: "+Math.Sin(this.rectangle.X/10));
-            this.position.Y = (float)Math.Sin(this.position.X/10) * 10;
-            this.position.X += this.velocity.X;
+            this.position.X = this.position.X + ((float)Math.Sin(this.position.Y/10) * 5);
+            this.position.Y += this.velocity.Y;
+            //this.position.X += this.velocity.X;
         }
     }
 }
