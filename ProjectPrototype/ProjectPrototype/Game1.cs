@@ -23,7 +23,7 @@ namespace ProjectPrototype
         SpriteBatch spriteBatch;
         Rectangle viewportRect;
 
-        Player greenShip;
+        Player playerOne;
         List<Enemy> enemies = new List<Enemy>();
         List<Bullet> bullets = new List<Bullet>();
 
@@ -65,12 +65,12 @@ namespace ProjectPrototype
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            greenShip = new Player(Content.Load<Texture2D>("Sprites\\greenShip"));
+            playerOne = new Player(Content.Load<Texture2D>("Sprites\\greenShip"));
 
-            greenShip.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
+            playerOne.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                 graphics.GraphicsDevice.Viewport.Height - 60);
-            greenShip.boundingRectangle.X = (int)greenShip.position.X;
-            greenShip.boundingRectangle.Y = (int)greenShip.position.Y;
+            playerOne.boundingRectangle.X = (int)playerOne.position.X;
+            playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
 
             for (int i = 0; i < maxAsteroids; ++i)
             {
@@ -114,9 +114,9 @@ namespace ProjectPrototype
         {
             HandleInput();
 
-            if (greenShip.alive)
+            if (playerOne.alive)
             {
-                greenShip.Update(ref viewportRect);
+                playerOne.Update(ref viewportRect);
             }
 
             foreach (Bullet bullet in bullets)
@@ -147,9 +147,9 @@ namespace ProjectPrototype
                 {
                     enemy.Update(ref viewportRect);
 
-                    if (enemy.boundingRectangle.Intersects(greenShip.boundingRectangle))
+                    if (enemy.boundingRectangle.Intersects(playerOne.boundingRectangle))
                     {
-                        greenShip.alive = false;
+                        playerOne.alive = false;
                     }
                 }
             }
@@ -174,16 +174,16 @@ namespace ProjectPrototype
             }
 
 #if !XBOX
-            if (greenShip.alive)
+            if (playerOne.alive)
             {
-                greenShip.HandleInput(ref keyboardState, ref previousKeyboardState);
+                playerOne.HandleInput(ref keyboardState, ref previousKeyboardState);
                 if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
                 {
                     foreach (Bullet bullet in bullets)
                     {
                         if (!bullet.alive)
                         {
-                            bullet.position = greenShip.position;
+                            bullet.position = playerOne.position;
                             bullet.velocity.Y = -4.0f;
                             bullet.alive = true;
                             break;
@@ -204,9 +204,9 @@ namespace ProjectPrototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
-            if (greenShip.alive)
+            if (playerOne.alive)
             {
-                spriteBatch.Draw(greenShip.sprite, greenShip.position, Color.White);
+                spriteBatch.Draw(playerOne.sprite, playerOne.position, Color.White);
             }
 
             foreach (GameObject enemy in enemies)
