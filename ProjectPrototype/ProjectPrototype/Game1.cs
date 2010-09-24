@@ -66,20 +66,21 @@ namespace ProjectPrototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             greenShip = new Player(Content.Load<Texture2D>("Sprites\\greenShip"));
+
             greenShip.position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2,
                 graphics.GraphicsDevice.Viewport.Height - 60);
-            greenShip.center = new Vector2(greenShip.position.X + greenShip.sprite.Width / 2,
-                greenShip.position.Y + greenShip.sprite.Height / 2);
+            greenShip.boundingRectangle.X = (int)greenShip.position.X;
+            greenShip.boundingRectangle.Y = (int)greenShip.position.Y;
 
             for (int i = 0; i < maxAsteroids; ++i)
             {
                 enemies.Add(new Enemy(Content.Load<Texture2D>("Sprites\\DevilHead")));
+
                 enemies[i].position = new Vector2(
                     random.Next(graphics.GraphicsDevice.Viewport.Width), 
-                    random.Next(graphics.GraphicsDevice.Viewport.Height));
-                enemies[i].center = new Vector2(
-                    enemies[i].position.X + enemies[i].sprite.Width / 2,
-                    enemies[i].position.Y + enemies[i].sprite.Height / 2);
+                    random.Next(-200, 0));
+                enemies[i].boundingRectangle.X = (int)enemies[i].position.X;
+                enemies[i].boundingRectangle.Y = (int)enemies[i].position.Y;
                 enemies[i].alive = true;
             }
 
@@ -113,32 +114,44 @@ namespace ProjectPrototype
         {
             HandleInput();
 
-            greenShip.Update(ref viewportRect);
+            if (greenShip.alive)
+            {
+                greenShip.Update(ref viewportRect);
+            }
+
             foreach (Bullet bullet in bullets)
             {
-                bullet.Update(ref viewportRect);
-
-                foreach (Enemy enemy in enemies)
+                if (bullet.alive)
                 {
-                    Rectangle bulletRect = new Rectangle((int)bullet.position.X, (int)bullet.position.Y, 
-                        bullet.sprite.Width, bullet.sprite.Height);
+                    bullet.Update(ref viewportRect);
 
-                    Rectangle enemyRect = new Rectangle((int)enemy.position.X, (int)enemy.position.Y,
-                        enemy.sprite.Width, enemy.sprite.Height);
-
-                    if (bulletRect.Intersects(enemyRect))
+                    foreach (Enemy enemy in enemies)
                     {
-                        bullet.alive = false;
-                        enemy.alive = false;
-                        enemies.RemoveAt(enemies.IndexOf(enemy));
-                        break;
+                        if (enemy.alive)
+                        {
+                            if (bullet.boundingRectangle.Intersects(enemy.boundingRectangle))
+                            {
+                                bullet.alive = false;
+                                enemy.alive = false;
+                                enemies.RemoveAt(enemies.IndexOf(enemy));
+                                break;
+                            }
+                        }
                     }
                 }
             }
 
             foreach (Enemy enemy in enemies)
             {
-                enemy.Update(ref viewportRect);
+                if (enemy.alive)
+                {
+                    enemy.Update(ref viewportRect);
+
+                    if (enemy.boundingRectangle.Intersects(greenShip.boundingRectangle))
+                    {
+                        greenShip.alive = false;
+                    }
+                }
             }
 
             // TODO: Add your update logic here
@@ -161,19 +174,20 @@ namespace ProjectPrototype
             }
 
 #if !XBOX
-            greenShip.HandleInput(ref keyboardState, ref previousKeyboardState);
-            if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
+            if (greenShip.alive)
             {
-                foreach (Bullet bullet in bullets)
+                greenShip.HandleInput(ref keyboardState, ref previousKeyboardState);
+                if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
                 {
-                    if (!bullet.alive)
+                    foreach (Bullet bullet in bullets)
                     {
-                        bullet.position = greenShip.position;
-                        bullet.center = new Vector2(bullet.position.X + bullet.sprite.Width / 2, 
-                            bullet.position.Y + bullet.sprite.Height / 2);
-                        bullet.velocity.Y = -4.0f;
-                        bullet.alive = true;
-                        break;
+                        if (!bullet.alive)
+                        {
+                            bullet.position = greenShip.position;
+                            bullet.velocity.Y = -4.0f;
+                            bullet.alive = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -190,7 +204,11 @@ namespace ProjectPrototype
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
-            spriteBatch.Draw(greenShip.sprite, greenShip.position, Color.White);
+            if (greenShip.alive)
+            {
+                spriteBatch.Draw(greenShip.sprite, greenShip.position, Color.White);
+            }
+
             foreach (GameObject enemy in enemies)
             {
                 if (enemy.alive)

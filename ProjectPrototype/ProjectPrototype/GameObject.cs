@@ -20,16 +20,19 @@ namespace ProjectPrototype
         public float rotation;
         public Vector2 velocity;
         public Vector2 position;
-        public Vector2 center;
+        public Rectangle boundingRectangle;
         public bool alive;
 
         public GameObject(Texture2D loadedTexture)
         {
             rotation = 0.0f;
-            position = Vector2.Zero;
-            center = Vector2.Zero;
             sprite = loadedTexture;
+
+            boundingRectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
+
             velocity = Vector2.Zero;
+            position = Vector2.Zero;
+
             alive = false;
         }
     }

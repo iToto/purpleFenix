@@ -22,15 +22,16 @@ namespace ProjectPrototype
         public Player(Texture2D loadedTexture)
             : base(loadedTexture)
         {
-
+            this.alive = true;
         }
 
         public void Update(ref Rectangle viewportRect)
         {
             this.position.X += this.velocity.X;
-            this.center.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
-            this.center.Y += this.velocity.Y;
+
+            this.boundingRectangle.X = (int)this.position.X;
+            this.boundingRectangle.Y = (int)this.position.Y;
 
             if (this.position.X < 0)
             {

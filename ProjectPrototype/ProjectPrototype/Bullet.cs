@@ -29,12 +29,13 @@ namespace ProjectPrototype
             if (this.alive)
             {
                 this.position.X += this.velocity.X;
-                this.center.X += this.velocity.X;
                 this.position.Y += this.velocity.Y;
-                this.center.Y += this.velocity.Y;
+
+                this.boundingRectangle.X = (int)this.position.X;
+                this.boundingRectangle.Y = (int)this.position.Y;
             }
 
-            if (!viewportRect.Contains(new Point((int)this.position.X, (int)this.position.Y)))
+            if (!viewportRect.Contains(new Point((int)this.boundingRectangle.Center.X, (int)this.boundingRectangle.Center.Y)))
             {
                 this.alive = false;
             }

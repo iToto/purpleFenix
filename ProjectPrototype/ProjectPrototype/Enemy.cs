@@ -30,7 +30,9 @@ namespace ProjectPrototype
         {
             this.position.X = this.position.X + ((float)Math.Sin(this.position.Y/10) * 5);
             this.position.Y += this.velocity.Y;
-            //this.position.X += this.velocity.X;
+
+            this.boundingRectangle.X = (int)this.position.X;
+            this.boundingRectangle.Y = (int)this.position.Y;
         }
     }
 }
