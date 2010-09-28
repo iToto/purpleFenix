@@ -54,13 +54,13 @@ namespace ProjectPrototype
             }
         }
 
-        public void HandleInput(ref GamePadState gamepadState, ref GamePadState previousGamepadState)
-        {
 
-        }
-
-        public void HandleInput(ref KeyboardState keyboardState, ref KeyboardState previousKeyboardState)
+        public void HandleInput(InputState input)
         {
+            int playerIndex = 1;
+
+            KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
+
             this.velocity.X = 0;
             if (keyboardState.IsKeyDown(Keys.Left))
             {
@@ -81,6 +81,18 @@ namespace ProjectPrototype
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 this.velocity.Y = this.speed;
+            }
+        }
+
+
+        public void CheckEnemyCollision(ref List<Enemy> enemies)
+        {
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.boundingRectangle.Intersects(this.boundingRectangle))
+                {
+                    this.alive = false;
+                }
             }
         }
 
