@@ -143,6 +143,8 @@ namespace ProjectPrototype
                     ScreenManager.SpriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
                 }
             }
+
+            ScreenManager.SpriteBatch.DrawString(ScreenManager.Font, "PROTOTYPE", Vector2.Zero, Color.White);
             ScreenManager.SpriteBatch.End();
         }
 
