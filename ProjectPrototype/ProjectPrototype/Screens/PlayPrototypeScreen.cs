@@ -22,9 +22,11 @@ namespace ProjectPrototype
         Player playerOne;
         List<Enemy> enemies = new List<Enemy>();
         List<Bullet> bullets = new List<Bullet>();
+        TimeSpan timeSinceLastSpawn;
 
         const int MAX_BULLETS = 60;
         const int MAX_ENEMIES = 10;
+        const int SPAWN_TIME = 10;
 
         /// <summary>
         /// Constructor.
@@ -33,6 +35,7 @@ namespace ProjectPrototype
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            timeSinceLastSpawn = TimeSpan.Zero;
         }
 
 
@@ -75,6 +78,14 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
+            timeSinceLastSpawn += gameTime.ElapsedGameTime;
+
+            if (timeSinceLastSpawn >= TimeSpan.FromSeconds(SPAWN_TIME))
+            {
+                SpawnEnemies();
+                timeSinceLastSpawn = TimeSpan.Zero;
+            }
+
             //Update player One
             if (playerOne.alive)
             {
@@ -96,7 +107,7 @@ namespace ProjectPrototype
                             {
                                 bullet.alive = false;
                                 enemy.alive = false;
-                                enemies.RemoveAt(enemies.IndexOf(enemy));
+                                //enemies.RemoveAt(enemies.IndexOf(enemy));
                                 break;
                             }
                         }
@@ -174,6 +185,23 @@ namespace ProjectPrototype
                         bullet.alive = true;
                         break;
                     }
+                }
+            }
+        }
+
+        public void SpawnEnemies()
+        {
+            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+
+            int i = 0;
+
+            foreach (Enemy enemy in enemies)
+            {
+                if (!enemy.alive)
+                {
+                    enemy.alive = true;
+                    enemy.position = new Vector2(viewport.Width / 2, 0 - (i * 10));
+                    ++i;
                 }
             }
         }

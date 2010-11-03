@@ -22,6 +22,7 @@ namespace ProjectPrototype
         public Vector2 position;
         public Rectangle boundingRectangle;
         public bool alive;
+        public Element element;
 
         public GameObject(Texture2D loadedTexture)
         {

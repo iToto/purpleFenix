@@ -15,10 +15,11 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace ProjectPrototype
 {
+
     class Player : GameObject
     {
         public float speed = 4.0f;
-
+        
         public Player(Texture2D loadedTexture)
             : base(loadedTexture)
         {
