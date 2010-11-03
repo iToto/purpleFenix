@@ -90,9 +90,12 @@ namespace ProjectPrototype
         {
             foreach (Enemy enemy in enemies)
             {
-                if (enemy.boundingRectangle.Intersects(this.boundingRectangle))
+                if (enemy.alive)
                 {
-                    this.alive = false;
+                    if (enemy.boundingRectangle.Intersects(this.boundingRectangle))
+                    {
+                        this.alive = false;
+                    }
                 }
             }
         }

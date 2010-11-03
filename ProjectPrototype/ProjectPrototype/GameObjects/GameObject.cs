@@ -23,18 +23,94 @@ namespace ProjectPrototype
         public Rectangle boundingRectangle;
         public bool alive;
         public Element element;
+        public int health;
 
         public GameObject(Texture2D loadedTexture)
         {
-            rotation = 0.0f;
             sprite = loadedTexture;
 
+            reset();
+
+            element = Element.None;
+        }
+
+        public GameObject(Texture2D loadedTexture, Element element)
+        {
+            sprite = loadedTexture;
+
+            reset();
+
+            this.element = element;
+        }
+
+        public GameObject(Texture2D loadedTexture, Element element, int health)
+        {
+            sprite = loadedTexture;
+
+            reset();
+
+            this.element = element;
+            this.health = health;
+        }
+
+        private void reset()
+        {
+            rotation = 0.0f;
             boundingRectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
 
             velocity = Vector2.Zero;
             position = Vector2.Zero;
 
             alive = false;
+
+            health = 1;
+        }
+
+        public Defense CompareElements(GameObject opposingObject)
+        {
+            Element element1 = this.element;
+            Element element2 = opposingObject.element;
+
+            Defense returnValue = Defense.Standard;
+
+            // If they are the same element, they are strong against each other.
+            if (element1 == element2)
+            {
+                return Defense.Strong;
+            }
+
+            switch (element1)
+            {
+                case Element.None:
+                    break;
+                case Element.Fire:
+                    if (element2 == Element.Ice)
+                    {
+                        returnValue = Defense.Weak;
+                    }
+                    break;
+                case Element.Ice:
+                    if (element2 == Element.Fire)
+                    {
+                        returnValue = Defense.Weak;
+                    }
+                    break;
+                case Element.Lightning:
+                    if (element2 == Element.Earth)
+                    {
+                        returnValue = Defense.Weak;
+                    }
+                    break;
+                case Element.Earth:
+                    if (element2 == Element.Lightning)
+                    {
+                        returnValue = Defense.Weak;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return returnValue;
         }
     }
 }

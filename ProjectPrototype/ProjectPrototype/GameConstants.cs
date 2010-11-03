@@ -9,4 +9,9 @@ namespace ProjectPrototype
     {
         None, Fire, Ice, Lightning, Earth
     }
+
+    enum Defense
+    {
+        Standard, Strong, Weak
+    }
 }
