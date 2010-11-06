@@ -22,8 +22,10 @@ namespace ProjectPrototype
         private XmlTextReader xml;
         private Texture2D mapTileSet;
         int numLayers = 0;
-        int width = 0;
-        int height = 0;
+        int mapWidth = 0;
+        int mapHeight = 0;
+        int imgWidth = 0;
+        int imgHeight = 0;
 
 
         //XML variables
@@ -40,6 +42,15 @@ namespace ProjectPrototype
 
         public void load ()
         {
+            xml.ReadToFollowing("Width");
+            xml.Read();
+            imgWidth = xml.ReadContentAsInt();
+
+            xml.ReadToFollowing("Height");
+            xml.Read();
+            imgHeight = xml.ReadContentAsInt();
+
+
             xml.ReadToFollowing("Tile_Size");
             xml.Read();
             tileSize = xml.ReadContentAsInt();
@@ -50,30 +61,27 @@ namespace ProjectPrototype
 
             xml.ReadToFollowing("Width");
             xml.Read();
-            width = xml.ReadContentAsInt();
+            mapWidth = xml.ReadContentAsInt();
 
             xml.ReadToFollowing("Height");
             xml.Read();
-            height = xml.ReadContentAsInt();
+            mapHeight = xml.ReadContentAsInt();
 
             //Load Map
-            mapData = new int[numLayers, width, height];
+            mapData = new int[numLayers, mapWidth, mapHeight];
             xml.ReadToFollowing("Layer");
 
             for (int layer = 0; layer < numLayers; ++layer)
             {
-                xml.ReadToDescendant("RowInfo");
-                for (int row = 0; row < height; ++row)
+                xml.ReadToFollowing("RowInfo");
+                for (int row = 0; row < mapHeight; ++row)
                 {
                     xml.Read();
                     string[] temp;
                     temp = xml.ReadContentAsString().Split(',');
-                    for (int col = 0; col < width; ++col)
+                    for (int col = 0; col < mapWidth; ++col)
                     {
-                        foreach (string value in temp)
-                        {
-                            mapData[layer, row, col] = Convert.ToInt16(value);
-                        }
+                        mapData[layer, row, col] = Convert.ToInt16(temp[col]);
                     }
                     xml.ReadToNextSibling("RowInfo");
                 }
@@ -83,18 +91,17 @@ namespace ProjectPrototype
 
         public void draw(ScreenManager screen)
         {
-            for (int layer = 0; layer < numLayers; layer++)
-            {
-                for (int row = 0; row < height; row++)
+                for (int row = 0; row < mapHeight; row++)
                 {
-                    for (int col = 0; col < width; col++)
+                    for (int col = 0; col < mapWidth; col++)
                     {
-                        screen.SpriteBatch.Draw(mapTileSet, Vector2.Zero, new Rectangle(col * tileSize, row * tileSize, tileSize, tileSize), Color.White);
+                        //screen.SpriteBatch.Draw(mapTileSet, new Vector2(col*tileSize,row*tileSize), new Rectangle(col * tileSize, row * tileSize, tileSize, tileSize), Color.White);
+                        screen.SpriteBatch.Draw(mapTileSet, new Vector2(col * tileSize, row * tileSize), new Rectangle((mapData[0, row, col] % (imgWidth / tileSize)) * tileSize, ((row+1) * tileSize), tileSize, tileSize), Color.White);
                     }
                     
                 }
             }
-        }
+        
     
     }
 }

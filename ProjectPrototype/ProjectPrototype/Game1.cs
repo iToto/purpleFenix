@@ -58,7 +58,7 @@ namespace ProjectPrototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.Black);
+            graphics.GraphicsDevice.Clear(Color.Red);
 
             base.Draw(gameTime);
         }
