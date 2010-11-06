@@ -28,6 +28,7 @@ namespace ProjectPrototype
         Player playerOne;
         List<Enemy> enemies = new List<Enemy>();
         List<Bullet> bullets = new List<Bullet>();
+        
 
 #if !XBOX
         KeyboardState previousKeyboardState;

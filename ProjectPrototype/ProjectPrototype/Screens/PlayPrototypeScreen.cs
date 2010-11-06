@@ -23,6 +23,7 @@ namespace ProjectPrototype
         List<Enemy> enemies = new List<Enemy>();
         List<Bullet> bullets = new List<Bullet>();
         TimeSpan timeSinceLastSpawn;
+        Map levelOne;
 
         const int MAX_BULLETS = 60;
         const int MAX_ENEMIES = 10;
@@ -43,6 +44,10 @@ namespace ProjectPrototype
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
+
+            //Load Level
+            levelOne = new Map("Content\\Maps\\test.xml", content.Load<Texture2D>("Sprites\\Boobs"));
+            levelOne.load();
 
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
@@ -134,6 +139,8 @@ namespace ProjectPrototype
             base.Draw(gameTime);
 
             ScreenManager.SpriteBatch.Begin();
+
+            levelOne.draw(ScreenManager);
             if (playerOne.alive)
             {
                 ScreenManager.SpriteBatch.Draw(playerOne.sprite, playerOne.position, Color.White);
