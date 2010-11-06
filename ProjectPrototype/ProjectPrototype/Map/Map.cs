@@ -91,17 +91,19 @@ namespace ProjectPrototype
 
         public void draw(ScreenManager screen)
         {
-                for (int row = 0; row < mapHeight; row++)
+            for (int layer = 0; layer < numLayers; ++layer)
+            {
+                for (int row = 0; row < mapHeight; ++row)
                 {
-                    for (int col = 0; col < mapWidth; col++)
+                    for (int col = 0; col < mapWidth; ++col)
                     {
                         //screen.SpriteBatch.Draw(mapTileSet, new Vector2(col*tileSize,row*tileSize), new Rectangle(col * tileSize, row * tileSize, tileSize, tileSize), Color.White);
-                        screen.SpriteBatch.Draw(mapTileSet, new Vector2(col * tileSize, row * tileSize), new Rectangle((mapData[0, row, col] % (imgWidth / tileSize)) * tileSize, ((row+1) * tileSize), tileSize, tileSize), Color.White);
+                        if (!(mapData[layer, row, col] == -1))
+                            screen.SpriteBatch.Draw(mapTileSet, new Vector2(col * tileSize, row * tileSize), new Rectangle((mapData[layer, row, col] % (imgWidth / tileSize)) * tileSize, ((row + 1) * tileSize), tileSize, tileSize), Color.White);
                     }
-                    
+
                 }
             }
-        
-    
+        }
     }
 }
