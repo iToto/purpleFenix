@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.Graphics;
 using System.Xml;
 
 namespace ProjectPrototype
@@ -103,7 +98,6 @@ namespace ProjectPrototype
                 {
                     for (int col = 0; col < mapWidth; ++col)
                     {
-                        //screen.SpriteBatch.Draw(mapTileSet, new Vector2(col*tileSize,row*tileSize), new Rectangle(col * tileSize, row * tileSize, tileSize, tileSize), Color.White);
                         if (!(mapData[layer, row, col] == -1))
                         {
                             int index = mapData[layer, row, col];
