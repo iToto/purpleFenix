@@ -33,6 +33,9 @@ namespace ProjectPrototype
        
         private int totalTerrains;
         private int[,,] mapData;
+        
+        private int numberOfRows;
+        private int numberOfCols;
 
         public Map(string xmlPath, Texture2D map)
         {
@@ -87,6 +90,9 @@ namespace ProjectPrototype
                 }
                 xml.ReadToNextSibling("Layer");
             }
+
+            this.numberOfRows = imgHeight / tileSize;
+            this.numberOfCols = imgWidth / tileSize;
         }
 
         public void draw(ScreenManager screen)
@@ -99,7 +105,17 @@ namespace ProjectPrototype
                     {
                         //screen.SpriteBatch.Draw(mapTileSet, new Vector2(col*tileSize,row*tileSize), new Rectangle(col * tileSize, row * tileSize, tileSize, tileSize), Color.White);
                         if (!(mapData[layer, row, col] == -1))
-                            screen.SpriteBatch.Draw(mapTileSet, new Vector2(col * tileSize, row * tileSize), new Rectangle((mapData[layer, row, col] % (imgWidth / tileSize)) * tileSize, ((row + 1) * tileSize), tileSize, tileSize), Color.White);
+                        {
+                            int index = mapData[layer, row, col];
+                            int sourceColumn = ((index % numberOfCols) * tileSize) - tileSize;
+                            int sourceRow = ((index / numberOfRows) * tileSize);
+
+                            screen.SpriteBatch.Draw(mapTileSet, 
+                                new Vector2(col * tileSize, row * tileSize), 
+                                new Rectangle(sourceColumn, sourceRow, 
+                                    tileSize, tileSize), 
+                                    Color.White);
+                        }
                     }
 
                 }
