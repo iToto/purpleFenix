@@ -179,21 +179,9 @@ namespace ProjectPrototype
                 ScreenManager.Game.Exit();
             }
 
-            playerOne.HandleInput(input);
+            playerOne.HandleInput(input, bullets);
 
-            if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
-            {
-                foreach (Bullet bullet in bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.position = playerOne.position;
-                        bullet.velocity.Y = -4.0f;
-                        bullet.alive = true;
-                        break;
-                    }
-                }
-            }
+
         }
 
         public void SpawnEnemies()

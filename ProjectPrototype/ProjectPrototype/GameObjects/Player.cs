@@ -56,11 +56,17 @@ namespace ProjectPrototype
         }
 
 
-        public void HandleInput(InputState input)
+        public void HandleInput(InputState input, List<Bullet> bullets)
         {
+            if (!this.alive)
+            {
+                return;
+            }
+
             int playerIndex = 1;
 
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
+            KeyboardState previousKeyboardState = input.LastKeyboardStates[playerIndex];
 
             this.velocity.X = 0;
             if (keyboardState.IsKeyDown(Keys.Left))
@@ -82,6 +88,20 @@ namespace ProjectPrototype
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 this.velocity.Y = this.speed;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
+            {
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.velocity.Y = -4.0f;
+                        bullet.alive = true;
+                        break;
+                    }
+                }
             }
         }
 
