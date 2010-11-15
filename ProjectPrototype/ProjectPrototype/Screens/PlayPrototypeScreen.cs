@@ -46,8 +46,7 @@ namespace ProjectPrototype
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             //Load Level
-            levelOne = new Map("Content\\Maps\\test.xml", content.Load<Texture2D>("Sprites\\Boobs"));
-            levelOne.load();
+            levelOne = new Map("Content\\Maps\\testMap.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
 
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
@@ -120,6 +119,8 @@ namespace ProjectPrototype
                 }
             }
 
+            levelOne.Update();
+
             //Update enemies
             foreach (Enemy enemy in enemies)
             {
@@ -140,7 +141,7 @@ namespace ProjectPrototype
 
             ScreenManager.SpriteBatch.Begin();
 
-            levelOne.draw(ScreenManager);
+            levelOne.Draw(ScreenManager.SpriteBatch);
             if (playerOne.alive)
             {
                 ScreenManager.SpriteBatch.Draw(playerOne.sprite, playerOne.position, Color.White);

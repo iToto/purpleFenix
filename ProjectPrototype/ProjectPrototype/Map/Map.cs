@@ -12,43 +12,38 @@ namespace ProjectPrototype
 {
     class Map
     {
-        public Texture2D sprite;
-        public int distanceTravelled;
-        private XmlTextReader xml;
-        private Texture2D mapTileSet;
+        int distanceTravelled;
+        int scrollSpeed = 1;
+
+        XmlTextReader xml;
+        TileMap tileMap;
+        Viewport viewport;
+
         int numLayers = 0;
         int mapWidth = 0;
         int mapHeight = 0;
-        int imgWidth = 0;
-        int imgHeight = 0;
 
+        public int upperBound;
+        public int lowerBound;
 
         //XML variables
         private int tileSize;
        
         private int totalTerrains;
         private int[,,] mapData;
-        
-        private int numberOfRows;
-        private int numberOfCols;
 
-        public Map(string xmlPath, Texture2D map)
+        public Map(string xmlPath, ContentManager content, String tileSheetFilename, GraphicsDevice graphicsDevice)
         {
             xml = new XmlTextReader(xmlPath);
-            mapTileSet = map;
+            
+            Initialize();
+
+            tileMap = new TileMap(content, tileSheetFilename, this.tileSize);
+            viewport = graphicsDevice.Viewport;
         }
 
-        public void load ()
+        public void Initialize()
         {
-            xml.ReadToFollowing("Width");
-            xml.Read();
-            imgWidth = xml.ReadContentAsInt();
-
-            xml.ReadToFollowing("Height");
-            xml.Read();
-            imgHeight = xml.ReadContentAsInt();
-
-
             xml.ReadToFollowing("Tile_Size");
             xml.Read();
             tileSize = xml.ReadContentAsInt();
@@ -66,7 +61,7 @@ namespace ProjectPrototype
             mapHeight = xml.ReadContentAsInt();
 
             //Load Map
-            mapData = new int[numLayers, mapWidth, mapHeight];
+            mapData = new int[numLayers, mapHeight, mapWidth];
             xml.ReadToFollowing("Layer");
 
             for (int layer = 0; layer < numLayers; ++layer)
@@ -86,33 +81,44 @@ namespace ProjectPrototype
                 xml.ReadToNextSibling("Layer");
             }
 
-            this.numberOfRows = imgHeight / tileSize;
-            this.numberOfCols = imgWidth / tileSize;
+            this.lowerBound = this.mapHeight;
+            this.upperBound = this.lowerBound - 20;
         }
 
-        public void draw(ScreenManager screen)
+        public void Draw(SpriteBatch spriteBatch)
         {
+            //Start drawing at -1.
+            int screenRow = -1;
+
             for (int layer = 0; layer < numLayers; ++layer)
             {
-                for (int row = 0; row < mapHeight; ++row)
+                for (int row = this.upperBound; row < this.lowerBound; ++row)
                 {
                     for (int col = 0; col < mapWidth; ++col)
                     {
                         if (!(mapData[layer, row, col] == -1))
                         {
                             int index = mapData[layer, row, col];
-                            int sourceColumn = ((index % numberOfCols) * tileSize) - tileSize;
-                            int sourceRow = ((index / numberOfRows) * tileSize);
 
-                            screen.SpriteBatch.Draw(mapTileSet, 
-                                new Vector2(col * tileSize, row * tileSize), 
-                                new Rectangle(sourceColumn, sourceRow, 
-                                    tileSize, tileSize), 
+                            spriteBatch.Draw(tileMap.tileSheet, 
+                                new Vector2(col * tileSize, 
+                                    screenRow * tileSize + distanceTravelled % tileSize),
+                                    tileMap.GetTileRectangle(index),
                                     Color.White);
                         }
                     }
-
+                    ++screenRow;
                 }
+            }
+        }
+
+        public void Update()
+        {
+            distanceTravelled += this.scrollSpeed;
+            if (distanceTravelled % tileSize == 0)
+            {
+                --this.upperBound;
+                --this.lowerBound;
             }
         }
     }
