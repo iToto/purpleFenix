@@ -57,20 +57,20 @@ namespace ProjectPrototype
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
 
-
             //Initialize Bullets
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
                 bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
             }
 
-
             //Initialize Enemies
             for (int i = 0; i < MAX_ENEMIES; ++i)
             {
-                enemies.Add(new Enemy(content.Load<Texture2D>("Sprites\\DevilHead")));
+                enemies.Add(enemyFactory.buildEnemy(0, content,5.0f,10.0f));
+                //enemies.Add(new Enemy(content.Load<Texture2D>("Sprites\\DevilHead"),0));
                 enemies[i].alive = true;
                 enemies[i].position = new Vector2(viewport.Width / 2, 0 - (i * 10));
+                //enemies[i].position = new Vector2(0 - (i * 10), 0);
             }
         }
 
