@@ -23,6 +23,8 @@ namespace ProjectPrototype
         int mapWidth = 0;
         int mapHeight = 0;
 
+        bool hasReachedEnd = false;
+
         public int upperBound;
         public int lowerBound;
 
@@ -114,11 +116,21 @@ namespace ProjectPrototype
 
         public void Update()
         {
-            distanceTravelled += this.scrollSpeed;
-            if (distanceTravelled % tileSize == 0)
+            if (!hasReachedEnd)
             {
-                --this.upperBound;
-                --this.lowerBound;
+                distanceTravelled += this.scrollSpeed;
+                if (distanceTravelled % tileSize == 0)
+                {
+                    --this.upperBound;
+                    --this.lowerBound;
+                }
+
+                if (this.upperBound <= 0)
+                {
+                    this.upperBound = 0;
+                    this.lowerBound = 20;
+                    this.hasReachedEnd = true;
+                }
             }
         }
     }
