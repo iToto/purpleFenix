@@ -182,7 +182,9 @@ namespace ProjectPrototype
             }
 
             playerOne.HandleInput(input, bullets, PlayerIndex.One);
-
+            //playerTwo.HandleInput(input, bullets, PlayerIndex.Two);
+            //playerThree.HandleInput(input, bullets, PlayerIndex.Three);
+            //playerFour.HandleInput(input, bullets, PlayerIndex.Four);
 
         }
 

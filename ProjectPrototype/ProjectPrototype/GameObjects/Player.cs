@@ -72,6 +72,13 @@ namespace ProjectPrototype
             GamePadState previousGamepadState = input.LastGamePadStates[(int)playerIndex];
 
             this.velocity.X = 0;
+
+            Vector2 thumbstick = gamepadState.ThumbSticks.Left * 0.01f;
+            
+            this.velocity.X = this.speed * thumbstick.X;
+            this.velocity.Y = this.speed * thumbstick.Y;
+
+#if !XBOX
             if (keyboardState.IsKeyDown(Keys.Left))
             {
                 this.velocity.X = -this.speed;
@@ -106,6 +113,7 @@ namespace ProjectPrototype
                     }
                 }
             }
+#endif
         }
 
 
