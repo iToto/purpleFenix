@@ -56,17 +56,20 @@ namespace ProjectPrototype
         }
 
 
-        public void HandleInput(InputState input, List<Bullet> bullets)
+        public void HandleInput(InputState input, List<Bullet> bullets, PlayerIndex playerIndex)
         {
             if (!this.alive)
             {
                 return;
             }
 
-            int playerIndex = 1;
+#if !XBOX
+            KeyboardState keyboardState = input.CurrentKeyboardStates[(int)playerIndex];
+            KeyboardState previousKeyboardState = input.LastKeyboardStates[(int)playerIndex];
+#endif
 
-            KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
-            KeyboardState previousKeyboardState = input.LastKeyboardStates[playerIndex];
+            GamePadState gamepadState = input.CurrentGamePadStates[(int)playerIndex];
+            GamePadState previousGamepadState = input.LastGamePadStates[(int)playerIndex];
 
             this.velocity.X = 0;
             if (keyboardState.IsKeyDown(Keys.Left))
