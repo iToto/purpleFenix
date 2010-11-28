@@ -19,14 +19,19 @@ namespace ProjectPrototype
     class Player : GameObject
     {
         public float speed = 4.0f;
+        TimeSpan timeSinceLastShot;
+        TimeSpan timeBetweenShots;
+        bool isShooting = false;
         
         public Player(Texture2D loadedTexture)
             : base(loadedTexture)
         {
             this.alive = true;
+            timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
+            timeSinceLastShot = new TimeSpan(0);
         }
 
-        public void Update(ref Rectangle viewportRect)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Bullet> bullets)
         {
             this.position.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
@@ -39,9 +44,9 @@ namespace ProjectPrototype
                 this.position.X = 0;
             }
 
-            if (this.position.X > viewportRect.Width)
+            if (this.position.X > viewportRect.Width - this.sprite.Width)
             {
-                this.position.X = viewportRect.Width;
+                this.position.X = viewportRect.Width - this.sprite.Width;
             }
 
             if (this.position.Y < 0)
@@ -49,14 +54,28 @@ namespace ProjectPrototype
                 this.position.Y = 0;
             }
 
-            if (this.position.Y > viewportRect.Height)
+            if (this.position.Y > (viewportRect.Height - this.sprite.Height))
             {
-                this.position.Y = viewportRect.Height;
+                this.position.Y = viewportRect.Height - this.sprite.Height;
+            }
+
+            if (this.isShooting)
+            {
+                if (timeSinceLastShot == new TimeSpan(0))
+                {
+                    this.Fire(bullets);
+                }
+
+                timeSinceLastShot += gameTime.ElapsedGameTime;
+                if (timeSinceLastShot >= timeBetweenShots)
+                {
+                    timeSinceLastShot = new TimeSpan(0);
+                }
             }
         }
 
 
-        public void HandleInput(InputState input, List<Bullet> bullets, PlayerIndex playerIndex)
+        public void HandleInput(InputState input, PlayerIndex playerIndex)
         {
             if (!this.alive)
             {
@@ -73,10 +92,19 @@ namespace ProjectPrototype
 
             this.velocity.X = 0;
 
-            Vector2 thumbstick = gamepadState.ThumbSticks.Left * 0.01f;
+            Vector2 thumbstick = gamepadState.ThumbSticks.Left;
             
             this.velocity.X = this.speed * thumbstick.X;
-            this.velocity.Y = this.speed * thumbstick.Y;
+            this.velocity.Y = this.speed * -thumbstick.Y;
+
+            if (gamepadState.IsButtonDown(Buttons.A))
+            {
+                this.isShooting = true;
+            }
+            else if (gamepadState.IsButtonUp(Buttons.A))
+            {
+                this.isShooting = false;
+            }
 
 #if !XBOX
             if (keyboardState.IsKeyDown(Keys.Left))
@@ -100,18 +128,13 @@ namespace ProjectPrototype
                 this.velocity.Y = this.speed;
             }
 
-            if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
+            if (keyboardState.IsKeyDown(Keys.C))
             {
-                foreach (Bullet bullet in bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.position = this.position;
-                        bullet.velocity.Y = -4.0f;
-                        bullet.alive = true;
-                        break;
-                    }
-                }
+                this.isShooting = true;
+            }
+            else if (keyboardState.IsKeyUp(Keys.C))
+            {
+                this.isShooting = false;
             }
 #endif
         }
@@ -127,6 +150,20 @@ namespace ProjectPrototype
                     {
                         this.alive = false;
                     }
+                }
+            }
+        }
+
+        private void Fire(List<Bullet> bullets)
+        {
+            foreach (Bullet bullet in bullets)
+            {
+                if (!bullet.alive)
+                {
+                    bullet.position = this.position;
+                    bullet.velocity.Y = -4.0f;
+                    bullet.alive = true;
+                    break;
                 }
             }
         }
