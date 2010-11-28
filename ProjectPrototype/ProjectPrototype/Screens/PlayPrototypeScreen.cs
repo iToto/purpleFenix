@@ -93,7 +93,7 @@ namespace ProjectPrototype
             //Update player One
             if (playerOne.alive)
             {
-                playerOne.Update(ref viewportRect);
+                playerOne.Update(ref viewportRect, gameTime, bullets);
             }
 
             //Update Bullets and collide with enemies
@@ -174,15 +174,17 @@ namespace ProjectPrototype
 #if !XBOX
             KeyboardState keyboardState = input.CurrentKeyboardStates[1];
             KeyboardState previousKeyboardState = input.LastKeyboardStates[1];
-#endif
+
 
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 ScreenManager.Game.Exit();
             }
-
-            playerOne.HandleInput(input, bullets, PlayerIndex.One);
-
+#endif
+            playerOne.HandleInput(input, PlayerIndex.One);
+            //playerTwo.HandleInput(input, bullets, PlayerIndex.Two);
+            //playerThree.HandleInput(input, bullets, PlayerIndex.Three);
+            //playerFour.HandleInput(input, bullets, PlayerIndex.Four);
 
         }
 

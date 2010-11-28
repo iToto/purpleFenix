@@ -12,3 +12,26 @@ glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/ProjectPrototype.pdb
 glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ProjectPrototype.csproj.FileListAbsolute.txt
 glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ProjectPrototype.exe
 glob:ProjectPrototype/ProjectPrototype/obj/x86/Debug/ProjectPrototype.pdb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Fonts/BrownPixels.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Maps/test.xml
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Maps/testMap.xml
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Maps/waterFestival.xml
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Sprites/Boobs.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Sprites/Bullet.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Sprites/DevilHead.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Sprites/asteroid.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/Content/Sprites/greenShip.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/Xbox 360/Debug/
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Fonts/BrownPixels.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Maps/testMap.xml
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Maps/waterFestival.xml
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/Boobs.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/tileSet.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/zelda.xnb
+glob:ProjectPrototype/ProjectPrototype/Content/obj/Xbox 360/Debug/Content.contentproj.FileListAbsolute.txt
+glob:ProjectPrototype/ProjectPrototype/Content/obj/Xbox 360/Debug/ContentPipeline.xml
+glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/Microsoft.Xna.Framework.RuntimeProfile.txt
+glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/ProjectPrototype.exe
+glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/ProjectPrototype.pdb
+glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/Xbox 360 Copy of ProjectPrototype.csproj.FileListAbsolute.txt
+glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/cachefile-314f44e7-04ab-40c6-ab32-07d8d4d1c816-targetpath.txt
