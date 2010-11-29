@@ -32,7 +32,8 @@ namespace ProjectPrototype
         private int tileSize;
        
         private int totalTerrains;
-        private int[,,] mapData;
+        private int[,] mapData;
+        private int[,] enemyData;
 
         public Map(string xmlPath, ContentManager content, String tileSheetFilename, GraphicsDevice graphicsDevice)
         {
@@ -63,7 +64,9 @@ namespace ProjectPrototype
             mapHeight = xml.ReadContentAsInt();
 
             //Load Map
-            mapData = new int[numLayers, mapHeight, mapWidth];
+            mapData = new int[mapHeight, mapWidth];
+            
+            enemyData = new int[mapHeight, mapWidth];
             xml.ReadToFollowing("Layer");
 
             for (int layer = 0; layer < numLayers; ++layer)
@@ -76,7 +79,15 @@ namespace ProjectPrototype
                     temp = xml.ReadContentAsString().Split(',');
                     for (int col = 0; col < mapWidth; ++col)
                     {
-                        mapData[layer, row, col] = Convert.ToInt16(temp[col]);
+                        if (layer == 0)
+                        {
+                            mapData[row, col] = Convert.ToInt16(temp[col]);
+                        }
+
+                        if (layer == 1)
+                        {
+                            enemyData[row, col] = Convert.ToInt16(temp[col]);
+                        }
                     }
                     xml.ReadToNextSibling("RowInfo");
                 }
@@ -92,15 +103,15 @@ namespace ProjectPrototype
             //Start drawing at -1.
             int screenRow = -1;
 
-            for (int layer = 0; layer < numLayers; ++layer)
-            {
+            //for (int layer = 0; layer < numLayers; ++layer)
+            //{
                 for (int row = this.upperBound; row < this.lowerBound; ++row)
                 {
                     for (int col = 0; col < mapWidth; ++col)
                     {
-                        if (!(mapData[layer, row, col] == -1))
+                        if (!(mapData[row, col] == -1))
                         {
-                            int index = mapData[layer, row, col];
+                            int index = mapData[row, col];
 
                             spriteBatch.Draw(tileMap.tileSheet, 
                                 new Vector2(col * tileSize, 
@@ -111,7 +122,7 @@ namespace ProjectPrototype
                     }
                     ++screenRow;
                 }
-            }
+            //}
         }
 
         public void Update()
