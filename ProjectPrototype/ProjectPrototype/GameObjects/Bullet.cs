@@ -17,6 +17,10 @@ namespace ProjectPrototype
 {
     class Bullet : GameObject
     {
+        
+
+        public bulletType type;
+
         public Bullet(Texture2D loadedTexture)
             : base(loadedTexture)
         {
@@ -26,6 +30,7 @@ namespace ProjectPrototype
         
         public void Update(ref Rectangle viewportRect)
         {
+            //System.Diagnostics.Debug.Print("Alive: " + this.alive + "\n");
             if (this.alive)
             {
                 this.position.X += this.velocity.X;

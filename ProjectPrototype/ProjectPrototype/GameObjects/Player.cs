@@ -156,17 +156,52 @@ namespace ProjectPrototype
 
         private void Fire(List<Bullet> bullets)
         {
-            foreach (Bullet bullet in bullets)
+            if (bullets[0].type == bulletType.spread)
             {
-                if (!bullet.alive)
+                //Shoot 5 bullets at a time
+                for (int i = 0; i < ShootingPattern.MAX_BULLETS; i+=5)
                 {
-                    bullet.position = this.position;
-                    bullet.velocity.Y = -4.0f;
-                    bullet.alive = true;
-                    break;
+                    if (!bullets[i].alive)
+                    {
+                        for (int j = i; j < i+5; j++)
+                        {
+                            bullets[j].alive = true;
+                            bullets[j].position = this.position;
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (bullets[0].type == bulletType.straight)
+            {
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.alive = true;
+                        break;
+                    }
+                }                
+            }
+            else if (bullets[0].type == bulletType.helix)
+            {
+            }
+            else if (bullets[0].type == bulletType.doubleShot)
+            {
+            }
+            else if (bullets[0].type == bulletType.speratic)
+            {
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.alive = true;
+                        break;
+                    }
                 }
             }
         }
-
     }
 }

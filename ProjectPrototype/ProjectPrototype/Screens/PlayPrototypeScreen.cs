@@ -30,6 +30,7 @@ namespace ProjectPrototype
         const int MAX_BULLETS = 60;
         const int MAX_ENEMIES = 10;
         const int SPAWN_TIME = 10;
+        
 
         /// <summary>
         /// Constructor.
@@ -46,7 +47,7 @@ namespace ProjectPrototype
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-
+            
             //Load Level
             levelOne = new Map("Content\\Maps\\testMap.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
 
@@ -60,11 +61,14 @@ namespace ProjectPrototype
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
 
             //Initialize Bullets
-            for (int i = 0; i < MAX_BULLETS; ++i)
-            {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-            }
-
+            //for (int i = 0; i < MAX_BULLETS; ++i)
+            //{
+            //    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
+            //}
+            //ShootingPattern.shootSpread(bullets, content);
+            //ShootingPattern.shootStraight(bullets, content);
+            ShootingPattern.shootSperatic(bullets,content);
+           
             //Initialize Enemies
             for (int i = 0; i < MAX_ENEMIES; ++i)
             {
@@ -114,6 +118,7 @@ namespace ProjectPrototype
                             if (bullet.boundingRectangle.Intersects(enemy.boundingRectangle))
                             {
                                 bullet.alive = false;
+                                //System.Diagnostics.Debug.Print("DEAD\n");
                                 enemy.alive = false;
                                 //enemies.RemoveAt(enemies.IndexOf(enemy));
                                 break;
