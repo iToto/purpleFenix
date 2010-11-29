@@ -103,26 +103,23 @@ namespace ProjectPrototype
             //Start drawing at -1.
             int screenRow = -1;
 
-            //for (int layer = 0; layer < numLayers; ++layer)
-            //{
-                for (int row = this.upperBound; row < this.lowerBound; ++row)
+            for (int row = this.upperBound; row < this.lowerBound; ++row)
+            {
+                for (int col = 0; col < mapWidth; ++col)
                 {
-                    for (int col = 0; col < mapWidth; ++col)
+                    if (!(mapData[row, col] == -1))
                     {
-                        if (!(mapData[row, col] == -1))
-                        {
-                            int index = mapData[row, col];
+                        int index = mapData[row, col];
 
-                            spriteBatch.Draw(tileMap.tileSheet, 
-                                new Vector2(col * tileSize, 
-                                    screenRow * tileSize + distanceTravelled % tileSize),
-                                    tileMap.GetTileRectangle(index),
-                                    Color.White);
-                        }
+                        spriteBatch.Draw(tileMap.tileSheet,
+                            new Vector2(col * tileSize,
+                                screenRow * tileSize + distanceTravelled % tileSize),
+                                tileMap.GetTileRectangle(index),
+                                Color.White);
                     }
-                    ++screenRow;
                 }
-            //}
+                ++screenRow;
+            }
         }
 
         public void Update()
