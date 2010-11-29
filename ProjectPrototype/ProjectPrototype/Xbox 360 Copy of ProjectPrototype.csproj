@@ -1,6 +1,6 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
-    <ProjectGuid>{f14c00d3-34dc-40fe-9ff4-1267187620bf}</ProjectGuid>
+    <ProjectGuid>{F14C00D3-34DC-40FE-9FF4-1267187620BF}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
@@ -61,6 +61,7 @@
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\enemyFactory.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\MovementPath.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\TileMap.cs" />
