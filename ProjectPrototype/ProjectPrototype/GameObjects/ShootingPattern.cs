@@ -56,46 +56,7 @@ namespace ProjectPrototype
 
             for (int i = 0; i < MAX_BULLETS; i++)
             {
-                if (i % 5 == 0)
-                {
-                    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-                    bullets[i].alive = false;
-                    bullets[i].velocity.X = -3.0f;
-                    bullets[i].velocity.Y = -4.0f;
-                    bullets[i].type = bulletType.spread;
-                }
-                else if (i % 5 == 1)
-                {
-                    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-                    bullets[i].alive = false;
-                    bullets[i].velocity.X = -1.0f;
-                    bullets[i].velocity.Y = -4.0f;
-                    bullets[i].type = bulletType.spread;
-                }
-                else if (i % 5 == 2)
-                {
-                    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-                    bullets[i].alive = false;
-                    bullets[i].velocity.X = 0.0f;
-                    bullets[i].velocity.Y = -4.0f;
-                    bullets[i].type = bulletType.spread;
-                }
-                else if (i % 5 == 3)
-                {
-                    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-                    bullets[i].alive = false;
-                    bullets[i].velocity.X = 1.0f;
-                    bullets[i].velocity.Y = -4.0f;
-                    bullets[i].type = bulletType.spread;
-                }
-                else
-                {
-                    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-                    bullets[i].alive = false;
-                    bullets[i].velocity.X = 3.0f;
-                    bullets[i].velocity.Y = -4.0f;
-                    bullets[i].type = bulletType.spread;
-                }
+                bullets[i].type = bulletType.spread;
             }
         }
 

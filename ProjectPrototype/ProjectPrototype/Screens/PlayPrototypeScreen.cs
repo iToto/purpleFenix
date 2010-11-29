@@ -23,7 +23,6 @@ namespace ProjectPrototype
         List<Enemy> helixes = new List<Enemy>();
         List<Enemy> lokusts = new List<Enemy>();
 
-        List<Bullet> bullets = new List<Bullet>();
         TimeSpan timeSinceLastSpawn;
         Map levelOne;
 
@@ -54,20 +53,16 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"));
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"),content);
          
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
 
-            //Initialize Bullets
-            //for (int i = 0; i < MAX_BULLETS; ++i)
-            //{
-            //    bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-            //}
-            //ShootingPattern.shootSpread(bullets, content);
+            
+            ShootingPattern.shootSpread(playerOne.bullets, content);
             //ShootingPattern.shootStraight(bullets, content);
-            ShootingPattern.shootSperatic(bullets,content);
+            //ShootingPattern.shootSperatic(bullets,content);
            
             //Initialize Enemies
             for (int i = 0; i < MAX_ENEMIES; ++i)
@@ -101,11 +96,11 @@ namespace ProjectPrototype
             //Update player One
             if (playerOne.alive)
             {
-                playerOne.Update(ref viewportRect, gameTime, bullets);
+                playerOne.Update(ref viewportRect, gameTime);
             }
 
             //Update Bullets and collide with enemies
-            foreach (Bullet bullet in bullets)
+            foreach (Bullet bullet in playerOne.bullets)
             {
                 if (bullet.alive)
                 {
@@ -178,7 +173,7 @@ namespace ProjectPrototype
                 ScreenManager.SpriteBatch.Draw(playerOne.sprite, playerOne.position, Color.White);
             }
 
-            foreach (Bullet bullet in bullets)
+            foreach (Bullet bullet in playerOne.bullets)
             {
                 if (bullet.alive)
                 {

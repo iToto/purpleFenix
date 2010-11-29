@@ -15,23 +15,32 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace ProjectPrototype
 {
-
+    
     class Player : GameObject
     {
+        const int MAX_BULLETS = 60;
+
         public float speed = 4.0f;
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
         bool isShooting = false;
+        public List<Bullet> bullets = new List<Bullet>();
         
-        public Player(Texture2D loadedTexture)
+        public Player(Texture2D loadedTexture,ContentManager content)
             : base(loadedTexture)
         {
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
             timeSinceLastShot = new TimeSpan(0);
+            
+            //Initialize Bullets
+            for (int i = 0; i < MAX_BULLETS; ++i)
+            {
+                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
+            }
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Bullet> bullets)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime)
         {
             this.position.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
@@ -167,6 +176,28 @@ namespace ProjectPrototype
                         {
                             bullets[j].alive = true;
                             bullets[j].position = this.position;
+                            bullets[j].velocity.Y = -4.0f;
+
+                            if (j % 5 == 0)
+                            {
+                                bullets[j].velocity.X = -3.0f;
+                            }
+                            else if (j % 5 == 1)
+                            {
+                                bullets[j].velocity.X = -1.0f;
+                            }
+                            else if (j % 5 == 2)
+                            {
+                                bullets[j].velocity.X = 0.0f;
+                            }
+                            else if (j % 5 == 3)
+                            {
+                                bullets[j].velocity.X = 1.0f;
+                            }
+                            else
+                            {
+                                bullets[j].velocity.X = 3.0f;
+                            }
                         }
                         break;
                     }
