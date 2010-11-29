@@ -20,7 +20,9 @@ namespace ProjectPrototype
         ContentManager content;
 
         Player playerOne;
-        List<Enemy> enemies = new List<Enemy>();
+        List<Enemy> helixes = new List<Enemy>();
+        List<Enemy> lokusts = new List<Enemy>();
+
         List<Bullet> bullets = new List<Bullet>();
         TimeSpan timeSinceLastSpawn;
         Map levelOne;
@@ -57,20 +59,22 @@ namespace ProjectPrototype
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
 
-
             //Initialize Bullets
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
                 bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
             }
 
-
             //Initialize Enemies
             for (int i = 0; i < MAX_ENEMIES; ++i)
             {
-                enemies.Add(new Enemy(content.Load<Texture2D>("Sprites\\DevilHead")));
-                enemies[i].alive = true;
-                enemies[i].position = new Vector2(viewport.Width / 2, 0 - (i * 10));
+                helixes.Add(enemyFactory.buildEnemy(0, content,5.0f,10.0f));
+                helixes[i].alive = true;
+                helixes[i].position = new Vector2(viewport.Width / 2, 0 - (i * 10));
+
+                lokusts.Add(enemyFactory.buildEnemy(1, content, 0.003f, 800f));
+                lokusts[i].alive = true;
+                lokusts[i].position = new Vector2(0 - (i * 10), 0); 
             }
         }
 
@@ -103,7 +107,7 @@ namespace ProjectPrototype
                 {
                     bullet.Update(ref viewportRect);
 
-                    foreach (Enemy enemy in enemies)
+                    foreach (Enemy enemy in helixes)
                     {
                         if (enemy.alive)
                         {
@@ -116,13 +120,34 @@ namespace ProjectPrototype
                             }
                         }
                     }
+                    foreach (Enemy enemy in lokusts)
+                    {
+                        if (enemy.alive)
+                        {
+                            if (bullet.boundingRectangle.Intersects(enemy.boundingRectangle))
+                            {
+                                bullet.alive = false;
+                                enemy.alive = false;
+                                //enemies.RemoveAt(enemies.IndexOf(enemy));
+                                break;
+                            }
+                        }
+                    }
+
                 }
             }
 
             levelOne.Update();
 
             //Update enemies
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in helixes)
+            {
+                if (enemy.alive)
+                {
+                    enemy.Update(ref viewportRect);
+                }
+            }
+            foreach (Enemy enemy in lokusts)
             {
                 if (enemy.alive)
                 {
@@ -131,7 +156,8 @@ namespace ProjectPrototype
             }
 
             //Check collision with enemies
-            playerOne.CheckEnemyCollision(ref enemies);
+            playerOne.CheckEnemyCollision(ref helixes);
+            playerOne.CheckEnemyCollision(ref lokusts);
         }
 
 
@@ -155,7 +181,14 @@ namespace ProjectPrototype
                 }
             }
 
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in helixes)
+            {
+                if (enemy.alive)
+                {
+                    ScreenManager.SpriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
+                }
+            }
+            foreach (Enemy enemy in lokusts)
             {
                 if (enemy.alive)
                 {
@@ -194,12 +227,21 @@ namespace ProjectPrototype
 
             int i = 0;
 
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in helixes)
             {
                 if (!enemy.alive)
                 {
                     enemy.alive = true;
                     enemy.position = new Vector2(viewport.Width / 2, 0 - (i * 10));
+                    ++i;
+                }
+            }
+            foreach (Enemy enemy in lokusts)
+            {
+                if (!enemy.alive)
+                {
+                    enemy.alive = true;
+                    enemy.position = new Vector2(0 - (i * 10), 0);
                     ++i;
                 }
             }

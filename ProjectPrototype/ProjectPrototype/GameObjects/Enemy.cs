@@ -17,20 +17,33 @@ namespace ProjectPrototype
 {
     class Enemy : GameObject
     {
-        public Enemy(Texture2D loadedTexture)
+        private int typeOfPath; //0->Sine 1->Parabola
+
+        public float MoveHeightVariation { set; private get; }
+        public float MoveWidthVariation { set; private get; }
+
+        public Enemy(Texture2D loadedTexture,int path)
             : base(loadedTexture)
         {
             Random random = new Random();
 
             this.velocity.X = 1;
             this.velocity.Y = 1;
+            this.typeOfPath = path;
         }
 
         public void Update(ref Rectangle viewportRect)
         {
-            this.position.X = this.position.X + ((float)Math.Sin(this.position.Y/10) * 5);
-            this.position.Y += this.velocity.Y;
-
+            if (this.typeOfPath == 0)
+            {
+                this.position = MovementPath.sineWave(this, this.MoveHeightVariation, this.MoveWidthVariation);
+            }
+            else
+            {
+                this.position = MovementPath.parabola(this, 0.003f, 800f);
+            }
+            
+            
             this.boundingRectangle.X = (int)this.position.X;
             this.boundingRectangle.Y = (int)this.position.Y;
         }

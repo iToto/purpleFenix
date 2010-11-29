@@ -12,58 +12,66 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace ProjectPrototype.GameObjects
+namespace ProjectPrototype
 {
     static class enemyFactory
     {
-        static public Enemy buildEnemy(int enemy,ContentManager content)
+        static public Enemy buildEnemy(int enemy,ContentManager content,float moveHeigh, float moveWidth)
         {
             switch (enemy)
             {
                 case 0:
-                    return buildHelix(content);
+                    return buildHelix(content,moveHeigh,moveWidth);
                 case 1:
-                    return buildLokust(content);
+                    return buildLokust(content, moveHeigh, moveWidth);
                 case 2:
-                    return buildFiral(content);
+                    return buildFiral(content, moveHeigh, moveWidth);
                 case 3:
-                    return buildAeraol(content);
+                    return buildAeraol(content, moveHeigh, moveWidth);
                 default:
                     break;
             }
             return null;
         }
 
-        static private Enemy buildHelix(ContentManager content)
+        static private Enemy buildHelix(ContentManager content,float moveHeight, float moveWidth)
         {
-            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\DevilHead")); //Change sprite
+            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"),0); //Change sprite
+            helix.MoveHeightVariation = moveHeight;
+            helix.MoveWidthVariation = moveWidth;
             helix.alive = false;
             helix.health = 100;
 
             return helix;
         }
 
-        static private Enemy buildLokust(ContentManager content)
+        static private Enemy buildLokust(ContentManager content, float moveHeight, float moveWidth)
         {
-            Enemy lokust = new Enemy(content.Load<Texture2D>("Sprites\\DevilHead")); //Change sprite
+            Enemy lokust = new Enemy(content.Load<Texture2D>("Sprites\\enemy2"),1); //Change sprite
+            lokust.MoveHeightVariation = moveHeight;
+            lokust.MoveWidthVariation = moveWidth;
             lokust.alive = false;
             lokust.health = 100;
 
             return lokust;
         }
 
-        static private Enemy buildFiral(ContentManager content)
+        static private Enemy buildFiral(ContentManager content, float moveHeight, float moveWidth)
         {
-            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\DevilHead")); //Change sprite
+            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"),1); //Change sprite
+            firal.MoveHeightVariation = moveHeight;
+            firal.MoveWidthVariation = moveWidth;
             firal.alive = false;
             firal.health = 100;
 
             return firal;
         }
 
-        static private Enemy buildAeraol(ContentManager content)
+        static private Enemy buildAeraol(ContentManager content, float moveHeight, float moveWidth)
         {
-            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\DevilHead")); //Change sprite
+            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"),0); //Change sprite
+            aeraol.MoveHeightVariation = moveHeight;
+            aeraol.MoveWidthVariation = moveWidth;
             aeraol.alive = false;
             aeraol.health = 100;
 
