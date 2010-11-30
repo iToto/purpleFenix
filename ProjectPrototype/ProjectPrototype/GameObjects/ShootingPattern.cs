@@ -64,9 +64,8 @@ namespace ProjectPrototype
         {
             for (int i = 0; i < MAX_BULLETS; i++)
             {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-                bullets[i].alive = false;
-                bullets[i].velocity.Y = -4.0f;
+                bullets[i].type = bulletType.straight;
+                
             }
         }
 

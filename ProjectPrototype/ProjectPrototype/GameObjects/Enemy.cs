@@ -18,11 +18,14 @@ namespace ProjectPrototype
     class Enemy : GameObject
     {
         private int typeOfPath; //0->Sine 1->Parabola
-
+        const int MAX_BULLETS = 60;
         public float MoveHeightVariation { set; private get; }
         public float MoveWidthVariation { set; private get; }
+        public List<Bullet> bullets = new List<Bullet>();
+        TimeSpan timeSinceLastShot;
+        TimeSpan timeBetweenShots;
 
-        public Enemy(Texture2D loadedTexture,int path)
+        public Enemy(Texture2D loadedTexture,int path,ContentManager content)
             : base(loadedTexture)
         {
             Random random = new Random();
@@ -30,9 +33,16 @@ namespace ProjectPrototype
             this.velocity.X = 1;
             this.velocity.Y = 1;
             this.typeOfPath = path;
+            timeBetweenShots = new TimeSpan(0, 0, 0, 0, 200);
+            timeSinceLastShot = new TimeSpan(0);
+
+            for (int i = 0; i < MAX_BULLETS; ++i)
+            {
+                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
+            }
         }
 
-        public void Update(ref Rectangle viewportRect)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime)
         {
             if (this.typeOfPath == 0)
             {
@@ -43,9 +53,92 @@ namespace ProjectPrototype
                 this.position = MovementPath.parabola(this, 0.003f, 800f);
             }
             
-            
             this.boundingRectangle.X = (int)this.position.X;
             this.boundingRectangle.Y = (int)this.position.Y;
+            
+            if (timeSinceLastShot == new TimeSpan(0))
+            {
+                this.Fire();
+            }
+
+            timeSinceLastShot += gameTime.ElapsedGameTime;
+            if (timeSinceLastShot >= timeBetweenShots)
+            {
+                timeSinceLastShot = new TimeSpan(0);
+            }
+        }
+
+        private void Fire()
+        {
+            if (bullets[0].type == bulletType.spread)
+            {
+                //Shoot 5 bullets at a time
+                for (int i = 0; i < ShootingPattern.MAX_BULLETS; i += 5)
+                {
+                    if (!bullets[i].alive)
+                    {
+                        for (int j = i; j < i + 5; j++)
+                        {
+                            bullets[j].alive = true;
+                            bullets[j].position = this.position;
+                            bullets[j].velocity.Y = 4.0f;
+
+                            if (j % 5 == 0)
+                            {
+                                bullets[j].velocity.X = -3.0f;
+                            }
+                            else if (j % 5 == 1)
+                            {
+                                bullets[j].velocity.X = -1.0f;
+                            }
+                            else if (j % 5 == 2)
+                            {
+                                bullets[j].velocity.X = 0.0f;
+                            }
+                            else if (j % 5 == 3)
+                            {
+                                bullets[j].velocity.X = 1.0f;
+                            }
+                            else
+                            {
+                                bullets[j].velocity.X = 3.0f;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (bullets[0].type == bulletType.straight)
+            {
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.alive = true;
+                        bullet.velocity.Y = 4.0f;
+                        break;
+                    }
+                }
+            }
+            else if (bullets[0].type == bulletType.helix)
+            {
+            }
+            else if (bullets[0].type == bulletType.doubleShot)
+            {
+            }
+            else if (bullets[0].type == bulletType.speratic)
+            {
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.alive = true;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

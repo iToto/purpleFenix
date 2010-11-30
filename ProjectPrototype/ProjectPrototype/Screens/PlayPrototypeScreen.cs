@@ -70,10 +70,12 @@ namespace ProjectPrototype
                 helixes.Add(enemyFactory.buildEnemy(0, content,5.0f,10.0f));
                 helixes[i].alive = true;
                 helixes[i].position = new Vector2(viewport.Width / 2, 0 - (i * 10));
+                ShootingPattern.shootStraight(helixes[i].bullets, content);
 
                 lokusts.Add(enemyFactory.buildEnemy(1, content, 0.003f, 800f));
                 lokusts[i].alive = true;
-                lokusts[i].position = new Vector2(0 - (i * 10), 0); 
+                lokusts[i].position = new Vector2(0 - (i * 10), 0);
+                ShootingPattern.shootStraight(lokusts[i].bullets, content);
             }
         }
 
@@ -133,7 +135,23 @@ namespace ProjectPrototype
                             }
                         }
                     }
+                }
+            }
 
+            //Update Enemy Bullets and collide with Players
+            foreach (Enemy helix in helixes)
+            {
+                foreach (Bullet bullet in helix.bullets)
+                {
+                    bullet.Update(ref viewportRect);
+                }
+            }
+
+            foreach (Enemy lokust in lokusts)
+            {
+                foreach (Bullet bullet in lokust.bullets)
+                {
+                    bullet.Update(ref viewportRect);
                 }
             }
 
@@ -144,14 +162,14 @@ namespace ProjectPrototype
             {
                 if (enemy.alive)
                 {
-                    enemy.Update(ref viewportRect);
+                    enemy.Update(ref viewportRect,gameTime);
                 }
             }
             foreach (Enemy enemy in lokusts)
             {
                 if (enemy.alive)
                 {
-                    enemy.Update(ref viewportRect);
+                    enemy.Update(ref viewportRect,gameTime);
                 }
             }
 
@@ -159,8 +177,6 @@ namespace ProjectPrototype
             playerOne.CheckEnemyCollision(ref helixes);
             playerOne.CheckEnemyCollision(ref lokusts);
         }
-
-
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
@@ -186,6 +202,11 @@ namespace ProjectPrototype
                 if (enemy.alive)
                 {
                     ScreenManager.SpriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
+                    foreach (Bullet bullet in enemy.bullets)
+                    {
+                        if (bullet.alive)
+                            ScreenManager.SpriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
+                    }
                 }
             }
             foreach (Enemy enemy in lokusts)
@@ -193,6 +214,11 @@ namespace ProjectPrototype
                 if (enemy.alive)
                 {
                     ScreenManager.SpriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
+                    foreach (Bullet bullet in enemy.bullets)
+                    {
+                        if (bullet.alive)
+                            ScreenManager.SpriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
+                    }
                 }
             }
 

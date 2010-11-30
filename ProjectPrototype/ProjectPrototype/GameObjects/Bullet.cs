@@ -17,14 +17,14 @@ namespace ProjectPrototype
 {
     class Bullet : GameObject
     {
-        
-
         public bulletType type;
+        TimeSpan timeSinceLastShot;
+        TimeSpan timeBetweenShots;
 
         public Bullet(Texture2D loadedTexture)
             : base(loadedTexture)
         {
-
+            
         }
         
         

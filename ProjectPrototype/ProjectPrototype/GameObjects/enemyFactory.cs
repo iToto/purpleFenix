@@ -36,7 +36,7 @@ namespace ProjectPrototype
 
         static private Enemy buildHelix(ContentManager content,float moveHeight, float moveWidth)
         {
-            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"),0); //Change sprite
+            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"),0,content); //Change sprite
             helix.MoveHeightVariation = moveHeight;
             helix.MoveWidthVariation = moveWidth;
             helix.alive = false;
@@ -47,7 +47,7 @@ namespace ProjectPrototype
 
         static private Enemy buildLokust(ContentManager content, float moveHeight, float moveWidth)
         {
-            Enemy lokust = new Enemy(content.Load<Texture2D>("Sprites\\enemy2"),1); //Change sprite
+            Enemy lokust = new Enemy(content.Load<Texture2D>("Sprites\\enemy2"), 1, content); //Change sprite
             lokust.MoveHeightVariation = moveHeight;
             lokust.MoveWidthVariation = moveWidth;
             lokust.alive = false;
@@ -58,7 +58,7 @@ namespace ProjectPrototype
 
         static private Enemy buildFiral(ContentManager content, float moveHeight, float moveWidth)
         {
-            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"),1); //Change sprite
+            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"), 1, content); //Change sprite
             firal.MoveHeightVariation = moveHeight;
             firal.MoveWidthVariation = moveWidth;
             firal.alive = false;
@@ -69,7 +69,7 @@ namespace ProjectPrototype
 
         static private Enemy buildAeraol(ContentManager content, float moveHeight, float moveWidth)
         {
-            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"),0); //Change sprite
+            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"), 0, content); //Change sprite
             aeraol.MoveHeightVariation = moveHeight;
             aeraol.MoveWidthVariation = moveWidth;
             aeraol.alive = false;

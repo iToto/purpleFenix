@@ -72,7 +72,7 @@ namespace ProjectPrototype
             {
                 if (timeSinceLastShot == new TimeSpan(0))
                 {
-                    this.Fire(bullets);
+                    this.Fire();
                 }
 
                 timeSinceLastShot += gameTime.ElapsedGameTime;
@@ -163,67 +163,68 @@ namespace ProjectPrototype
             }
         }
 
-        private void Fire(List<Bullet> bullets)
+        private void Fire()
         {
-            if (bullets[0].type == bulletType.spread)
+            if (this.bullets[0].type == bulletType.spread)
             {
                 //Shoot 5 bullets at a time
                 for (int i = 0; i < ShootingPattern.MAX_BULLETS; i+=5)
                 {
-                    if (!bullets[i].alive)
+                    if (!this.bullets[i].alive)
                     {
                         for (int j = i; j < i+5; j++)
                         {
-                            bullets[j].alive = true;
-                            bullets[j].position = this.position;
-                            bullets[j].velocity.Y = -4.0f;
+                            this.bullets[j].alive = true;
+                            this.bullets[j].position = this.position;
+                            this.bullets[j].velocity.Y = -4.0f;
 
                             if (j % 5 == 0)
                             {
-                                bullets[j].velocity.X = -3.0f;
+                                this.bullets[j].velocity.X = -3.0f;
                             }
                             else if (j % 5 == 1)
                             {
-                                bullets[j].velocity.X = -1.0f;
+                                this.bullets[j].velocity.X = -1.0f;
                             }
                             else if (j % 5 == 2)
                             {
-                                bullets[j].velocity.X = 0.0f;
+                                this.bullets[j].velocity.X = 0.0f;
                             }
                             else if (j % 5 == 3)
                             {
-                                bullets[j].velocity.X = 1.0f;
+                                this.bullets[j].velocity.X = 1.0f;
                             }
                             else
                             {
-                                bullets[j].velocity.X = 3.0f;
+                                this.bullets[j].velocity.X = 3.0f;
                             }
                         }
                         break;
                     }
                 }
             }
-            else if (bullets[0].type == bulletType.straight)
+            else if (this.bullets[0].type == bulletType.straight)
             {
-                foreach (Bullet bullet in bullets)
+                foreach (Bullet bullet in this.bullets)
                 {
                     if (!bullet.alive)
                     {
                         bullet.position = this.position;
                         bullet.alive = true;
+                        bullet.velocity.Y = -4.0f;
                         break;
                     }
                 }                
             }
-            else if (bullets[0].type == bulletType.helix)
+            else if (this.bullets[0].type == bulletType.helix)
             {
             }
-            else if (bullets[0].type == bulletType.doubleShot)
+            else if (this.bullets[0].type == bulletType.doubleShot)
             {
             }
-            else if (bullets[0].type == bulletType.speratic)
+            else if (this.bullets[0].type == bulletType.speratic)
             {
-                foreach (Bullet bullet in bullets)
+                foreach (Bullet bullet in this.bullets)
                 {
                     if (!bullet.alive)
                     {
