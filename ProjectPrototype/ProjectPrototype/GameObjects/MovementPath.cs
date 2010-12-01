@@ -13,10 +13,8 @@ using System;
 
 namespace ProjectPrototype
 {
-    static class MovementPath
+    class MovementPath
     {
-        
-
         static public Vector2 sineWave(Enemy theEnemy, float amplitude, float smt)
         {
             Vector2 position = theEnemy.position;

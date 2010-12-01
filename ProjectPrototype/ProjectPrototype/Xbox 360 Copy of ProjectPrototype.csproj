@@ -65,6 +65,9 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\MovementPath.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\shootingPattern.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\TileMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

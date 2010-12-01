@@ -17,15 +17,20 @@ namespace ProjectPrototype
 {
     class Bullet : GameObject
     {
+        public bulletType type;
+        TimeSpan timeSinceLastShot;
+        TimeSpan timeBetweenShots;
+
         public Bullet(Texture2D loadedTexture)
             : base(loadedTexture)
         {
-
+            
         }
         
         
         public void Update(ref Rectangle viewportRect)
         {
+            //System.Diagnostics.Debug.Print("Alive: " + this.alive + "\n");
             if (this.alive)
             {
                 this.position.X += this.velocity.X;

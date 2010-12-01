@@ -14,4 +14,9 @@ namespace ProjectPrototype
     {
         Standard, Strong, Weak
     }
+
+    enum bulletType
+    {
+        spread, straight, helix, doubleShot, speratic
+    }
 }

@@ -15,15 +15,18 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace ProjectPrototype
 {
-
+    
     class Player : GameObject
     {
+        const int MAX_BULLETS = 60;
+
         public float speed = 4.0f;
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
         bool isShooting = false;
+        public List<Bullet> bullets = new List<Bullet>();
 
-        List<Bullet> bullets;
+        public Player(Texture2D loadedTexture,ContentManager content)
         const int MAX_BULLETS = 100;
 
         public Player(Texture2D loadedTexture, List<Bullet> bullets)
@@ -32,8 +35,12 @@ namespace ProjectPrototype
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
             timeSinceLastShot = new TimeSpan(0);
-
-            this.bullets = bullets;
+            
+            //Initialize Bullets
+            for (int i = 0; i < MAX_BULLETS; ++i)
+            {
+                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
+            }
         }
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
@@ -68,7 +75,7 @@ namespace ProjectPrototype
             {
                 if (timeSinceLastShot == new TimeSpan(0))
                 {
-                    this.Fire(bullets);
+                    this.Fire();
                 }
 
                 timeSinceLastShot += gameTime.ElapsedGameTime;
@@ -197,19 +204,77 @@ namespace ProjectPrototype
             return false;
         }
 
-        private void Fire(List<Bullet> bullets)
+        private void Fire()
         {
-            foreach (Bullet bullet in bullets)
+            if (this.bullets[0].type == bulletType.spread)
             {
-                if (!bullet.alive)
+                //Shoot 5 bullets at a time
+                for (int i = 0; i < ShootingPattern.MAX_BULLETS; i+=5)
                 {
-                    bullet.position = this.position;
-                    bullet.velocity.Y = -4.0f;
-                    bullet.alive = true;
-                    break;
+                    if (!this.bullets[i].alive)
+                    {
+                        for (int j = i; j < i+5; j++)
+                        {
+                            this.bullets[j].alive = true;
+                            this.bullets[j].position = this.position;
+                            this.bullets[j].velocity.Y = -4.0f;
+
+                            if (j % 5 == 0)
+                            {
+                                this.bullets[j].velocity.X = -3.0f;
+                            }
+                            else if (j % 5 == 1)
+                            {
+                                this.bullets[j].velocity.X = -1.0f;
+                            }
+                            else if (j % 5 == 2)
+                            {
+                                this.bullets[j].velocity.X = 0.0f;
+                            }
+                            else if (j % 5 == 3)
+                            {
+                                this.bullets[j].velocity.X = 1.0f;
+                            }
+                            else
+                            {
+                                this.bullets[j].velocity.X = 3.0f;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (this.bullets[0].type == bulletType.straight)
+            {
+                foreach (Bullet bullet in this.bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.alive = true;
+                        bullet.velocity.Y = -4.0f;
+                        break;
+                    }
+                }                
+            }
+            else if (this.bullets[0].type == bulletType.helix)
+            {
+            }
+            else if (this.bullets[0].type == bulletType.doubleShot)
+            {
+            }
+            else if (this.bullets[0].type == bulletType.speratic)
+            {
+                foreach (Bullet bullet in this.bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.position = this.position;
+                        bullet.alive = true;
+                        break;
+                    }
                 }
             }
         }
-
     }
 }
