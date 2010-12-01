@@ -17,6 +17,7 @@ namespace ProjectPrototype
 
         XmlTextReader xml;
         TileMap tileMap;
+
         Viewport viewport;
 
         int numLayers = 0;
@@ -122,7 +123,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void Update()
+        public void Update(List<Enemy> enemies)
         {
             if (!hasReachedEnd)
             {
@@ -131,6 +132,8 @@ namespace ProjectPrototype
                 {
                     --this.upperBound;
                     --this.lowerBound;
+                    List<Enemy> newEnemies = LoadEnemies(this.upperBound);
+                    enemies.AddRange(newEnemies);
                 }
 
                 if (this.upperBound <= 0)
@@ -140,6 +143,23 @@ namespace ProjectPrototype
                     this.hasReachedEnd = true;
                 }
             }
+        }
+
+        private List<Enemy> LoadEnemies(int row)
+        {
+            List<Enemy> newEnemies = new List<Enemy>();
+            for (int col = 0; col < mapWidth; ++col)
+            {
+                if (enemyData[row, col] != -1)
+                {
+                    Enemy newEnemy = EnemyFactory.buildEnemy(enemyData[row, col]);
+                    Vector2 position = new Vector2(col * tileSize, -1 * tileSize);
+                    newEnemy.position = position;
+                    newEnemies.Add(newEnemy);
+                }
+            }
+
+            return newEnemies;
         }
     }
 }

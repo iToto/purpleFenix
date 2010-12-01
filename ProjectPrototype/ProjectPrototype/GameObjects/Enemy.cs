@@ -21,8 +21,9 @@ namespace ProjectPrototype
 
         public float MoveHeightVariation { set; private get; }
         public float MoveWidthVariation { set; private get; }
+        public bool isActive { set; get; }
 
-        public Enemy(Texture2D loadedTexture,int path)
+        public Enemy(Texture2D loadedTexture, int path)
             : base(loadedTexture)
         {
             Random random = new Random();
@@ -42,8 +43,8 @@ namespace ProjectPrototype
             {
                 this.position = MovementPath.parabola(this, 0.003f, 800f);
             }
-            
-            
+
+
             this.boundingRectangle.X = (int)this.position.X;
             this.boundingRectangle.Y = (int)this.position.Y;
         }

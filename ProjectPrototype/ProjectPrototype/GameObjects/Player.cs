@@ -22,16 +22,21 @@ namespace ProjectPrototype
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
         bool isShooting = false;
-        
-        public Player(Texture2D loadedTexture)
+
+        List<Bullet> bullets;
+        const int MAX_BULLETS = 100;
+
+        public Player(Texture2D loadedTexture, List<Bullet> bullets)
             : base(loadedTexture)
         {
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
             timeSinceLastShot = new TimeSpan(0);
+
+            this.bullets = bullets;
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Bullet> bullets)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Bullet> bullets, List<Enemy> enemies)
         {
             this.position.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
@@ -72,8 +77,43 @@ namespace ProjectPrototype
                     timeSinceLastShot = new TimeSpan(0);
                 }
             }
+
+            CheckEnemyCollision(enemies);
+
+
+            //Update Bullets and collide with enemies
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.alive)
+                {
+                    bullet.Update(ref viewportRect);
+                    foreach (Enemy enemy in enemies)
+                    {
+                        if (enemy.alive)
+                        {
+                            if (bullet.boundingRectangle.Intersects(enemy.boundingRectangle))
+                            {
+                                bullet.alive = false;
+                                enemy.alive = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
+        public void Draw(SpriteBatch spritebatch)
+        {
+            spritebatch.Draw(this.sprite, this.position, Color.White);
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.alive)
+                {
+                    spritebatch.Draw(bullet.sprite, bullet.position, Color.White);
+                }
+            }
+        }
 
         public void HandleInput(InputState input, PlayerIndex playerIndex)
         {
@@ -140,7 +180,7 @@ namespace ProjectPrototype
         }
 
 
-        public void CheckEnemyCollision(ref List<Enemy> enemies)
+        private bool CheckEnemyCollision(List<Enemy> enemies)
         {
             foreach (Enemy enemy in enemies)
             {
@@ -149,9 +189,12 @@ namespace ProjectPrototype
                     if (enemy.boundingRectangle.Intersects(this.boundingRectangle))
                     {
                         this.alive = false;
+                        return true;
                     }
                 }
             }
+
+            return false;
         }
 
         private void Fire(List<Bullet> bullets)
