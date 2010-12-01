@@ -20,12 +20,8 @@ namespace ProjectPrototype
         ContentManager content;
 
         Player playerOne;
-        List<Enemy> helixes = new List<Enemy>();
-        List<Enemy> lokusts = new List<Enemy>();
         List<Enemy> enemies = new List<Enemy>();
 
-        List<Bullet> bullets = new List<Bullet>();
-        TimeSpan timeSinceLastSpawn;
         Map levelOne;
 
         const int MAX_BULLETS = 60;
@@ -39,7 +35,6 @@ namespace ProjectPrototype
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
-            timeSinceLastSpawn = TimeSpan.Zero;
         }
 
 
@@ -56,13 +51,14 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize Bullets
+            List<Bullet> playerBullets = new List<Bullet>();
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
+                playerBullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
             }
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), bullets);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), playerBullets);
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
@@ -78,18 +74,10 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
-            timeSinceLastSpawn += gameTime.ElapsedGameTime;
-
-            if (timeSinceLastSpawn >= TimeSpan.FromSeconds(SPAWN_TIME))
-            {
-                SpawnEnemies();
-                timeSinceLastSpawn = TimeSpan.Zero;
-            }
-
             //Update player One
             if (playerOne.alive)
             {
-                playerOne.Update(ref viewportRect, gameTime, bullets, enemies);
+                playerOne.Update(ref viewportRect, gameTime, enemies);
             }
 
             levelOne.Update(enemies);
@@ -149,32 +137,6 @@ namespace ProjectPrototype
             //playerThree.HandleInput(input, bullets, PlayerIndex.Three);
             //playerFour.HandleInput(input, bullets, PlayerIndex.Four);
 
-        }
-
-        public void SpawnEnemies()
-        {
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-
-            int i = 0;
-
-            foreach (Enemy enemy in helixes)
-            {
-                if (!enemy.alive)
-                {
-                    enemy.alive = true;
-                    enemy.position = new Vector2(viewport.Width / 2, 0 - (i * 10));
-                    ++i;
-                }
-            }
-            foreach (Enemy enemy in lokusts)
-            {
-                if (!enemy.alive)
-                {
-                    enemy.alive = true;
-                    enemy.position = new Vector2(0 - (i * 10), 0);
-                    ++i;
-                }
-            }
         }
     }
 }

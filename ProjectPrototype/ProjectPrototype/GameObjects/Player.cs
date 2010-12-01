@@ -36,7 +36,7 @@ namespace ProjectPrototype
             this.bullets = bullets;
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Bullet> bullets, List<Enemy> enemies)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
         {
             this.position.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
