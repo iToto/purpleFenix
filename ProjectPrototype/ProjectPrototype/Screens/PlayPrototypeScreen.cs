@@ -52,20 +52,12 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"),content);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
          
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
-
-            
-            //Initialize Bullets
-            for (int i = 0; i < MAX_BULLETS; ++i)
-            {
-                playerBullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
-            }
-
-            
+       
             ShootingPattern.shootSpread(playerOne.bullets, content);
             //ShootingPattern.shootStraight(bullets, content);
             //ShootingPattern.shootSperatic(bullets,content);           
@@ -76,6 +68,8 @@ namespace ProjectPrototype
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
+            List<Player> players = new List<Player>();
+
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
@@ -83,23 +77,21 @@ namespace ProjectPrototype
             if (playerOne.alive)
             {
                 playerOne.Update(ref viewportRect, gameTime, enemies);
+                players.Add(playerOne);
             }
 
             levelOne.Update(enemies);
-                                //System.Diagnostics.Debug.Print("DEAD\n");
-                }
-            }
 
             //Update enemies
             foreach (Enemy enemy in enemies)
             {
                 if (enemy.alive)
                 {
-                    enemy.Update(ref viewportRect,gameTime);
-
+                    enemy.Update(ref viewportRect, gameTime, players);
                 }
             }
         }
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
@@ -114,19 +106,9 @@ namespace ProjectPrototype
 
             foreach (Enemy enemy in enemies)
             {
-                    foreach (Bullet bullet in enemy.bullets)
-                    {
-                        if (bullet.alive)
-                            ScreenManager.SpriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
-                    }
                 if (enemy.alive)
                 {
-                    ScreenManager.SpriteBatch.Draw(enemy.sprite, enemy.position, Color.White);
-                    foreach (Bullet bullet in enemy.bullets)
-                    {
-                        if (bullet.alive)
-                            ScreenManager.SpriteBatch.Draw(bullet.sprite, bullet.position, Color.White);
-                    }
+                    enemy.Draw(ScreenManager.SpriteBatch);
                 }
             }
 

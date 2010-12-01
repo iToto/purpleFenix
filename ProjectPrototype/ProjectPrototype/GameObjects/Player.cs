@@ -27,9 +27,6 @@ namespace ProjectPrototype
         public List<Bullet> bullets = new List<Bullet>();
 
         public Player(Texture2D loadedTexture,ContentManager content)
-        const int MAX_BULLETS = 100;
-
-        public Player(Texture2D loadedTexture, List<Bullet> bullets)
             : base(loadedTexture)
         {
             this.alive = true;

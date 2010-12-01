@@ -42,7 +42,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
         {
             if (this.typeOfPath == 0)
             {
@@ -65,6 +65,40 @@ namespace ProjectPrototype
             if (timeSinceLastShot >= timeBetweenShots)
             {
                 timeSinceLastShot = new TimeSpan(0);
+            }
+
+            //Update Bullets and collide with enemies
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.alive)
+                {
+                    bullet.Update(ref viewportRect);
+                    foreach (Player player in players)
+                    {
+                        if (player.alive)
+                        {
+                            if (bullet.boundingRectangle.Intersects(player.boundingRectangle))
+                            {
+                                bullet.alive = false;
+                                player.alive = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public void Draw(SpriteBatch spritebatch)
+        {
+            spritebatch.Draw(this.sprite, this.position, Color.White);
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.alive)
+                {
+                    spritebatch.Draw(bullet.sprite, bullet.position, Color.White);
+                }
             }
         }
 
