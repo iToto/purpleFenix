@@ -26,8 +26,8 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
         public bool hasActiveBullets;
 
-        public Enemy(Texture2D loadedTexture,int path,ContentManager content)
-            : base(loadedTexture)
+        public Enemy(Texture2D loadedTexture,int path,ContentManager content,Element el,int hp)
+            : base(loadedTexture,el,hp)
         {
             Random random = new Random();
 
@@ -37,7 +37,6 @@ namespace ProjectPrototype
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 200);
             timeSinceLastShot = new TimeSpan(0);
             this.hasActiveBullets = false;
-
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
                 bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
@@ -81,8 +80,24 @@ namespace ProjectPrototype
                         {
                             if (bullet.boundingRectangle.Intersects(player.boundingRectangle))
                             {
+                                switch (bullet.CompareElements(player))
+                                {
+                                    case Defense.Standard:
+                                        player.health -= 2;
+                                        break;
+                                    case Defense.Strong:
+                                        player.health -= 1;
+                                        break;
+                                    case Defense.Weak:
+                                        player.health -= 4;
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 bullet.alive = false;
-                                player.alive = false;
+                                if(player.health <= 0)
+                                    player.alive = false;
+
                                 break;
                             }
                         }
@@ -119,6 +134,7 @@ namespace ProjectPrototype
                         for (int j = i; j < i + 5; j++)
                         {
                             bullets[j].alive = true;
+                            bullets[j].element = this.element;
                             bullets[j].position = this.position;
                             bullets[j].velocity.Y = 4.0f;
 

@@ -56,44 +56,40 @@ namespace ProjectPrototype
 
         static private Enemy buildHelix(float heightVariation, float widthVariation)
         {
-            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"),0,content); //Change sprite
+            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"),0,content,Element.Earth,10); //Change sprite
             helix.MoveHeightVariation = heightVariation;
             helix.MoveWidthVariation = widthVariation;
             helix.alive = true;
-            helix.health = 100;
 
             return helix;
         }
 
         static private Enemy buildLokust(ContentManager content, float heightVariation, float widthVariation)
         {
-            Enemy lokust = new Enemy(content.Load<Texture2D>("Sprites\\enemy2"), 1, content); //Change sprite
+            Enemy lokust = new Enemy(content.Load<Texture2D>("Sprites\\enemy2"), 1, content,Element.Lightning,10); //Change sprite
             lokust.MoveHeightVariation = heightVariation;
             lokust.MoveWidthVariation = widthVariation;
             lokust.alive = true;
-            lokust.health = 100;
 
             return lokust;
         }
 
         static private Enemy buildFiral(ContentManager content, float heightVariation, float widthVariation)
         {
-            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"), 1, content); //Change sprite
+            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"), 1, content,Element.Fire,10); //Change sprite
             firal.MoveHeightVariation = heightVariation;
             firal.MoveWidthVariation = widthVariation;
             firal.alive = true;
-            firal.health = 100;
 
             return firal;
         }
 
         static private Enemy buildAeraol(ContentManager content, float heightVariation, float widthVariation)
         {
-            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"), 0, content); //Change sprite
+            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"), 0, content,Element.Earth,10); //Change sprite
             aeraol.MoveHeightVariation = heightVariation;
             aeraol.MoveWidthVariation = widthVariation;
             aeraol.alive = true;
-            aeraol.health = 100;
 
             return aeraol;
         }

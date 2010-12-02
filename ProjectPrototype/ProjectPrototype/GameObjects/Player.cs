@@ -32,6 +32,7 @@ namespace ProjectPrototype
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
             timeSinceLastShot = new TimeSpan(0);
+            this.health = 100;
             
             //Initialize Bullets
             for (int i = 0; i < MAX_BULLETS; ++i)
@@ -97,8 +98,27 @@ namespace ProjectPrototype
                         {
                             if (bullet.boundingRectangle.Intersects(enemy.boundingRectangle))
                             {
+                                switch (bullet.CompareElements(enemy))
+                                {
+                                    case Defense.Standard:
+                                        enemy.health -= 2;
+                                        break;
+                                    case Defense.Strong:
+                                        enemy.health -= 1;
+                                        break;
+                                    case Defense.Weak:
+                                        enemy.health -= 4;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                System.Diagnostics.Debug.Print("Enemy Health: " + enemy.health + "\n");
+
                                 bullet.alive = false;
-                                enemy.alive = false;
+
+                                if(enemy.health <= 0)
+                                    enemy.alive = false;
+
                                 break;
                             }
                         }
@@ -212,6 +232,7 @@ namespace ProjectPrototype
                     {
                         for (int j = i; j < i+5; j++)
                         {
+                            this.bullets[j].element = this.element;
                             this.bullets[j].alive = true;
                             this.bullets[j].position = this.position;
                             this.bullets[j].velocity.Y = -4.0f;

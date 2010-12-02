@@ -73,10 +73,10 @@ namespace ProjectPrototype
 
             Defense returnValue = Defense.Standard;
 
-            // If they are the same element, they are strong against each other.
+            // If they are the same element, they are neutral against each other.
             if (element1 == element2)
             {
-                return Defense.Strong;
+                return Defense.Standard;
             }
 
             switch (element1)
