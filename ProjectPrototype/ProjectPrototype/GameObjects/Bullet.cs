@@ -26,8 +26,7 @@ namespace ProjectPrototype
         {
             
         }
-        
-        
+                
         public void Update(ref Rectangle viewportRect)
         {
             //System.Diagnostics.Debug.Print("Alive: " + this.alive + "\n");

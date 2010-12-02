@@ -24,6 +24,7 @@ namespace ProjectPrototype
         public List<Bullet> bullets = new List<Bullet>();
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
+        public bool hasActiveBullets;
 
         public Enemy(Texture2D loadedTexture,int path,ContentManager content)
             : base(loadedTexture)
@@ -35,6 +36,7 @@ namespace ProjectPrototype
             this.typeOfPath = path;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 200);
             timeSinceLastShot = new TimeSpan(0);
+            this.hasActiveBullets = false;
 
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
@@ -56,7 +58,7 @@ namespace ProjectPrototype
             this.boundingRectangle.X = (int)this.position.X;
             this.boundingRectangle.Y = (int)this.position.Y;
             
-            if (timeSinceLastShot == new TimeSpan(0))
+            if (timeSinceLastShot == new TimeSpan(0) && this.alive)
             {
                 this.Fire();
             }
@@ -66,7 +68,7 @@ namespace ProjectPrototype
             {
                 timeSinceLastShot = new TimeSpan(0);
             }
-
+            
             //Update Bullets and collide with enemies
             foreach (Bullet bullet in bullets)
             {
@@ -87,12 +89,15 @@ namespace ProjectPrototype
                     }
                 }
             }
-        }
 
+            stillHasActiveBullets();
+        }
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(this.sprite, this.position, Color.White);
+            if(this.alive)
+                spritebatch.Draw(this.sprite, this.position, Color.White);
+
             foreach (Bullet bullet in bullets)
             {
                 if (bullet.alive)
@@ -171,6 +176,19 @@ namespace ProjectPrototype
                         bullet.alive = true;
                         break;
                     }
+                }
+            }
+        }
+    
+        private void stillHasActiveBullets()
+        {
+            this.hasActiveBullets = false;
+            foreach (Bullet bullet in this.bullets)
+            {
+                if (bullet.alive)
+                {
+                    this.hasActiveBullets = true;
+                    break;
                 }
             }
         }

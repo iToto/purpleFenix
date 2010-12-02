@@ -85,7 +85,7 @@ namespace ProjectPrototype
             //Update enemies
             foreach (Enemy enemy in enemies)
             {
-                if (enemy.alive)
+                if (enemy.hasActiveBullets || enemy.alive)
                 {
                     enemy.Update(ref viewportRect, gameTime, players);
                 }
@@ -106,7 +106,7 @@ namespace ProjectPrototype
 
             foreach (Enemy enemy in enemies)
             {
-                if (enemy.alive)
+                if (enemy.alive || enemy.hasActiveBullets)
                 {
                     enemy.Draw(ScreenManager.SpriteBatch);
                 }
