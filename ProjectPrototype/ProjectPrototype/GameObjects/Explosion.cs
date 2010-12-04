@@ -12,10 +12,13 @@ namespace ProjectPrototype
     {
         public bool DoneAnimating { protected set; get; }
 
+        Vector2 explosionSize;
+
         public Explosion(Texture2D loadedTexture, Vector2 size, Vector2 position)
-            : base(loadedTexture, size)
+            : base(loadedTexture, new Vector2(32, 32))
         {
             this.position = position;
+            this.explosionSize = size;
 
             AddAnimation("explode", new int[5] {0, 1, 2, 3, 4}, 10, false);
             play("explode");
@@ -29,10 +32,11 @@ namespace ProjectPrototype
 
         public void Draw(SpriteBatch spritebatch)
         {
-            System.Diagnostics.Debug.Print("Width: " + this.spriteWidth.ToString() + " Height: " + this.spriteHeight.ToString());
             spritebatch.Draw(this.sprite, 
-                new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight), 
+                new Rectangle((int)this.position.X, (int)this.position.Y, (int)this.explosionSize.X, (int)this.explosionSize.Y), 
                 this.frameRectangle, Color.White);
+
+            System.Diagnostics.Debug.Print(this.frameRectangle.ToString());
         }
     }
 }
