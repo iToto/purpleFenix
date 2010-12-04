@@ -95,8 +95,8 @@ namespace ProjectPrototype
                                         break;
                                 }
                                 bullet.alive = false;
-                                if(player.Health <= 0)
-                                    player.alive = false;
+                                if (player.Health <= 0)
+                                    player.Kill();
 
                                 break;
                             }

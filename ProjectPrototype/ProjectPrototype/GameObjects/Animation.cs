@@ -12,6 +12,7 @@ namespace ProjectPrototype
         int[] frames;
         string name;
         bool looped;
+        public bool Done { protected set; get; }
 
         int frameWidth;
         int frameHeight;
@@ -55,6 +56,7 @@ namespace ProjectPrototype
                 else
                 {
                     frameIndex = frameCount - 1;
+                    this.Done = true;
                 }
             }
 

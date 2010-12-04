@@ -187,6 +187,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+     <Compile Include="Sprites\explosion-sheet.png">
+      <Name>explosion-sheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="FrontEnd\blank.png">
       <Name>blank</Name>
       <Importer>TextureImporter</Importer>

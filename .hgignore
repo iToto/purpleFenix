@@ -35,3 +35,16 @@ glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/ProjectPrototype.exe
 glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/ProjectPrototype.pdb
 glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/Xbox 360 Copy of ProjectPrototype.csproj.FileListAbsolute.txt
 glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/cachefile-314f44e7-04ab-40c6-ab32-07d8d4d1c816-targetpath.txt
+glob:ProjectPrototype/ProjectPrototype/Content/obj/x86/Debug/ResolveAssemblyReference.cache
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/chopper.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/earthShip.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/elecShip.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/enemy.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/enemy2.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/enemy3.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/enemy4.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/explosion-sheet.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/fireShip.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/greenShipAnimationTest.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/healthBar.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/waterShip.xnb
