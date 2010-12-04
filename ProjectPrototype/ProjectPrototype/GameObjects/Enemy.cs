@@ -18,7 +18,7 @@ namespace ProjectPrototype
     class Enemy : GameObject
     {
         private int typeOfPath; //0->Sine 1->Parabola
-        const int MAX_BULLETS = 60;
+        const int MAX_BULLETS = 200;
         public float MoveHeightVariation { set; private get; }
         public float MoveWidthVariation { set; private get; }
         public List<Bullet> bullets = new List<Bullet>();
@@ -29,6 +29,7 @@ namespace ProjectPrototype
         public Enemy(Texture2D loadedTexture, int path, ContentManager content, Element el, int hp)
             : base(loadedTexture,el,hp)
         {
+            Texture2D bulletSprite;
             Random random = new Random();
 
             this.velocity.X = 1;
@@ -37,9 +38,33 @@ namespace ProjectPrototype
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 200);
             timeSinceLastShot = new TimeSpan(0);
             this.hasActiveBullets = false;
+
+            switch (el)
+            {
+                case Element.Earth:
+                    bulletSprite = BulletManager.RockSprite;
+                    break;
+
+                case Element.Fire:
+                    bulletSprite = BulletManager.FireSprite;
+                    break;
+
+                case Element.Ice:
+                    bulletSprite = BulletManager.IceSprite;
+                    break;
+
+                case Element.Lightning:
+                    bulletSprite = BulletManager.LightningSprite;
+                    break;
+
+                default:
+                    bulletSprite = BulletManager.RockSprite;
+                    break;
+            }
+
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\ice-sheet")));
+                bullets.Add(new Bullet(bulletSprite));
             }
         }
 
@@ -98,41 +123,47 @@ namespace ProjectPrototype
 
         private void Fire()
         {
+
+            // shoot 5 bullets at once
             if (bullets[0].type == bulletType.spread)
             {
-                //Shoot 5 bullets at a time
-                for (int i = 0; i < ShootingPattern.MAX_BULLETS; i += 5)
-                {
-                    if (!bullets[i].alive)
-                    {
-                        for (int j = i; j < i + 5; j++)
-                        {
-                            bullets[j].alive = true;
-                            bullets[j].element = this.element;
-                            bullets[j].position = this.position;
-                            bullets[j].velocity.Y = 4.0f;
+                int bulletsFired = 0;
 
-                            if (j % 5 == 0)
-                            {
-                                bullets[j].velocity.X = -3.0f;
-                            }
-                            else if (j % 5 == 1)
-                            {
-                                bullets[j].velocity.X = -1.0f;
-                            }
-                            else if (j % 5 == 2)
-                            {
-                                bullets[j].velocity.X = 0.0f;
-                            }
-                            else if (j % 5 == 3)
-                            {
-                                bullets[j].velocity.X = 1.0f;
-                            }
-                            else
-                            {
-                                bullets[j].velocity.X = 3.0f;
-                            }
+                foreach (Bullet bullet in bullets)
+                {
+                    if (!bullet.alive)
+                    {
+                        bullet.alive = true;
+                        bullet.element = this.element;
+                        bullet.position.X = this.boundingRectangle.Center.X - bullet.boundingRectangle.Width / 2;
+                        bullet.position.Y = this.boundingRectangle.Bottom - bullet.boundingRectangle.Height / 2;
+                        bullet.velocity.Y = 4.0f;
+
+                        switch (bulletsFired)
+                        {
+                            case 0:
+                                bullet.velocity.X = -3;
+                                break;
+                            case 1:
+                                bullet.velocity.X = -1;
+                                break;
+                            case 2:
+                                bullet.velocity.X = 0;
+                                break;
+                            case 3:
+                                bullet.velocity.X = 1;
+                                break;
+                            case 4:
+                                bullet.velocity.X = 3;
+                                break;
+                            default:
+                                break;
                         }
+
+                        ++bulletsFired;
+                    }
+                    if (bulletsFired >= 5)
+                    {
                         break;
                     }
                 }

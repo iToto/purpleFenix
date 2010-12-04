@@ -16,9 +16,9 @@ namespace ProjectPrototype
 {
     class ShootingPattern
     {
-        public const int MAX_BULLETS = 60;
+        public const int MAX_BULLETS = 200;
 
-        static public void shootSperatic(List<Bullet> bullets,ContentManager content)
+        static public void shootSperatic(List<Bullet> bullets, ContentManager content)
         {
             for (int i = 0; i < MAX_BULLETS; i++)
             {

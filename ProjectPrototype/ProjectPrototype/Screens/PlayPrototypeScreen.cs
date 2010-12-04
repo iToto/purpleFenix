@@ -23,6 +23,7 @@ namespace ProjectPrototype
         List<Enemy> enemies = new List<Enemy>();
         SoundBank soundBank;
         ExplosionManager explosionManager;
+        BulletManager bulletManager;
         WaveBank waveBank;
         
 
@@ -50,6 +51,9 @@ namespace ProjectPrototype
          
             //Initialize Explosion Manager
             explosionManager = new ExplosionManager(content);
+
+            //Initialize Bullet Manager
+            bulletManager = new BulletManager(content);
 
             //Init the explosion manager for all game objects
             GameObject.ExplosionManager = explosionManager;

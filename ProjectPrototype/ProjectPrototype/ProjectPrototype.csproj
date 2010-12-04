@@ -87,6 +87,7 @@
     <Compile Include="GameConstants.cs" />
     <Compile Include="GameObjects\Animation.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
+    <Compile Include="GameObjects\BulletManager.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\EnemyFactory.cs" />
     <Compile Include="GameObjects\Explosion.cs" />

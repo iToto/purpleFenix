@@ -56,7 +56,7 @@ namespace ProjectPrototype
 
         static private Enemy buildHelix(float heightVariation, float widthVariation)
         {
-            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"),0,content,Element.Earth,10); //Change sprite
+            Enemy helix = new Enemy(content.Load<Texture2D>("Sprites\\enemy"), 0, content, Element.Earth, 10); //Change sprite
             helix.MoveHeightVariation = heightVariation;
             helix.MoveWidthVariation = widthVariation;
             helix.alive = true;

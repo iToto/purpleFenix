@@ -37,11 +37,12 @@ namespace ProjectPrototype
 
                 this.boundingRectangle.X = (int)this.position.X;
                 this.boundingRectangle.Y = (int)this.position.Y;
-            }
 
-            if (!viewportRect.Contains(new Point((int)this.boundingRectangle.Center.X, (int)this.boundingRectangle.Center.Y)))
-            {
-                this.alive = false;
+                if (!viewportRect.Contains(new Point((int)this.boundingRectangle.Center.X, (int)this.boundingRectangle.Center.Y)))
+                {
+                    System.Diagnostics.Debug.Print(this.boundingRectangle.Center.ToString());
+                    this.alive = false;
+                }
             }
 
  
@@ -83,6 +84,15 @@ namespace ProjectPrototype
                 spritebatch.Draw(this.sprite,
                     new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight),
                     this.frameRectangle, Color.White);
+            }
+        }
+
+        public void SetElement(Element element)
+        {
+            switch (element)
+            {
+                //case Element.Earth:
+                //    this.sprite = 
             }
         }
     }
