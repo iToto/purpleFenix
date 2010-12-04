@@ -26,13 +26,18 @@ namespace ProjectPrototype
         bool isShooting = false;
         public List<Bullet> bullets = new List<Bullet>();
 
-        public Player(Texture2D loadedTexture,ContentManager content)
-            : base(loadedTexture)
+        public Player(Texture2D loadedTexture, ContentManager content)
+            : base(loadedTexture, new Vector2(32, 32))
         {
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
             timeSinceLastShot = new TimeSpan(0);
             this.health = 100;
+
+
+            this.AddAnimation("normal", new int[1] {0}, 4, true);
+            this.AddAnimation("colors", new int[2] { 0, 1 }, 4, false);
+            this.play("colors");
             
             //Initialize Bullets
             for (int i = 0; i < MAX_BULLETS; ++i)
@@ -43,6 +48,8 @@ namespace ProjectPrototype
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
         {
+            frameRectangle = this.updateAnimation(gameTime);
+
             this.position.X += this.velocity.X;
             this.position.Y += this.velocity.Y;
 
@@ -129,7 +136,8 @@ namespace ProjectPrototype
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(this.sprite, this.position, Color.White);
+            //spritebatch.Draw(this.sprite, this.position, Color.White);
+            spritebatch.Draw(this.sprite, this.position, this.frameRectangle, Color.White);
             foreach (Bullet bullet in bullets)
             {
                 if (bullet.alive)

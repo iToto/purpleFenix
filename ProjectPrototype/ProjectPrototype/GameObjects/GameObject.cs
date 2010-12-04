@@ -25,11 +25,12 @@ namespace ProjectPrototype
         public Element element;
         public int health;
 
-        int spriteWidth;
-        int spriteHeight;
+        protected int spriteWidth;
+        protected int spriteHeight;
 
         Dictionary<string, Animation> Animations;
         Animation CurrentAnimation;
+        protected Rectangle frameRectangle;
 
         public GameObject(Texture2D loadedTexture)
         {
@@ -42,9 +43,22 @@ namespace ProjectPrototype
             element = Element.None;
         }
 
+        public GameObject(Texture2D loadedTexture, Vector2 size)
+        {
+            sprite = loadedTexture;
+            this.spriteWidth = (int)size.X;
+            this.spriteHeight = (int)size.Y;
+
+            reset();
+
+            element = Element.None;
+        }
+
         public GameObject(Texture2D loadedTexture, Element element)
         {
             sprite = loadedTexture;
+            this.spriteWidth = sprite.Width;
+            this.spriteHeight = sprite.Height;
 
             reset();
 
@@ -78,7 +92,6 @@ namespace ProjectPrototype
         private void reset()
         {
             rotation = 0.0f;
-            //boundingRectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
             boundingRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
 
             velocity = Vector2.Zero;
@@ -150,6 +163,11 @@ namespace ProjectPrototype
         {
             CurrentAnimation = Animations[animationName];
             CurrentAnimation.resetFrameIndex();
+        }
+
+        protected Rectangle updateAnimation(GameTime gametime)
+        {
+            return CurrentAnimation.Update(gametime);
         }
     }
 }

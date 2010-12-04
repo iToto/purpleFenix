@@ -16,20 +16,22 @@ namespace ProjectPrototype
         int frameWidth;
         int frameHeight;
         int frameIndex;
+        int frameCount;
 
         TimeSpan delay;
         TimeSpan timeSinceFrameChange;
 
-        //Texture2D spriteSheet;
-
-        public Animation(string name, int[] frames, int frameDelay, bool looped, int frameWidth, int frameHeight)
+        public Animation(string name, int[] frames, int frameRate, bool looped, int frameWidth, int frameHeight)
         {
             this.name = name;
             this.frames = frames;
-            this.delay = new TimeSpan(0, 0, frameDelay);
             this.looped = looped;
             this.frameWidth = frameWidth;
             this.frameHeight = frameHeight;
+            this.frameCount = this.frames.Count();
+
+            int miliseconds = 1000 / frameRate;
+            this.delay = new TimeSpan(0, 0, 0, 0, miliseconds);
 
             this.timeSinceFrameChange = new TimeSpan(0);
         }
@@ -44,7 +46,21 @@ namespace ProjectPrototype
                 timeSinceFrameChange = new TimeSpan(0);
             }
 
+            if (frameIndex >= frameCount)
+            {
+                if (looped)
+                {
+                    frameIndex = frameIndex % frameCount;
+                }
+                else
+                {
+                    frameIndex = frameCount - 1;
+                }
+            }
+
             int currentFrame = this.frames[frameIndex];
+
+            int xPosition = currentFrame * frameWidth;
 
             return new Rectangle(currentFrame * frameWidth, 0, frameWidth, frameHeight);
         }
