@@ -339,7 +339,8 @@ namespace ProjectPrototype
         public void Kill()
         {
             this.alive = false;
-            this.ExplosionManager.play(this.position);
+            this.ExplosionManager.play(this.position, 
+                new Vector2(this.spriteWidth, this.spriteHeight));
         }
     }
 }

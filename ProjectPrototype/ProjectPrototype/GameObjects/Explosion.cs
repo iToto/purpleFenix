@@ -12,9 +12,11 @@ namespace ProjectPrototype
     {
         public bool DoneAnimating { protected set; get; }
 
-        public Explosion(Texture2D loadedTexture)
-            : base(loadedTexture, new Vector2(32, 32))
+        public Explosion(Texture2D loadedTexture, Vector2 size, Vector2 position)
+            : base(loadedTexture, size)
         {
+            this.position = position;
+
             AddAnimation("explode", new int[5] {0, 1, 2, 3, 4}, 10, false);
             play("explode");
         }
