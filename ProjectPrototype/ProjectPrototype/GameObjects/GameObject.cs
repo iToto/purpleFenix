@@ -25,9 +25,17 @@ namespace ProjectPrototype
         public Element element;
         public int health;
 
+        int spriteWidth;
+        int spriteHeight;
+
+        Dictionary<string, Animation> Animations;
+        Animation CurrentAnimation;
+
         public GameObject(Texture2D loadedTexture)
         {
             sprite = loadedTexture;
+            this.spriteWidth = sprite.Width;
+            this.spriteHeight = sprite.Height;
 
             reset();
 
@@ -46,6 +54,20 @@ namespace ProjectPrototype
         public GameObject(Texture2D loadedTexture, Element element, int health)
         {
             sprite = loadedTexture;
+            this.spriteWidth = sprite.Width;
+            this.spriteHeight = sprite.Height;
+
+            reset();
+
+            this.element = element;
+            this.health = health;
+        }
+
+        public GameObject(Texture2D loadedTexture, Element element, int health, Vector2 size)
+        {
+            sprite = loadedTexture;
+            this.spriteWidth = (int)size.X;
+            this.spriteHeight = (int)size.Y;
 
             reset();
 
@@ -56,7 +78,8 @@ namespace ProjectPrototype
         private void reset()
         {
             rotation = 0.0f;
-            boundingRectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            //boundingRectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            boundingRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
 
             velocity = Vector2.Zero;
             position = Vector2.Zero;
@@ -111,6 +134,22 @@ namespace ProjectPrototype
                     break;
             }
             return returnValue;
+        }
+
+        public void AddAnimation(string name, int[] frames, int frameDelay, bool looped)
+        {
+            if (Animations == null)
+            {
+                Animations = new Dictionary<string, Animation>();
+            }
+
+            Animations.Add(name, new Animation(name, frames, frameDelay, looped, spriteWidth, spriteHeight));
+        }
+
+        public void play(string animationName)
+        {
+            CurrentAnimation = Animations[animationName];
+            CurrentAnimation.resetFrameIndex();
         }
     }
 }
