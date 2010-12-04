@@ -9,6 +9,7 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 #endregion
 
 namespace ProjectPrototype
@@ -18,6 +19,9 @@ namespace ProjectPrototype
     /// </summary>
     class MainMenuScreen : MenuScreen
     {
+        SoundBank soundBank;
+        WaveBank waveBank;
+
         #region Initialization
 
 
@@ -41,8 +45,20 @@ namespace ProjectPrototype
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
+
+           
         }
 
+        public override void LoadContent()
+        {
+            base.LoadContent();
+            //Load Music
+            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xsb");
+            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xwb");
+
+            //Play Song
+            soundBank.PlayCue("menuMusic");
+        }
 
         #endregion
 

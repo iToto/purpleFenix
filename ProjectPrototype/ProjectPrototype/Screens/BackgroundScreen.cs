@@ -55,7 +55,7 @@ namespace ProjectPrototype
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            backgroundTexture = content.Load<Texture2D>("FrontEnd\\background");
+            backgroundTexture = content.Load<Texture2D>("FrontEnd\\MainMenuBackground");
         }
 
 
