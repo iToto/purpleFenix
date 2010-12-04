@@ -39,7 +39,7 @@ namespace ProjectPrototype
             this.hasActiveBullets = false;
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
+                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\ice-sheet")));
             }
         }
 
@@ -92,10 +92,7 @@ namespace ProjectPrototype
 
             foreach (Bullet bullet in bullets)
             {
-                if (bullet.alive)
-                {
-                    spritebatch.Draw(bullet.sprite, bullet.position, Color.White);
-                }
+                bullet.Draw(spritebatch);
             }
         }
 
