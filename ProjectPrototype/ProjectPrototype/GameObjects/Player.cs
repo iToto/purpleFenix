@@ -26,6 +26,8 @@ namespace ProjectPrototype
         bool isShooting = false;
         public List<Bullet> bullets = new List<Bullet>();
 
+        protected ExplosionManager ExplosionManager { set; get; }
+        
         HealthBar healthBar;
 
         public new int Health
@@ -43,7 +45,7 @@ namespace ProjectPrototype
                   
         }
 
-        public Player(Texture2D loadedTexture, ContentManager content)
+        public Player(Texture2D loadedTexture, ContentManager content, ExplosionManager explosionManager)
             : base(loadedTexture, new Vector2(32, 32))
         {
             this.alive = true;
@@ -64,6 +66,8 @@ namespace ProjectPrototype
             {
                 bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
             }
+
+            this.ExplosionManager = explosionManager;
         }
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
@@ -330,6 +334,12 @@ namespace ProjectPrototype
                     }
                 }
             }
+        }
+
+        public void Kill()
+        {
+            this.alive = false;
+            this.ExplosionManager.play(this.position);
         }
     }
 }

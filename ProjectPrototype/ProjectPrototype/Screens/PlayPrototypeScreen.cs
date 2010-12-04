@@ -21,6 +21,7 @@ namespace ProjectPrototype
 
         Player playerOne;
         List<Enemy> enemies = new List<Enemy>();
+        ExplosionManager explosionManager;
 
         Map levelOne;
 
@@ -46,6 +47,9 @@ namespace ProjectPrototype
             
             EnemyFactory.content = content;
 
+            //Initialize Explosion Manager
+            explosionManager = new ExplosionManager(content);
+
             //Load Level
             levelOne = new Map("Content\\Maps\\testMap.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
 
@@ -53,7 +57,7 @@ namespace ProjectPrototype
 
             //Initialize First Player
             //playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShipAnimationTest"), content);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShipAnimationTest"), content, explosionManager);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
@@ -61,7 +65,7 @@ namespace ProjectPrototype
        
             ShootingPattern.shootSpread(playerOne.bullets, content);
             //ShootingPattern.shootStraight(bullets, content);
-            //ShootingPattern.shootSperatic(bullets,content);           
+            //ShootingPattern.shootSperatic(bullets,content); 
         }
 
 
@@ -93,6 +97,8 @@ namespace ProjectPrototype
                     enemy.Update(ref viewportRect, gameTime, players);
                 }
             }
+
+            explosionManager.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -104,6 +110,8 @@ namespace ProjectPrototype
             levelOne.Draw(ScreenManager.SpriteBatch);
             
             playerOne.Draw(ScreenManager.SpriteBatch);
+
+            explosionManager.Draw(ScreenManager.SpriteBatch);
 
             foreach (Enemy enemy in enemies)
             {

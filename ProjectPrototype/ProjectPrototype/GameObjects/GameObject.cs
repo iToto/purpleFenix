@@ -35,7 +35,7 @@ namespace ProjectPrototype
         protected int spriteHeight;
 
         Dictionary<string, Animation> Animations;
-        Animation CurrentAnimation;
+        public Animation CurrentAnimation { protected set; get; }
         protected Rectangle frameRectangle;
 
         public GameObject(Texture2D loadedTexture)
@@ -155,14 +155,14 @@ namespace ProjectPrototype
             return returnValue;
         }
 
-        public void AddAnimation(string name, int[] frames, int frameDelay, bool looped)
+        public void AddAnimation(string name, int[] frames, int frameRate, bool looped)
         {
             if (Animations == null)
             {
                 Animations = new Dictionary<string, Animation>();
             }
 
-            Animations.Add(name, new Animation(name, frames, frameDelay, looped, spriteWidth, spriteHeight));
+            Animations.Add(name, new Animation(name, frames, frameRate, looped, spriteWidth, spriteHeight));
         }
 
         public void play(string animationName)
