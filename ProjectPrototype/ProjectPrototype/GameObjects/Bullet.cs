@@ -20,14 +20,16 @@ namespace ProjectPrototype
         public bulletType type;
 
         public Bullet(Texture2D loadedTexture)
-            : base(loadedTexture)
+            : base(loadedTexture, new Vector2(16, 16))
         {
-            
+            AddAnimation("normal", new int[3] { 0, 1, 2 }, 15, true);
+            play("normal");
         }
                 
-        public void Update(ref Rectangle viewportRect)
+        public void Update(ref Rectangle viewportRect, GameTime gametime)
         {
-            //System.Diagnostics.Debug.Print("Alive: " + this.alive + "\n");
+            this.frameRectangle = updateAnimation(gametime);
+
             if (this.alive)
             {
                 this.position.X += this.velocity.X;
@@ -40,6 +42,16 @@ namespace ProjectPrototype
             if (!viewportRect.Contains(new Point((int)this.boundingRectangle.Center.X, (int)this.boundingRectangle.Center.Y)))
             {
                 this.alive = false;
+            }
+        }
+
+        public void Draw(SpriteBatch spritebatch)
+        {
+            if (this.alive)
+            {
+                spritebatch.Draw(this.sprite,
+                    new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight),
+                    this.frameRectangle, Color.White);
             }
         }
     }
