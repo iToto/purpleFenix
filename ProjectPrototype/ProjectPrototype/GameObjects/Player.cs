@@ -54,9 +54,9 @@ namespace ProjectPrototype
             this.health = 100;
 
 
-            this.AddAnimation("normal", new int[1] {0}, 4, true);
-            this.AddAnimation("colors", new int[2] { 0, 1 }, 4, false);
-            this.play("colors");
+            this.AddAnimation("normal", new int[1] {0}, 4, false);
+            //this.AddAnimation("colors", new int[2] { 0, 1 }, 4, false);
+            this.play("normal");
 
             healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
             healthBar.position = new Vector2(10, 20);

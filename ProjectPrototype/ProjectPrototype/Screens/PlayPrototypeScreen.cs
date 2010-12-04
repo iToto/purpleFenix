@@ -57,7 +57,7 @@ namespace ProjectPrototype
 
             //Initialize First Player
             //playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShipAnimationTest"), content, explosionManager);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content, explosionManager);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
