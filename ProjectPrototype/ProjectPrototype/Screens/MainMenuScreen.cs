@@ -9,6 +9,7 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 #endregion
 
 namespace ProjectPrototype
@@ -18,6 +19,9 @@ namespace ProjectPrototype
     /// </summary>
     class MainMenuScreen : MenuScreen
     {
+        SoundBank soundBank;
+        WaveBank waveBank;
+
         #region Initialization
 
 
@@ -25,12 +29,12 @@ namespace ProjectPrototype
         /// Constructor fills in the menu contents.
         /// </summary>
         public MainMenuScreen()
-            : base("Main Menu")
+            : base("MAIN MENU")
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
-            MenuEntry optionsMenuEntry = new MenuEntry("Options");
-            MenuEntry exitMenuEntry = new MenuEntry("Exit");
+            MenuEntry playGameMenuEntry = new MenuEntry("PLAY GAME");
+            MenuEntry optionsMenuEntry = new MenuEntry("OPTIONS");
+            MenuEntry exitMenuEntry = new MenuEntry("QUIT");
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
@@ -41,8 +45,20 @@ namespace ProjectPrototype
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
+
+           
         }
 
+        public override void LoadContent()
+        {
+            base.LoadContent();
+            //Load Music
+            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xsb");
+            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xwb");
+
+            //Play Song
+            soundBank.PlayCue("menuMusic");
+        }
 
         #endregion
 
@@ -55,7 +71,7 @@ namespace ProjectPrototype
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
-                               new GameplayScreen());
+                               new PlayPrototypeScreen());
         }
 
 
@@ -73,7 +89,7 @@ namespace ProjectPrototype
         /// </summary>
         protected override void OnCancel(PlayerIndex playerIndex)
         {
-            const string message = "Are you sure you want to exit this sample?";
+            const string message = "ARE YOU SURE YOU WANT TO QUIT PURPLE FENIX?";
 
             MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
 

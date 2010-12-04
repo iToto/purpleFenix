@@ -26,22 +26,25 @@ namespace ProjectPrototype
         /// Constructor.
         /// </summary>
         public PauseMenuScreen()
-            : base("Paused")
+            : base("PAUSED")
         {
             // Flag that there is no need for the game to transition
             // off when the pause menu is on top of it.
             IsPopup = true;
 
             // Create our menu entries.
-            MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game");
-            MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
+            MenuEntry resumeGameMenuEntry = new MenuEntry("RESUME GAME");
+            MenuEntry optionsGameMenuEntry = new MenuEntry("OPTIONS");
+            MenuEntry quitGameMenuEntry = new MenuEntry("QUIT GAMSE");
             
             // Hook up menu event handlers.
             resumeGameMenuEntry.Selected += OnCancel;
+            optionsGameMenuEntry.Selected += OptionsMenuScreenSelected;
             quitGameMenuEntry.Selected += QuitGameMenuEntrySelected;
 
             // Add entries to the menu.
             MenuEntries.Add(resumeGameMenuEntry);
+            MenuEntries.Add(optionsGameMenuEntry);
             MenuEntries.Add(quitGameMenuEntry);
         }
 
@@ -56,13 +59,18 @@ namespace ProjectPrototype
         /// </summary>
         void QuitGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            const string message = "Are you sure you want to quit this game?";
+            const string message = "QUIT THIS AWESOME GAME?";
 
             MessageBoxScreen confirmQuitMessageBox = new MessageBoxScreen(message);
 
             confirmQuitMessageBox.Accepted += ConfirmQuitMessageBoxAccepted;
 
             ScreenManager.AddScreen(confirmQuitMessageBox, ControllingPlayer);
+        }
+
+        void OptionsMenuScreenSelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.AddScreen(new OptionsMenuScreen(), ControllingPlayer);
         }
 
 

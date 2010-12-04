@@ -21,9 +21,10 @@ namespace ProjectPrototype
 
         Player playerOne;
         List<Enemy> enemies = new List<Enemy>();
-        ExplosionManager explosionManager;
         SoundBank soundBank;
+        ExplosionManager explosionManager;
         WaveBank waveBank;
+        
 
         Map levelOne;
 
@@ -85,29 +86,35 @@ namespace ProjectPrototype
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-            List<Player> players = new List<Player>();
-
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
-
-            //Update player One
-            playerOne.Update(ref viewportRect, gameTime, enemies);
-            
-            // Add playerOne to the alive players array.
-            if (playerOne.alive)
+            if (!otherScreenHasFocus)
             {
-                players.Add(playerOne);
+                List<Player> players = new List<Player>();
+
+                Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+                Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
+
+                //Update player One
+                playerOne.Update(ref viewportRect, gameTime, enemies);
+
+                // Add playerOne to the alive players array.
+                if (playerOne.alive)
+                {
+                    players.Add(playerOne);
+                }
+
+                levelOne.Update(enemies);
+
+                //Update enemies
+                foreach (Enemy enemy in enemies)
+                {
+                if (enemy.hasActiveBullets || enemy.alive)
+                {
+                    enemy.Update(ref viewportRect, gameTime, players);
+                }
             }
 
-            levelOne.Update(enemies);
-
-            //Update enemies
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Update(ref viewportRect, gameTime, players);
+                explosionManager.Update(gameTime);
             }
-
-            explosionManager.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -145,10 +152,10 @@ namespace ProjectPrototype
 
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
-                ScreenManager.Game.Exit();
+                //ScreenManager.Game.Exit();
             }
 #endif
-            playerOne.HandleInput(input, PlayerIndex.One);
+            playerOne.HandleInput(input, PlayerIndex.One,ScreenManager);
             //playerTwo.HandleInput(input, bullets, PlayerIndex.Two);
             //playerThree.HandleInput(input, bullets, PlayerIndex.Three);
             //playerFour.HandleInput(input, bullets, PlayerIndex.Four);

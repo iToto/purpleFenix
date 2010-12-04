@@ -173,7 +173,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void HandleInput(InputState input, PlayerIndex playerIndex)
+        public void HandleInput(InputState input, PlayerIndex playerIndex,ScreenManager screenManager)
         {
             if (!this.alive)
             {
@@ -234,6 +234,14 @@ namespace ProjectPrototype
             {
                 this.isShooting = false;
             }
+
+            //Check for Pause
+            if (input.IsPauseGame(playerIndex))
+            {
+                screenManager.AddScreen(new PauseMenuScreen(), null);
+            }
+
+
 #endif
         }
 
