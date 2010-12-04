@@ -75,9 +75,11 @@ namespace ProjectPrototype
             Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             //Update player One
+            playerOne.Update(ref viewportRect, gameTime, enemies);
+            
+            // Add playerOne to the alive players array.
             if (playerOne.alive)
             {
-                playerOne.Update(ref viewportRect, gameTime, enemies);
                 players.Add(playerOne);
             }
 
@@ -100,10 +102,8 @@ namespace ProjectPrototype
             ScreenManager.SpriteBatch.Begin();
 
             levelOne.Draw(ScreenManager.SpriteBatch);
-            if (playerOne.alive)
-            {
-                playerOne.Draw(ScreenManager.SpriteBatch);
-            }
+            
+            playerOne.Draw(ScreenManager.SpriteBatch);
 
             foreach (Enemy enemy in enemies)
             {

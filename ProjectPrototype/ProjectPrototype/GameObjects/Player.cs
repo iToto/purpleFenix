@@ -68,50 +68,53 @@ namespace ProjectPrototype
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
         {
-            frameRectangle = this.updateAnimation(gameTime);
-
-            this.position.X += this.velocity.X;
-            this.position.Y += this.velocity.Y;
-
-            this.boundingRectangle.X = (int)this.position.X;
-            this.boundingRectangle.Y = (int)this.position.Y;
-
-            if (this.position.X < 0)
+            if (this.alive)
             {
-                this.position.X = 0;
-            }
+                frameRectangle = this.updateAnimation(gameTime);
 
-            if (this.position.X > viewportRect.Width - this.sprite.Width)
-            {
-                this.position.X = viewportRect.Width - this.sprite.Width;
-            }
+                this.position.X += this.velocity.X;
+                this.position.Y += this.velocity.Y;
 
-            if (this.position.Y < 0)
-            {
-                this.position.Y = 0;
-            }
+                this.boundingRectangle.X = (int)this.position.X;
+                this.boundingRectangle.Y = (int)this.position.Y;
 
-            if (this.position.Y > (viewportRect.Height - this.sprite.Height))
-            {
-                this.position.Y = viewportRect.Height - this.sprite.Height;
-            }
-
-            if (this.isShooting)
-            {
-                if (timeSinceLastShot == new TimeSpan(0))
+                if (this.position.X < 0)
                 {
-                    this.Fire();
+                    this.position.X = 0;
                 }
 
-                timeSinceLastShot += gameTime.ElapsedGameTime;
-                if (timeSinceLastShot >= timeBetweenShots)
+                if (this.position.X > viewportRect.Width - this.sprite.Width)
                 {
-                    timeSinceLastShot = new TimeSpan(0);
+                    this.position.X = viewportRect.Width - this.sprite.Width;
                 }
+
+                if (this.position.Y < 0)
+                {
+                    this.position.Y = 0;
+                }
+
+                if (this.position.Y > (viewportRect.Height - this.sprite.Height))
+                {
+                    this.position.Y = viewportRect.Height - this.sprite.Height;
+                }
+
+                if (this.isShooting)
+                {
+                    if (timeSinceLastShot == new TimeSpan(0))
+                    {
+                        this.Fire();
+                    }
+
+                    timeSinceLastShot += gameTime.ElapsedGameTime;
+                    if (timeSinceLastShot >= timeBetweenShots)
+                    {
+                        timeSinceLastShot = new TimeSpan(0);
+                    }
+                }
+
+                CheckEnemyCollision(enemies);
+
             }
-
-            CheckEnemyCollision(enemies);
-
 
             //Update Bullets and collide with enemies
             foreach (Bullet bullet in bullets)
@@ -157,8 +160,13 @@ namespace ProjectPrototype
         public void Draw(SpriteBatch spritebatch)
         {
             //spritebatch.Draw(this.sprite, this.position, Color.White);
-            spritebatch.Draw(this.sprite, this.position, this.frameRectangle, Color.White);
+            if (this.alive)
+            {
+                spritebatch.Draw(this.sprite, this.position, this.frameRectangle, Color.White);
+            }
+
             healthBar.Draw(spritebatch);
+            
             foreach (Bullet bullet in bullets)
             {
                 if (bullet.alive)
