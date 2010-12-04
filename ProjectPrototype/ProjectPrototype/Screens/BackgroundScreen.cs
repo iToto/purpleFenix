@@ -26,7 +26,7 @@ namespace ProjectPrototype
         #region Fields
 
         ContentManager content;
-        //Texture2D backgroundTexture;
+        Texture2D backgroundTexture;
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace ProjectPrototype
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            //backgroundTexture = content.Load<Texture2D>("background");
+            backgroundTexture = content.Load<Texture2D>("FrontEnd\\background");
         }
 
 
@@ -99,8 +99,8 @@ namespace ProjectPrototype
 
             spriteBatch.Begin(SpriteBlendMode.None);
 
-            //spriteBatch.Draw(backgroundTexture, fullscreen,
-            //                 new Color(fade, fade, fade));
+            spriteBatch.Draw(backgroundTexture, fullscreen,
+                             new Color(fade, fade, fade));
             spriteBatch.DrawString(ScreenManager.Font, "HELLO", Vector2.Zero, Color.Green); 
 
             spriteBatch.End();

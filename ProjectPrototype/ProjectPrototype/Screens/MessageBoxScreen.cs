@@ -54,8 +54,8 @@ namespace ProjectPrototype
         /// </summary>
         public MessageBoxScreen(string message, bool includeUsageText)
         {
-            const string usageText = "\nA button, Space, Enter = ok" +
-                                     "\nB button, Esc = cancel"; 
+            const string usageText = "\nA BUTTON = OK" +
+                                     "\nB BUTTON = CANCEL"; 
             
             if (includeUsageText)
                 this.message = message + usageText;
@@ -79,7 +79,7 @@ namespace ProjectPrototype
         {
             ContentManager content = ScreenManager.Game.Content;
 
-            gradientTexture = content.Load<Texture2D>("gradient");
+            gradientTexture = content.Load<Texture2D>("FrontEnd\\gradient");
         }
 
 

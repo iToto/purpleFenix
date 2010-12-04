@@ -36,7 +36,7 @@ namespace ProjectPrototype
 
         static Ungulate currentUngulate = Ungulate.Dromedary;
 
-        static string[] languages = { "C#", "French", "Deoxyribonucleic acid" };
+        static string[] dificulties = { "EASY", "MEDIUM", "HARD" };
         static int currentLanguage = 0;
 
         static bool frobnicate = true;
@@ -52,7 +52,7 @@ namespace ProjectPrototype
         /// Constructor.
         /// </summary>
         public OptionsMenuScreen()
-            : base("Options")
+            : base("OPTIONS")
         {
             // Create our menu entries.
             ungulateMenuEntry = new MenuEntry(string.Empty);
@@ -62,7 +62,7 @@ namespace ProjectPrototype
 
             SetMenuEntryText();
 
-            MenuEntry backMenuEntry = new MenuEntry("Back");
+            MenuEntry backMenuEntry = new MenuEntry("BACK");
 
             // Hook up menu event handlers.
             ungulateMenuEntry.Selected += UngulateMenuEntrySelected;
@@ -85,10 +85,10 @@ namespace ProjectPrototype
         /// </summary>
         void SetMenuEntryText()
         {
-            ungulateMenuEntry.Text = "Preferred ungulate: " + currentUngulate;
-            languageMenuEntry.Text = "Language: " + languages[currentLanguage];
-            frobnicateMenuEntry.Text = "Frobnicate: " + (frobnicate ? "on" : "off");
-            elfMenuEntry.Text = "elf: " + elf;
+            languageMenuEntry.Text = "DIFFICULTY: " + dificulties[currentLanguage];
+            ungulateMenuEntry.Text = "OPTION 1: " + currentUngulate;            
+            frobnicateMenuEntry.Text = "OPTION 2: " + (frobnicate ? "ON" : "OFF");
+            elfMenuEntry.Text = "ELF: " + elf;
         }
 
 
@@ -116,7 +116,7 @@ namespace ProjectPrototype
         /// </summary>
         void LanguageMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            currentLanguage = (currentLanguage + 1) % languages.Length;
+            currentLanguage = (currentLanguage + 1) % dificulties.Length;
 
             SetMenuEntryText();
         }
