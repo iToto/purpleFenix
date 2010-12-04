@@ -177,5 +177,15 @@ namespace ProjectPrototype
         {
             return CurrentAnimation.Update(gametime);
         }
+
+        public virtual void Kill()
+        {
+            this.alive = false;
+        }
+
+        public virtual void Damage(int damageTaken)
+        {
+            this.Health -= damageTaken;
+        }
     }
 }

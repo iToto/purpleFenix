@@ -119,40 +119,10 @@ namespace ProjectPrototype
             //Update Bullets and collide with enemies
             foreach (Bullet bullet in bullets)
             {
-                if (bullet.alive)
+                bullet.Update(ref viewportRect, gameTime);
+                foreach (Enemy enemy in enemies)
                 {
-                    bullet.Update(ref viewportRect, gameTime);
-                    foreach (Enemy enemy in enemies)
-                    {
-                        if (enemy.alive)
-                        {
-                            if (bullet.boundingRectangle.Intersects(enemy.boundingRectangle))
-                            {
-                                switch (bullet.CompareElements(enemy))
-                                {
-                                    case Defense.Standard:
-                                        enemy.Health -= 2;
-                                        break;
-                                    case Defense.Strong:
-                                        enemy.Health -= 1;
-                                        break;
-                                    case Defense.Weak:
-                                        enemy.Health -= 4;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                System.Diagnostics.Debug.Print("Enemy Health: " + enemy.Health + "\n");
-
-                                bullet.alive = false;
-
-                                if (enemy.Health <= 0)
-                                    enemy.Kill();
-
-                                break;
-                            }
-                        }
-                    }
+                    bullet.Collide(enemy);
                 }
             }
         }
@@ -337,11 +307,16 @@ namespace ProjectPrototype
             }
         }
 
-        public void Kill()
+        public override void Kill()
         {
             this.alive = false;
             GameObject.ExplosionManager.play(this.position, 
                 new Vector2(this.spriteWidth, this.spriteHeight));
+        }
+
+        public override void Damage(int damageTaken)
+        {
+            this.Health -= damageTaken;
         }
     }
 }

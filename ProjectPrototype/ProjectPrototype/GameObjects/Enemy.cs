@@ -39,7 +39,7 @@ namespace ProjectPrototype
             this.hasActiveBullets = false;
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\ice-sheet")));
+                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
             }
         }
 
@@ -72,42 +72,14 @@ namespace ProjectPrototype
             }
 
 
-                //Update Bullets and collide with enemies
-                foreach (Bullet bullet in bullets)
+            //Update Bullets and collide with enemies
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Update(ref viewportRect, gameTime);
+                foreach (Player player in players)
                 {
-                    if (bullet.alive)
-                    {
-                        bullet.Update(ref viewportRect, gameTime);
-                        foreach (Player player in players)
-                        {
-                            if (player.alive)
-                            {
-                                if (bullet.boundingRectangle.Intersects(player.boundingRectangle))
-                                {
-                                    switch (bullet.CompareElements(player))
-                                    {
-                                        case Defense.Standard:
-                                            player.Health -= 2;
-                                            break;
-                                        case Defense.Strong:
-                                            player.Health -= 1;
-                                            break;
-                                        case Defense.Weak:
-                                            player.Health -= 4;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    bullet.alive = false;
-                                    if (player.Health <= 0)
-                                        player.Kill();
-
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
+                    bullet.Collide(player);
+                }
             }
         }
 
@@ -120,7 +92,10 @@ namespace ProjectPrototype
 
             foreach (Bullet bullet in bullets)
             {
-                bullet.Draw(spritebatch);
+                if (bullet.alive)
+                {
+                    spritebatch.Draw(bullet.sprite, bullet.position, Color.White);
+                }
             }
         }
 
@@ -211,7 +186,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void Kill()
+        public override void Kill()
         {
             this.alive = false;
             GameObject.ExplosionManager.play(this.position,

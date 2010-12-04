@@ -107,11 +107,8 @@ namespace ProjectPrototype
                 //Update enemies
                 foreach (Enemy enemy in enemies)
                 {
-                if (enemy.hasActiveBullets || enemy.alive)
-                {
                     enemy.Update(ref viewportRect, gameTime, players);
                 }
-            }
 
                 explosionManager.Update(gameTime);
             }
@@ -131,10 +128,7 @@ namespace ProjectPrototype
 
             foreach (Enemy enemy in enemies)
             {
-                if (enemy.alive || enemy.hasActiveBullets)
-                {
-                    enemy.Draw(ScreenManager.SpriteBatch);
-                }
+                enemy.Draw(ScreenManager.SpriteBatch);
             }
 
             ScreenManager.SpriteBatch.DrawString(ScreenManager.Font, "PROTOTYPE", Vector2.Zero, Color.White);

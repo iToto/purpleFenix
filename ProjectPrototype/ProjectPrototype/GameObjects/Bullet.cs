@@ -25,7 +25,7 @@ namespace ProjectPrototype
             AddAnimation("normal", new int[3] { 0, 1, 2 }, 15, true);
             play("normal");
         }
-                
+
         public void Update(ref Rectangle viewportRect, GameTime gametime)
         {
             this.frameRectangle = updateAnimation(gametime);
@@ -42,6 +42,37 @@ namespace ProjectPrototype
             if (!viewportRect.Contains(new Point((int)this.boundingRectangle.Center.X, (int)this.boundingRectangle.Center.Y)))
             {
                 this.alive = false;
+            }
+
+ 
+        }
+
+        public void Collide(GameObject opponent)
+        {
+            if (opponent.alive && this.alive)
+            {
+                if (this.boundingRectangle.Intersects(opponent.boundingRectangle))
+                {
+                    switch (this.CompareElements(opponent))
+                    {
+                        case Defense.Standard:
+                            opponent.Damage(2);
+                            break;
+                        case Defense.Strong:
+                            opponent.Damage(1);
+                            break;
+                        case Defense.Weak:
+                            opponent.Damage(4);
+                            break;
+                        default:
+                            break;
+                    }
+                    this.alive = false;
+                    if (opponent.Health <= 0)
+                    {
+                        opponent.Kill();
+                    }
+                }
             }
         }
 
