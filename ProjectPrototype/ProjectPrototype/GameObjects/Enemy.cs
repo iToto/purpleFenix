@@ -83,19 +83,19 @@ namespace ProjectPrototype
                                 switch (bullet.CompareElements(player))
                                 {
                                     case Defense.Standard:
-                                        player.health -= 2;
+                                        player.Health -= 2;
                                         break;
                                     case Defense.Strong:
-                                        player.health -= 1;
+                                        player.Health -= 1;
                                         break;
                                     case Defense.Weak:
-                                        player.health -= 4;
+                                        player.Health -= 4;
                                         break;
                                     default:
                                         break;
                                 }
                                 bullet.alive = false;
-                                if(player.health <= 0)
+                                if(player.Health <= 0)
                                     player.alive = false;
 
                                 break;

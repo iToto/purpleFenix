@@ -23,7 +23,13 @@ namespace ProjectPrototype
         public Rectangle boundingRectangle;
         public bool alive;
         public Element element;
-        public int health;
+
+        protected int health;
+        public int Health
+        {
+            set { this.health = value; }
+            get { return this.health; }
+        }
 
         protected int spriteWidth;
         protected int spriteHeight;

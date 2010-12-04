@@ -90,6 +90,7 @@
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\EnemyFactory.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\HealthBar.cs" />
     <Compile Include="GameObjects\MovementPath.cs">
       <SubType>Code</SubType>
     </Compile>

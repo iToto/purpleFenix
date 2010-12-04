@@ -26,6 +26,23 @@ namespace ProjectPrototype
         bool isShooting = false;
         public List<Bullet> bullets = new List<Bullet>();
 
+        HealthBar healthBar;
+
+        public new int Health
+        {
+            set
+            {
+                this.health = value;
+                this.healthBar.CurrentHealth = (int)MathHelper.Clamp(value, 0, this.healthBar.maxHealth);
+            }
+
+            get
+            {
+                return this.health;
+            }
+                  
+        }
+
         public Player(Texture2D loadedTexture, ContentManager content)
             : base(loadedTexture, new Vector2(32, 32))
         {
@@ -38,6 +55,9 @@ namespace ProjectPrototype
             this.AddAnimation("normal", new int[1] {0}, 4, true);
             this.AddAnimation("colors", new int[2] { 0, 1 }, 4, false);
             this.play("colors");
+
+            healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
+            healthBar.position = new Vector2(10, 20);
             
             //Initialize Bullets
             for (int i = 0; i < MAX_BULLETS; ++i)
@@ -108,22 +128,22 @@ namespace ProjectPrototype
                                 switch (bullet.CompareElements(enemy))
                                 {
                                     case Defense.Standard:
-                                        enemy.health -= 2;
+                                        enemy.Health -= 2;
                                         break;
                                     case Defense.Strong:
-                                        enemy.health -= 1;
+                                        enemy.Health -= 1;
                                         break;
                                     case Defense.Weak:
-                                        enemy.health -= 4;
+                                        enemy.Health -= 4;
                                         break;
                                     default:
                                         break;
                                 }
-                                System.Diagnostics.Debug.Print("Enemy Health: " + enemy.health + "\n");
+                                System.Diagnostics.Debug.Print("Enemy Health: " + enemy.Health + "\n");
 
                                 bullet.alive = false;
 
-                                if(enemy.health <= 0)
+                                if(enemy.Health <= 0)
                                     enemy.alive = false;
 
                                 break;
@@ -138,6 +158,7 @@ namespace ProjectPrototype
         {
             //spritebatch.Draw(this.sprite, this.position, Color.White);
             spritebatch.Draw(this.sprite, this.position, this.frameRectangle, Color.White);
+            healthBar.Draw(spritebatch);
             foreach (Bullet bullet in bullets)
             {
                 if (bullet.alive)
