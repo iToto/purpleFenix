@@ -35,8 +35,6 @@ namespace ProjectPrototype
             spritebatch.Draw(this.sprite, 
                 new Rectangle((int)this.position.X, (int)this.position.Y, (int)this.explosionSize.X, (int)this.explosionSize.Y), 
                 this.frameRectangle, Color.White);
-
-            System.Diagnostics.Debug.Print(this.frameRectangle.ToString());
         }
     }
 }
