@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 #endregion
 
 namespace ProjectPrototype
@@ -36,6 +37,7 @@ namespace ProjectPrototype
         SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
+        public AudioEngine engine;
 
         bool isInitialized;
 
@@ -110,6 +112,8 @@ namespace ProjectPrototype
         {
             // Load content belonging to the screen manager.
             ContentManager content = Game.Content;
+
+            engine = new AudioEngine("Content\\Music\\XACT\\music.xgs");
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>("Fonts/BrownPixels");

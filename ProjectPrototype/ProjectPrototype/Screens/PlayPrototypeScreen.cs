@@ -21,6 +21,8 @@ namespace ProjectPrototype
 
         Player playerOne;
         List<Enemy> enemies = new List<Enemy>();
+        SoundBank soundBank;
+        WaveBank waveBank;
 
         Map levelOne;
 
@@ -49,6 +51,10 @@ namespace ProjectPrototype
             //Load Level
             levelOne = new Map("Content\\Maps\\testMap.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
 
+            //Load Music
+            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
+            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xwb");
+
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
@@ -61,7 +67,10 @@ namespace ProjectPrototype
        
             ShootingPattern.shootSpread(playerOne.bullets, content);
             //ShootingPattern.shootStraight(bullets, content);
-            //ShootingPattern.shootSperatic(bullets,content);           
+            //ShootingPattern.shootSperatic(bullets,content);
+
+            //Play Song
+            soundBank.PlayCue("Level Song 1");
         }
 
 
