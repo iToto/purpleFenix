@@ -44,11 +44,15 @@ namespace ProjectPrototype
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-            
-            EnemyFactory.content = content;
-
+         
             //Initialize Explosion Manager
             explosionManager = new ExplosionManager(content);
+
+            //Init the explosion manager for all game objects
+            GameObject.ExplosionManager = explosionManager;
+
+            //Init a Content Manager for the enemy factory
+            EnemyFactory.content = content;
 
             //Load Level
             levelOne = new Map("Content\\Maps\\testMap.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
@@ -56,8 +60,7 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            //playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content, explosionManager);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
@@ -92,10 +95,7 @@ namespace ProjectPrototype
             //Update enemies
             foreach (Enemy enemy in enemies)
             {
-                if (enemy.hasActiveBullets || enemy.alive)
-                {
-                    enemy.Update(ref viewportRect, gameTime, players);
-                }
+                enemy.Update(ref viewportRect, gameTime, players);
             }
 
             explosionManager.Update(gameTime);

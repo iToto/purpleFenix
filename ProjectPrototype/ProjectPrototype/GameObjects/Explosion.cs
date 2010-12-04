@@ -29,6 +29,7 @@ namespace ProjectPrototype
 
         public void Draw(SpriteBatch spritebatch)
         {
+            System.Diagnostics.Debug.Print("Width: " + this.spriteWidth.ToString() + " Height: " + this.spriteHeight.ToString());
             spritebatch.Draw(this.sprite, 
                 new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight), 
                 this.frameRectangle, Color.White);

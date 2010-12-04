@@ -25,8 +25,6 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
         bool isShooting = false;
         public List<Bullet> bullets = new List<Bullet>();
-
-        protected ExplosionManager ExplosionManager { set; get; }
         
         HealthBar healthBar;
 
@@ -45,7 +43,7 @@ namespace ProjectPrototype
                   
         }
 
-        public Player(Texture2D loadedTexture, ContentManager content, ExplosionManager explosionManager)
+        public Player(Texture2D loadedTexture, ContentManager content)
             : base(loadedTexture, new Vector2(32, 32))
         {
             this.alive = true;
@@ -66,8 +64,6 @@ namespace ProjectPrototype
             {
                 bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet")));
             }
-
-            this.ExplosionManager = explosionManager;
         }
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
@@ -150,8 +146,8 @@ namespace ProjectPrototype
 
                                 bullet.alive = false;
 
-                                if(enemy.Health <= 0)
-                                    enemy.alive = false;
+                                if (enemy.Health <= 0)
+                                    enemy.Kill();
 
                                 break;
                             }
@@ -339,7 +335,7 @@ namespace ProjectPrototype
         public void Kill()
         {
             this.alive = false;
-            this.ExplosionManager.play(this.position, 
+            GameObject.ExplosionManager.play(this.position, 
                 new Vector2(this.spriteWidth, this.spriteHeight));
         }
     }
