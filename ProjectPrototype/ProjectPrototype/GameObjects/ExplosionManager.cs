@@ -18,10 +18,9 @@ namespace ProjectPrototype
             this.explosionSheet = content.Load<Texture2D>("Sprites\\explosion-sheet");
         }
 
-        public void play(Vector2 position)
+        public void play(Vector2 position, Vector2 size)
         {
-            Explosion newExplosion = new Explosion(this.explosionSheet);
-            newExplosion.position = position;
+            Explosion newExplosion = new Explosion(this.explosionSheet, size, position);
 
             explosions.Add(newExplosion);
         }

@@ -26,7 +26,7 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
         public bool hasActiveBullets;
 
-        public Enemy(Texture2D loadedTexture,int path,ContentManager content,Element el,int hp)
+        public Enemy(Texture2D loadedTexture, int path, ContentManager content, Element el, int hp)
             : base(loadedTexture,el,hp)
         {
             Random random = new Random();
@@ -45,73 +45,78 @@ namespace ProjectPrototype
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
         {
-            if (this.typeOfPath == 0)
+            if (this.alive)
             {
-                this.position = MovementPath.sineWave(this, this.MoveHeightVariation, this.MoveWidthVariation);
-            }
-            else
-            {
-                this.position = MovementPath.parabola(this, 0.003f, 800f);
-            }
-
-            this.boundingRectangle.X = (int)this.position.X;
-            this.boundingRectangle.Y = (int)this.position.Y;
-            
-            if (timeSinceLastShot == new TimeSpan(0) && this.alive)
-            {
-                this.Fire();
-            }
-
-            timeSinceLastShot += gameTime.ElapsedGameTime;
-            if (timeSinceLastShot >= timeBetweenShots)
-            {
-                timeSinceLastShot = new TimeSpan(0);
-            }
-            
-            //Update Bullets and collide with enemies
-            foreach (Bullet bullet in bullets)
-            {
-                if (bullet.alive)
+                if (this.typeOfPath == 0)
                 {
-                    bullet.Update(ref viewportRect);
-                    foreach (Player player in players)
-                    {
-                        if (player.alive)
-                        {
-                            if (bullet.boundingRectangle.Intersects(player.boundingRectangle))
-                            {
-                                switch (bullet.CompareElements(player))
-                                {
-                                    case Defense.Standard:
-                                        player.Health -= 2;
-                                        break;
-                                    case Defense.Strong:
-                                        player.Health -= 1;
-                                        break;
-                                    case Defense.Weak:
-                                        player.Health -= 4;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                bullet.alive = false;
-                                if (player.Health <= 0)
-                                    player.Kill();
+                    this.position = MovementPath.sineWave(this, this.MoveHeightVariation, this.MoveWidthVariation);
+                }
+                else
+                {
+                    this.position = MovementPath.parabola(this, 0.003f, 800f);
+                }
 
-                                break;
-                            }
-                        }
-                    }
+                this.boundingRectangle.X = (int)this.position.X;
+                this.boundingRectangle.Y = (int)this.position.Y;
+
+                if (timeSinceLastShot == new TimeSpan(0) && this.alive)
+                {
+                    this.Fire();
+                }
+
+                timeSinceLastShot += gameTime.ElapsedGameTime;
+                if (timeSinceLastShot >= timeBetweenShots)
+                {
+                    timeSinceLastShot = new TimeSpan(0);
                 }
             }
 
-            stillHasActiveBullets();
+
+                //Update Bullets and collide with enemies
+                foreach (Bullet bullet in bullets)
+                {
+                    if (bullet.alive)
+                    {
+                        bullet.Update(ref viewportRect);
+                        foreach (Player player in players)
+                        {
+                            if (player.alive)
+                            {
+                                if (bullet.boundingRectangle.Intersects(player.boundingRectangle))
+                                {
+                                    switch (bullet.CompareElements(player))
+                                    {
+                                        case Defense.Standard:
+                                            player.Health -= 2;
+                                            break;
+                                        case Defense.Strong:
+                                            player.Health -= 1;
+                                            break;
+                                        case Defense.Weak:
+                                            player.Health -= 4;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    bullet.alive = false;
+                                    if (player.Health <= 0)
+                                        player.Kill();
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+            }
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
-            if(this.alive)
+            if (this.alive)
+            {
                 spritebatch.Draw(this.sprite, this.position, Color.White);
+            }
 
             foreach (Bullet bullet in bullets)
             {
@@ -207,6 +212,13 @@ namespace ProjectPrototype
                     break;
                 }
             }
+        }
+
+        public void Kill()
+        {
+            this.alive = false;
+            GameObject.ExplosionManager.play(this.position,
+                new Vector2(this.spriteWidth, this.spriteHeight));
         }
     }
 }
