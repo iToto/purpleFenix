@@ -251,7 +251,7 @@ namespace ProjectPrototype
                 {
                     if (enemy.boundingRectangle.Intersects(this.boundingRectangle))
                     {
-                        this.alive = false;
+                        Kill();
                         return true;
                     }
                 }
@@ -341,6 +341,7 @@ namespace ProjectPrototype
 
         public override void Kill()
         {
+            this.Health = 0;
             this.alive = false;
             GameObject.ExplosionManager.play(this.position, 
                 new Vector2(this.spriteWidth, this.spriteHeight));
