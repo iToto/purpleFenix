@@ -30,6 +30,9 @@ namespace ProjectPrototype
         BulletManager bulletManager;
         WaveBank waveBank;
 
+        SoundBank sfxSounds;
+        WaveBank sfxWaves;
+
 
         Map levelOne;
 
@@ -74,6 +77,10 @@ namespace ProjectPrototype
             //Load Music
             soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
             waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xwb");
+
+            //Load SFX
+            sfxSounds = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xsb");
+            sfxWaves = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xwb");
 
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
@@ -129,10 +136,10 @@ namespace ProjectPrototype
                 Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
                 //Update player One
-                playerOne.Update(ref viewportRect, gameTime, enemies);
-                playerTwo.Update(ref viewportRect, gameTime, enemies);
-                playerThree.Update(ref viewportRect, gameTime, enemies);
-                playerFour.Update(ref viewportRect, gameTime, enemies);
+                playerOne.Update(ref viewportRect, gameTime, enemies,sfxSounds);
+                playerTwo.Update(ref viewportRect, gameTime, enemies, sfxSounds);
+                playerThree.Update(ref viewportRect, gameTime, enemies, sfxSounds);
+                playerFour.Update(ref viewportRect, gameTime, enemies, sfxSounds);
 
                 // Add playerOne to the alive players array.
                 if (playerOne.alive)
