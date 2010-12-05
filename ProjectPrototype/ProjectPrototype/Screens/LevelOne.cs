@@ -76,7 +76,7 @@ namespace ProjectPrototype
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
 
-            ShootingPattern.shootSpread(playerOne.bullets, content);
+            ShootingPattern.shootStraight(playerOne.bullets);
             //ShootingPattern.shootStraight(bullets, content);
             //ShootingPattern.shootSperatic(bullets,content);
 
@@ -134,7 +134,6 @@ namespace ProjectPrototype
                 enemy.Draw(ScreenManager.SpriteBatch);
             }
 
-            ScreenManager.SpriteBatch.DrawString(ScreenManager.Font, "PROTOTYPE", Vector2.Zero, Color.White);
             ScreenManager.SpriteBatch.End();
         }
 

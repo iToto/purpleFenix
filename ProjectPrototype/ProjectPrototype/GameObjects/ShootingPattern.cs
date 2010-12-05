@@ -13,16 +13,16 @@ namespace ProjectPrototype
     {
         public const int MAX_BULLETS = 200;
 
-        static public void shootSperatic(List<Bullet> bullets, ContentManager content)
+        static public void shootSperatic(List<Bullet> bullets)
         {
             for (int i = 0; i < MAX_BULLETS; i++)
             {
-                bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet"), Element.None));
-                bullets[i].alive = false;
-                bullets[i].velocity.Y = -4.0f;
+                //bullets.Add(new Bullet(content.Load<Texture2D>("Sprites\\Bullet"), Element.None));
+                //bullets[i].alive = false;
+                //bullets[i].velocity.Y = -4.0f;
                 bullets[i].type = bulletType.speratic;
 
-                if (i % 4 == 0)
+                /*if (i % 4 == 0)
                 {   
                     bullets[i].velocity.X = -3.0f;
                 }
@@ -41,11 +41,11 @@ namespace ProjectPrototype
                 else
                 {
                     bullets[i].velocity.X = 3.0f;
-                }
+                }*/
             }
         }
 
-        static public void shootSpread(List<Bullet> bullets, ContentManager content)
+        static public void shootSpread(List<Bullet> bullets)
         {
             //Create Five bullets that move at different projections
             for (int i = 0; i < MAX_BULLETS; i++)
@@ -54,7 +54,7 @@ namespace ProjectPrototype
             }
         }
 
-        static public void shootStraight(List<Bullet> bullets, ContentManager content)
+        static public void shootStraight(List<Bullet> bullets)
         {
             for (int i = 0; i < MAX_BULLETS; i++)
             {

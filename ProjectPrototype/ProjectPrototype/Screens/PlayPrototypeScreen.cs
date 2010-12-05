@@ -77,7 +77,7 @@ namespace ProjectPrototype
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
        
-            ShootingPattern.shootSpread(playerOne.bullets, content);
+            ShootingPattern.shootSpread(playerOne.bullets);
             //ShootingPattern.shootStraight(bullets, content);
             //ShootingPattern.shootSperatic(bullets,content);
 

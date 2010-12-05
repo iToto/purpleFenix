@@ -309,7 +309,9 @@ namespace ProjectPrototype
                 {
                     if (!bullet.alive)
                     {
-                        bullet.position = this.position;
+                        //bullet.position = this.position;
+                        bullet.position.X = this.boundingRectangle.Center.X - bullet.boundingRectangle.Width / 2;
+                        bullet.position.Y = this.boundingRectangle.Top - bullet.boundingRectangle.Height / 2;
                         bullet.alive = true;
                         bullet.velocity.Y = -4.0f;
                         break;
@@ -330,6 +332,30 @@ namespace ProjectPrototype
                     {
                         bullet.position = this.position;
                         bullet.alive = true;
+                        bullet.velocity.Y = -4.0f;
+
+                        Random random = new Random();
+                        
+                        switch(random.Next(5))
+                        {
+                            case 0:
+                                bullet.velocity.X = -3;
+                                break;
+                            case 1:
+                                bullet.velocity.X = -1;
+                                break;
+                            case 2:
+                                bullet.velocity.X = 0;
+                                break;
+                            case 3:
+                                bullet.velocity.X = 1;
+                                break;
+                            case 4:
+                                bullet.velocity.X = 3;
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     }
                 }
