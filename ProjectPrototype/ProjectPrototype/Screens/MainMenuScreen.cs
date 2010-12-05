@@ -45,8 +45,6 @@ namespace ProjectPrototype
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-
-           
         }
 
         public override void LoadContent()
@@ -70,8 +68,11 @@ namespace ProjectPrototype
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
-                               new PlayPrototypeScreen());
+            //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new PlayPrototypeScreen());
+            
+            //Player Select Screen
+            ScreenManager.AddScreen(new PlayerSelectScreen(), e.PlayerIndex);
+
         }
 
 

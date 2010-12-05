@@ -23,7 +23,7 @@ namespace ProjectPrototype
         #region Fields
 
         MenuEntry ungulateMenuEntry;
-        MenuEntry languageMenuEntry;
+        MenuEntry difficultyMenuEntry;
         MenuEntry frobnicateMenuEntry;
         MenuEntry elfMenuEntry;
 
@@ -37,7 +37,7 @@ namespace ProjectPrototype
         static Ungulate currentUngulate = Ungulate.Dromedary;
 
         static string[] dificulties = { "EASY", "MEDIUM", "HARD" };
-        static int currentLanguage = 0;
+        static int currentDifficulty = 0;
 
         static bool frobnicate = true;
 
@@ -56,7 +56,7 @@ namespace ProjectPrototype
         {
             // Create our menu entries.
             ungulateMenuEntry = new MenuEntry(string.Empty);
-            languageMenuEntry = new MenuEntry(string.Empty);
+            difficultyMenuEntry = new MenuEntry(string.Empty);
             frobnicateMenuEntry = new MenuEntry(string.Empty);
             elfMenuEntry = new MenuEntry(string.Empty);
 
@@ -66,14 +66,14 @@ namespace ProjectPrototype
 
             // Hook up menu event handlers.
             ungulateMenuEntry.Selected += UngulateMenuEntrySelected;
-            languageMenuEntry.Selected += LanguageMenuEntrySelected;
+            difficultyMenuEntry.Selected += DiffultyMenuEntrySelected;
             frobnicateMenuEntry.Selected += FrobnicateMenuEntrySelected;
             elfMenuEntry.Selected += ElfMenuEntrySelected;
             backMenuEntry.Selected += OnCancel;
             
             // Add entries to the menu.
             MenuEntries.Add(ungulateMenuEntry);
-            MenuEntries.Add(languageMenuEntry);
+            MenuEntries.Add(difficultyMenuEntry);
             MenuEntries.Add(frobnicateMenuEntry);
             MenuEntries.Add(elfMenuEntry);
             MenuEntries.Add(backMenuEntry);
@@ -85,7 +85,7 @@ namespace ProjectPrototype
         /// </summary>
         void SetMenuEntryText()
         {
-            languageMenuEntry.Text = "DIFFICULTY: " + dificulties[currentLanguage];
+            difficultyMenuEntry.Text = "DIFFICULTY: " + dificulties[currentDifficulty];
             ungulateMenuEntry.Text = "OPTION 1: " + currentUngulate;            
             frobnicateMenuEntry.Text = "OPTION 2: " + (frobnicate ? "ON" : "OFF");
             elfMenuEntry.Text = "ELF: " + elf;
@@ -114,9 +114,9 @@ namespace ProjectPrototype
         /// <summary>
         /// Event handler for when the Language menu entry is selected.
         /// </summary>
-        void LanguageMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void DiffultyMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            currentLanguage = (currentLanguage + 1) % dificulties.Length;
+            currentDifficulty = (currentDifficulty + 1) % dificulties.Length;
 
             SetMenuEntryText();
         }
