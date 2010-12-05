@@ -64,7 +64,7 @@ namespace ProjectPrototype
 
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
-                bullets.Add(new Bullet(bulletSprite));
+                bullets.Add(new Bullet(bulletSprite, this.element));
             }
         }
 

@@ -187,7 +187,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-     <Compile Include="Sprites\explosion-sheet.png">
+    <Compile Include="Sprites\explosion-sheet.png">
       <Name>explosion-sheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -226,6 +226,13 @@
     </Compile>
     <Compile Include="FrontEnd\MainMenuBackground.png">
       <Name>MainMenuBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\earthShip2.png">
+      <Name>earthShip2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

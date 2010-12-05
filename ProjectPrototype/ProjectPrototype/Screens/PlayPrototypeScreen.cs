@@ -71,7 +71,7 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;

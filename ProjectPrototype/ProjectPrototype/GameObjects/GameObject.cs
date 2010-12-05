@@ -132,11 +132,20 @@ namespace ProjectPrototype
                     {
                         returnValue = Defense.Weak;
                     }
+
+                    if (element2 == Element.Earth)
+                    {
+                        returnValue = Defense.Strong;
+                    }
                     break;
                 case Element.Ice:
-                    if (element2 == Element.Fire)
+                    if (element2 == Element.Lightning)
                     {
                         returnValue = Defense.Weak;
+                    }
+                    else if (element2 == Element.Fire)
+                    {
+                        returnValue = Defense.Strong;
                     }
                     break;
                 case Element.Lightning:
@@ -144,11 +153,19 @@ namespace ProjectPrototype
                     {
                         returnValue = Defense.Weak;
                     }
+                    else if (element2 == Element.Ice)
+                    {
+                        returnValue = Defense.Strong;
+                    }
                     break;
                 case Element.Earth:
-                    if (element2 == Element.Lightning)
+                    if (element2 == Element.Fire)
                     {
                         returnValue = Defense.Weak;
+                    }
+                    else if (element2 == Element.Lightning)
+                    {
+                        returnValue = Defense.Strong;
                     }
                     break;
                 default:

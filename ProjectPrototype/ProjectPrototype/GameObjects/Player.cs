@@ -43,7 +43,7 @@ namespace ProjectPrototype
                   
         }
 
-        public Player(Texture2D loadedTexture, ContentManager content)
+        public Player(Texture2D loadedTexture, ContentManager content, Element element)
             : base(loadedTexture, new Vector2(32, 32))
         {
             Texture2D bulletSprite;
@@ -53,9 +53,9 @@ namespace ProjectPrototype
             timeSinceLastShot = new TimeSpan(0);
             this.health = 100;
 
+            this.element = element;
 
             this.AddAnimation("normal", new int[1] {0}, 4, false);
-            //this.AddAnimation("colors", new int[2] { 0, 1 }, 4, false);
             this.play("normal");
 
             healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
@@ -87,7 +87,7 @@ namespace ProjectPrototype
             //Initialize Bullets
             for (int i = 0; i < MAX_BULLETS; ++i)
             {
-                bullets.Add(new Bullet(bulletSprite));
+                bullets.Add(new Bullet(bulletSprite, this.element));
             }
         }
 
@@ -157,7 +157,9 @@ namespace ProjectPrototype
             //spritebatch.Draw(this.sprite, this.position, Color.White);
             if (this.alive)
             {
-                spritebatch.Draw(this.sprite, this.position, this.frameRectangle, Color.White);
+                spritebatch.Draw(this.sprite, 
+                    new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight), 
+                    this.frameRectangle, Color.White);
             }
 
             healthBar.Draw(spritebatch);
@@ -168,7 +170,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void HandleInput(InputState input, PlayerIndex playerIndex,ScreenManager screenManager)
+        public void HandleInput(InputState input, PlayerIndex playerIndex, ScreenManager screenManager)
         {
             if (!this.alive)
             {

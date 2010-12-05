@@ -19,11 +19,13 @@ namespace ProjectPrototype
     {
         public bulletType type;
 
-        public Bullet(Texture2D loadedTexture)
+        public Bullet(Texture2D loadedTexture, Element element)
             : base(loadedTexture, new Vector2(16, 16))
         {
             AddAnimation("normal", new int[3] { 0, 1, 2 }, 15, true);
             play("normal");
+
+            this.element = element;
         }
 
         public void Update(ref Rectangle viewportRect, GameTime gametime)
@@ -54,7 +56,7 @@ namespace ProjectPrototype
             {
                 if (this.boundingRectangle.Intersects(opponent.boundingRectangle))
                 {
-                    switch (this.CompareElements(opponent))
+                    switch (opponent.CompareElements(this))
                     {
                         case Defense.Standard:
                             opponent.Damage(2);
@@ -84,15 +86,6 @@ namespace ProjectPrototype
                 spritebatch.Draw(this.sprite,
                     new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight),
                     this.frameRectangle, Color.White);
-            }
-        }
-
-        public void SetElement(Element element)
-        {
-            switch (element)
-            {
-                //case Element.Earth:
-                //    this.sprite = 
             }
         }
     }
