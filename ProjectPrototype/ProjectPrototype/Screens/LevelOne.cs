@@ -17,6 +17,7 @@ namespace ProjectPrototype
     class LevelOne : GameScreen
     {
         ContentManager content;
+        Texture2D backgroundTexture;
 
         Player playerOne;
         Player playerTwo;
@@ -64,8 +65,11 @@ namespace ProjectPrototype
             //Init a Content Manager for the enemy factory
             EnemyFactory.content = content;
 
+            //Load Background
+            backgroundTexture = content.Load<Texture2D>("Sprites\\Lava");
+
             //Load Level
-            levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
+            levelOne = new Map("Content\\Maps\\Level2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
 
             //Load Music
             soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
@@ -168,6 +172,10 @@ namespace ProjectPrototype
             base.Draw(gameTime);
 
             ScreenManager.SpriteBatch.Begin();
+
+            ScreenManager.SpriteBatch.Draw(backgroundTexture, 
+                new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height),  
+                Color.White);
 
             levelOne.Draw(ScreenManager.SpriteBatch);
 

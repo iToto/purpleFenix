@@ -27,7 +27,7 @@ namespace ProjectPrototype
             int numberOfTileRows = tileSheet.Height / tileSize;
 
             Vector2 topLeft = new Vector2(tileNumber % numberOfTileColumns, 
-                tileNumber / numberOfTileRows);
+                (float)Math.Floor(tileNumber / (double)numberOfTileColumns));
 
             Rectangle tileRectangle = new Rectangle((int)topLeft.X * tileSize, 
                 (int)topLeft.Y * tileSize, tileSize, tileSize);
