@@ -111,8 +111,12 @@
     <Compile Include="ScreenManager\ScreenManager.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
-    <Compile Include="Screens\LevelOne.cs" />
-    <Compile Include="Screens\LevelSelectScreen.cs" />
+    <Compile Include="Screens\LevelOne.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Screens\LevelSelectScreen.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MenuEntry.cs" />
@@ -121,7 +125,9 @@
     <Compile Include="Screens\OptionsMenuScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
     <Compile Include="Screens\PlayerIndexEventArgs.cs" />
-    <Compile Include="Screens\PlayerSelectScreen.cs" />
+    <Compile Include="Screens\PlayerSelectScreen.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Screens\PlayPrototypeScreen.cs" />
   </ItemGroup>
   <ItemGroup>

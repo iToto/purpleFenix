@@ -73,7 +73,7 @@ namespace ProjectPrototype
             switch (selectedLevel)
             {
                 case Levels.EARTH:
-                    ScreenManager.AddScreen(new LevelOne(), e.PlayerIndex);
+                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne());
                     break;
                 case Levels.SPACE:
                     //ScreenManager.AddScreen(new LevelTwo(), e.PlayerIndex);

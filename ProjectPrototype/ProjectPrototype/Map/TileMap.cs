@@ -22,13 +22,14 @@ namespace ProjectPrototype
 
         public Rectangle GetTileRectangle(int tileNumber)
         {
+            tileNumber -= 1;
             int numberOfTileColumns = tileSheet.Width / tileSize;
             int numberOfTileRows = tileSheet.Height / tileSize;
 
-            Vector2 topLeft = new Vector2(tileNumber % numberOfTileColumns - 1, 
+            Vector2 topLeft = new Vector2(tileNumber % numberOfTileColumns, 
                 tileNumber / numberOfTileRows);
 
-            Rectangle tileRectangle = new Rectangle((int)topLeft.X * tileSize + 1, 
+            Rectangle tileRectangle = new Rectangle((int)topLeft.X * tileSize, 
                 (int)topLeft.Y * tileSize, tileSize, tileSize);
 
             return tileRectangle;

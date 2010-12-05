@@ -22,15 +22,16 @@ namespace ProjectPrototype
         List<Enemy> enemies = new List<Enemy>();
         SoundBank soundBank;
         ExplosionManager explosionManager;
+        BulletManager bulletManager;
         WaveBank waveBank;
-        
+
 
         Map levelOne;
 
         const int MAX_BULLETS = 60;
         const int MAX_ENEMIES = 10;
         const int SPAWN_TIME = 10;
-        
+
 
         /// <summary>
         /// Constructor.
@@ -46,9 +47,12 @@ namespace ProjectPrototype
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-         
+
             //Initialize Explosion Manager
             explosionManager = new ExplosionManager(content);
+
+            //Initialize Bullet Manager
+            bulletManager = new BulletManager(content);
 
             //Init the explosion manager for all game objects
             GameObject.ExplosionManager = explosionManager;
@@ -57,7 +61,7 @@ namespace ProjectPrototype
             EnemyFactory.content = content;
 
             //Load Level
-            levelOne = new Map("Content\\Maps\\testMap.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
+            levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\zelda", ScreenManager.GraphicsDevice);
 
             //Load Music
             soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
@@ -66,12 +70,12 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\greenShip"), content);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
             playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
-       
+
             ShootingPattern.shootSpread(playerOne.bullets, content);
             //ShootingPattern.shootStraight(bullets, content);
             //ShootingPattern.shootSperatic(bullets,content);
@@ -120,7 +124,7 @@ namespace ProjectPrototype
             ScreenManager.SpriteBatch.Begin();
 
             levelOne.Draw(ScreenManager.SpriteBatch);
-            
+
             playerOne.Draw(ScreenManager.SpriteBatch);
 
             explosionManager.Draw(ScreenManager.SpriteBatch);
@@ -148,7 +152,7 @@ namespace ProjectPrototype
                 //ScreenManager.Game.Exit();
             }
 #endif
-            playerOne.HandleInput(input, PlayerIndex.One,ScreenManager);
+            playerOne.HandleInput(input, PlayerIndex.One, ScreenManager);
             //playerTwo.HandleInput(input, bullets, PlayerIndex.Two);
             //playerThree.HandleInput(input, bullets, PlayerIndex.Three);
             //playerFour.HandleInput(input, bullets, PlayerIndex.Four);

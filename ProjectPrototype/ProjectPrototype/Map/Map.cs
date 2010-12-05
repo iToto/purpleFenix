@@ -24,6 +24,8 @@ namespace ProjectPrototype
         int mapWidth = 0;
         int mapHeight = 0;
 
+        const int ROWS_PER_SCREEN = 25;
+
         bool hasReachedEnd = false;
 
         public int upperBound;
@@ -96,7 +98,7 @@ namespace ProjectPrototype
             }
 
             this.lowerBound = this.mapHeight;
-            this.upperBound = this.lowerBound - 20;
+            this.upperBound = this.lowerBound - ROWS_PER_SCREEN;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -139,7 +141,7 @@ namespace ProjectPrototype
                 if (this.upperBound <= 0)
                 {
                     this.upperBound = 0;
-                    this.lowerBound = 20;
+                    this.lowerBound = ROWS_PER_SCREEN;
                     this.hasReachedEnd = true;
                 }
             }
