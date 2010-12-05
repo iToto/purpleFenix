@@ -153,6 +153,9 @@ namespace ProjectPrototype
             // Read the keyboard and gamepad.
             input.Update();
 
+            // Update Audio Engine
+            engine.Update();
+
             // Make a copy of the master screen list, to avoid confusion if
             // the process of updating one screen adds or removes others.
             screensToUpdate.Clear();

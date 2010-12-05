@@ -231,15 +231,12 @@ namespace ProjectPrototype
             {
                 this.isShooting = false;
             }
-
+#endif
             //Check for Pause
             if (input.IsPauseGame(playerIndex))
             {
                 screenManager.AddScreen(new PauseMenuScreen(), null);
             }
-
-
-#endif
         }
 
 

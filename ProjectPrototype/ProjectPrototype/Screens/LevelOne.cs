@@ -142,16 +142,7 @@ namespace ProjectPrototype
         public override void HandleInput(InputState input)
         {
             base.HandleInput(input);
-#if !XBOX
-            KeyboardState keyboardState = input.CurrentKeyboardStates[1];
-            KeyboardState previousKeyboardState = input.LastKeyboardStates[1];
 
-
-            if (keyboardState.IsKeyDown(Keys.Escape))
-            {
-                //ScreenManager.Game.Exit();
-            }
-#endif
             playerOne.HandleInput(input, PlayerIndex.One, ScreenManager);
             //playerTwo.HandleInput(input, bullets, PlayerIndex.Two);
             //playerThree.HandleInput(input, bullets, PlayerIndex.Three);
