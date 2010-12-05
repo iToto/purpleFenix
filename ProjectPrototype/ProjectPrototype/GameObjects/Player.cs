@@ -25,6 +25,8 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
         bool isShooting = false;
         public List<Bullet> bullets = new List<Bullet>();
+
+        PlayerIndex playerIndex;
         
         HealthBar healthBar;
 
@@ -43,8 +45,8 @@ namespace ProjectPrototype
                   
         }
 
-        public Player(Texture2D loadedTexture, ContentManager content, Element element)
-            : base(loadedTexture, new Vector2(32, 32))
+        public Player(Texture2D loadedTexture, ContentManager content, Element element, PlayerIndex playerIndex)
+            : base(loadedTexture, new Vector2(64, 64))
         {
             Texture2D bulletSprite;
 
@@ -58,8 +60,28 @@ namespace ProjectPrototype
             this.AddAnimation("normal", new int[1] {0}, 4, false);
             this.play("normal");
 
-            healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
-            healthBar.position = new Vector2(10, 20);
+            this.playerIndex = playerIndex;
+
+            if (playerIndex == PlayerIndex.One)
+            {
+                healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
+                healthBar.position = new Vector2(50, 30);
+            }
+            else if (playerIndex == PlayerIndex.Two)
+            {
+                healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
+                healthBar.position = new Vector2(170, 30);
+            }
+            else if (playerIndex == PlayerIndex.Three)
+            {
+                healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
+                healthBar.position = new Vector2(290, 30);
+            }
+            else if (playerIndex == PlayerIndex.Four)
+            {
+                healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
+                healthBar.position = new Vector2(410, 30);
+            }
 
             switch (this.element)
             {
@@ -152,7 +174,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public void Draw(SpriteBatch spritebatch, SpriteFont font)
         {
             //spritebatch.Draw(this.sprite, this.position, Color.White);
             if (this.alive)
@@ -162,7 +184,7 @@ namespace ProjectPrototype
                     this.frameRectangle, Color.White);
             }
 
-            healthBar.Draw(spritebatch);
+            healthBar.Draw(spritebatch, this.playerIndex, font);
             
             foreach (Bullet bullet in bullets)
             {
@@ -259,107 +281,7 @@ namespace ProjectPrototype
 
         private void Fire()
         {
-            // shoot 5 bullets at once
-            if (bullets[0].type == bulletType.spread)
-            {
-                int bulletsFired = 0;
-
-                foreach (Bullet bullet in bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.alive = true;
-                        bullet.element = this.element;
-                        bullet.position.X = this.boundingRectangle.Center.X - bullet.boundingRectangle.Width / 2;
-                        bullet.position.Y = this.boundingRectangle.Top - bullet.boundingRectangle.Height / 2;
-                        bullet.velocity.Y = -4.0f;
-
-                        switch (bulletsFired)
-                        {
-                            case 0:
-                                bullet.velocity.X = -3;
-                                break;
-                            case 1:
-                                bullet.velocity.X = -1;
-                                break;
-                            case 2:
-                                bullet.velocity.X = 0;
-                                break;
-                            case 3:
-                                bullet.velocity.X = 1;
-                                break;
-                            case 4:
-                                bullet.velocity.X = 3;
-                                break;
-                            default:
-                                break;
-                        }
-
-                        ++bulletsFired;
-                    }
-                    if (bulletsFired >= 5)
-                    {
-                        break;
-                    }
-                }
-            }
-            else if (this.bullets[0].type == bulletType.straight)
-            {
-                foreach (Bullet bullet in this.bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        //bullet.position = this.position;
-                        bullet.position.X = this.boundingRectangle.Center.X - bullet.boundingRectangle.Width / 2;
-                        bullet.position.Y = this.boundingRectangle.Top - bullet.boundingRectangle.Height / 2;
-                        bullet.alive = true;
-                        bullet.velocity.Y = -4.0f;
-                        break;
-                    }
-                }                
-            }
-            else if (this.bullets[0].type == bulletType.helix)
-            {
-            }
-            else if (this.bullets[0].type == bulletType.doubleShot)
-            {
-            }
-            else if (this.bullets[0].type == bulletType.speratic)
-            {
-                foreach (Bullet bullet in this.bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.position = this.position;
-                        bullet.alive = true;
-                        bullet.velocity.Y = -4.0f;
-
-                        Random random = new Random();
-                        
-                        switch(random.Next(5))
-                        {
-                            case 0:
-                                bullet.velocity.X = -3;
-                                break;
-                            case 1:
-                                bullet.velocity.X = -1;
-                                break;
-                            case 2:
-                                bullet.velocity.X = 0;
-                                break;
-                            case 3:
-                                bullet.velocity.X = 1;
-                                break;
-                            case 4:
-                                bullet.velocity.X = 3;
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    }
-                }
-            }
+            BulletManager.Fire(this.bullets, this, -1);
         }
 
         public override void Kill()

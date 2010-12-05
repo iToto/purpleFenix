@@ -35,7 +35,7 @@ namespace ProjectPrototype
             this.velocity.X = 1;
             this.velocity.Y = 1;
             this.typeOfPath = path;
-            timeBetweenShots = new TimeSpan(0, 0, 0, 0, 200);
+            timeBetweenShots = new TimeSpan(0, 0, 0, 0, 800);
             timeSinceLastShot = new TimeSpan(0);
             this.hasActiveBullets = false;
 
@@ -123,82 +123,7 @@ namespace ProjectPrototype
 
         private void Fire()
         {
-
-            // shoot 5 bullets at once
-            if (bullets[0].type == bulletType.spread)
-            {
-                int bulletsFired = 0;
-
-                foreach (Bullet bullet in bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.alive = true;
-                        bullet.element = this.element;
-                        bullet.position.X = this.boundingRectangle.Center.X - bullet.boundingRectangle.Width / 2;
-                        bullet.position.Y = this.boundingRectangle.Bottom - bullet.boundingRectangle.Height / 2;
-                        bullet.velocity.Y = 4.0f;
-
-                        switch (bulletsFired)
-                        {
-                            case 0:
-                                bullet.velocity.X = -3;
-                                break;
-                            case 1:
-                                bullet.velocity.X = -1;
-                                break;
-                            case 2:
-                                bullet.velocity.X = 0;
-                                break;
-                            case 3:
-                                bullet.velocity.X = 1;
-                                break;
-                            case 4:
-                                bullet.velocity.X = 3;
-                                break;
-                            default:
-                                break;
-                        }
-
-                        ++bulletsFired;
-                    }
-                    if (bulletsFired >= 5)
-                    {
-                        break;
-                    }
-                }
-            }
-            else if (bullets[0].type == bulletType.straight)
-            {
-                foreach (Bullet bullet in bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.position = this.position;
-                        bullet.alive = true;
-                        bullet.velocity.Y = 4.0f;
-                        break;
-                    }
-                }
-            }
-            else if (bullets[0].type == bulletType.helix)
-            {
-            }
-            else if (bullets[0].type == bulletType.doubleShot)
-            {
-            }
-            else if (bullets[0].type == bulletType.speratic)
-            {
-                foreach (Bullet bullet in bullets)
-                {
-                    if (!bullet.alive)
-                    {
-                        bullet.position = this.position;
-                        bullet.alive = true;
-                        break;
-                    }
-                }
-            }
+            BulletManager.Fire(this.bullets, this, 1);
         }
     
         private void stillHasActiveBullets()

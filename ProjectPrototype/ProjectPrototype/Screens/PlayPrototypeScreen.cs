@@ -71,7 +71,7 @@ namespace ProjectPrototype
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire, PlayerIndex.One);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
@@ -125,8 +125,8 @@ namespace ProjectPrototype
             ScreenManager.SpriteBatch.Begin();
 
             levelOne.Draw(ScreenManager.SpriteBatch);
-            
-            playerOne.Draw(ScreenManager.SpriteBatch);
+
+            playerOne.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
 
             explosionManager.Draw(ScreenManager.SpriteBatch);
 
