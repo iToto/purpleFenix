@@ -42,7 +42,6 @@ namespace ProjectPrototype
 
                 if (!viewportRect.Contains(new Point((int)this.boundingRectangle.Center.X, (int)this.boundingRectangle.Center.Y)))
                 {
-                    System.Diagnostics.Debug.Print(this.boundingRectangle.Center.ToString());
                     this.alive = false;
                 }
             }
