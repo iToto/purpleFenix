@@ -46,7 +46,7 @@ namespace ProjectPrototype
 
             if (!InitGraphicsMode(1280, 720, true))
             {
-                //this.Exit();
+                this.Exit();
             }
 
             Content.RootDirectory = "Content";

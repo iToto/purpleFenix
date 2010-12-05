@@ -26,12 +26,13 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
         public bool hasActiveBullets;
 
-        public Enemy(Texture2D loadedTexture, int path, ContentManager content, Element el, int hp)
+        public Enemy(Texture2D loadedTexture, int path, ContentManager content, Element el, int hp, SoundBank sfx)
             : base(loadedTexture,el,hp)
         {
             Texture2D bulletSprite;
             Random random = new Random();
 
+            this.sfx = sfx;
             this.velocity.X = 1;
             this.velocity.Y = 1;
             this.typeOfPath = path;
@@ -144,6 +145,7 @@ namespace ProjectPrototype
             this.alive = false;
             GameObject.ExplosionManager.play(this.position,
                 new Vector2(this.spriteWidth, this.spriteHeight));
+            this.sfx.PlayCue("explode");
         }
     }
 }

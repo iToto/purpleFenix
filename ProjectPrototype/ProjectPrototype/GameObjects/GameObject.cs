@@ -24,6 +24,8 @@ namespace ProjectPrototype
         public bool alive;
         public Element element;
 
+        protected SoundBank sfx;
+
         public static ExplosionManager ExplosionManager;
 
         protected int health;

@@ -45,11 +45,12 @@ namespace ProjectPrototype
                   
         }
 
-        public Player(Texture2D loadedTexture, ContentManager content, Element element, PlayerIndex playerIndex)
+        public Player(Texture2D loadedTexture, ContentManager content, Element element, PlayerIndex playerIndex, SoundBank sfx)
             : base(loadedTexture, new Vector2(64, 64))
         {
             Texture2D bulletSprite;
 
+            this.sfx = sfx;
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
             timeSinceLastShot = new TimeSpan(0);
@@ -291,6 +292,7 @@ namespace ProjectPrototype
             this.alive = false;
             GameObject.ExplosionManager.play(this.position, 
                 new Vector2(this.spriteWidth, this.spriteHeight));
+            this.sfx.PlayCue("explode");
         }
 
         public override void Damage(int damageTaken)
