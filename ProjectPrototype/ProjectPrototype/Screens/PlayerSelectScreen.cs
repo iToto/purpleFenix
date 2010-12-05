@@ -17,21 +17,24 @@ namespace ProjectPrototype
 
             // Create our menu entries.
             numberOfPlayersEntry = new MenuEntry(string.Empty);
+            MenuEntry continueToNextScreen = new MenuEntry("CONTINUE");
             MenuEntry backMenuEntry = new MenuEntry("BACK");
 
             SetMenuEntryText();
 
             // Hook up menu event handlers.
             numberOfPlayersEntry.Selected += IncrementNumberOfPlayers;
+            continueToNextScreen.Selected += LoadNextScreen;
             backMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
             MenuEntries.Add(numberOfPlayersEntry);
+            MenuEntries.Add(continueToNextScreen);
             MenuEntries.Add(backMenuEntry);
         }
 
         /// <summary>
-        /// Fills in the latest values for the options screen menu text.
+        /// Fills in the latest values for the Number Of Players.
         /// </summary>
         void SetMenuEntryText()
         {
@@ -40,6 +43,11 @@ namespace ProjectPrototype
         }
         #region Handle Input
 
+        void LoadNextScreen(object sender, PlayerIndexEventArgs e)
+        {
+            //Load Level Select Screen
+            ScreenManager.AddScreen(new LevelSelectScreen(numberOfPlayers), e.PlayerIndex);
+        }
 
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
