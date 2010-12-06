@@ -19,4 +19,9 @@ namespace ProjectPrototype
     {
         spread, straight, helix, doubleShot, speratic
     }
+
+    enum Levels
+    {
+        TEST, EARTH, SPACE, BOSS,
+    }
 }

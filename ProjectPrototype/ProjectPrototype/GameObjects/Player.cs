@@ -114,7 +114,7 @@ namespace ProjectPrototype
             }
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies,SoundBank sfx)
+        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
         {
             if (this.alive)
             {
@@ -150,7 +150,7 @@ namespace ProjectPrototype
                 {
                     if (timeSinceLastShot == new TimeSpan(0))
                     {
-                        this.Fire(sfx);
+                        this.Fire();
                     }
 
                     timeSinceLastShot += gameTime.ElapsedGameTime;
@@ -280,10 +280,10 @@ namespace ProjectPrototype
             return false;
         }
 
-        private void Fire(SoundBank sfx)
+        private void Fire()
         {
             BulletManager.Fire(this.bullets, this, -1);
-            sfx.PlayCue("choot");
+            this.sfx.PlayCue("choot");
         }
 
         public override void Kill()

@@ -137,10 +137,10 @@ namespace ProjectPrototype
                 Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
                 //Update player One
-                playerOne.Update(ref viewportRect, gameTime, enemies,sfxSounds);
-                playerTwo.Update(ref viewportRect, gameTime, enemies, sfxSounds);
-                playerThree.Update(ref viewportRect, gameTime, enemies, sfxSounds);
-                playerFour.Update(ref viewportRect, gameTime, enemies, sfxSounds);
+                playerOne.Update(ref viewportRect, gameTime, enemies);
+                playerTwo.Update(ref viewportRect, gameTime, enemies);
+                playerThree.Update(ref viewportRect, gameTime, enemies);
+                playerFour.Update(ref viewportRect, gameTime, enemies);
 
                 // Add playerOne to the alive players array.
                 if (playerOne.alive)
