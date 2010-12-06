@@ -95,6 +95,11 @@ namespace ProjectPrototype
                 {
                     timeSinceLastShot = new TimeSpan(0);
                 }
+
+                if (CheckIfTravelledOffscreen(viewportRect))
+                {
+                    this.alive = false;
+                }
             }
 
 
@@ -107,6 +112,8 @@ namespace ProjectPrototype
                     bullet.Collide(player);
                 }
             }
+
+            stillHasActiveBullets();
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -146,6 +153,21 @@ namespace ProjectPrototype
             GameObject.ExplosionManager.play(this.position,
                 new Vector2(this.spriteWidth, this.spriteHeight));
             this.sfx.PlayCue("explode");
+        }
+
+        private bool CheckIfTravelledOffscreen(Rectangle viewportRect)
+        {
+            if (this.boundingRectangle.Top > viewportRect.Bottom)
+            {
+                return true;
+            }
+
+            if (this.boundingRectangle.Left > viewportRect.Right)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

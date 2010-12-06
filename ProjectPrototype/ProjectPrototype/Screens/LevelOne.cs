@@ -69,7 +69,7 @@ namespace ProjectPrototype
             backgroundTexture = content.Load<Texture2D>("Sprites\\Lava");
 
             //Load Level
-            levelOne = new Map("Content\\Maps\\Level2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
+            levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
 
             //Load Music
             soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
@@ -117,8 +117,6 @@ namespace ProjectPrototype
             ShootingPattern.shootStraight(playerTwo.bullets);
             ShootingPattern.shootStraight(playerThree.bullets);
             ShootingPattern.shootStraight(playerFour.bullets);
-            //ShootingPattern.shootStraight(bullets, content);
-            //ShootingPattern.shootSperatic(bullets,content);
 
             //Play Song
             soundBank.PlayCue("Level Song 1");
@@ -166,10 +164,17 @@ namespace ProjectPrototype
                 levelOne.Update(enemies);
 
                 //Update enemies
+                List<Enemy> enemiesToRemove = new List<Enemy>();
                 foreach (Enemy enemy in enemies)
                 {
+                    if (!enemy.alive && !enemy.hasActiveBullets)
+                    {
+                        enemiesToRemove.Add(enemy);
+                    }
                     enemy.Update(ref viewportRect, gameTime, players);
                 }
+
+                enemies.RemoveAll(enemiesToRemove.Contains);
 
                 explosionManager.Update(gameTime);
             }
