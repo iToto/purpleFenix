@@ -33,6 +33,7 @@ namespace ProjectPrototype
         SoundBank sfxSounds;
         WaveBank sfxWaves;
 
+        Cue music;
 
         Map levelOne;
 
@@ -119,7 +120,9 @@ namespace ProjectPrototype
             ShootingPattern.shootStraight(playerFour.bullets);
 
             //Play Song
-            soundBank.PlayCue("Level Song 1");
+            //soundBank.PlayCue("Level Song 1");
+            music = soundBank.GetCue("Level Song 1");
+            music.Play();
         }
 
 
@@ -129,6 +132,11 @@ namespace ProjectPrototype
 
             if (!otherScreenHasFocus)
             {
+                if (music.IsPaused)
+                {
+                    music.Resume();
+                }
+
                 List<Player> players = new List<Player>();
 
                 Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
@@ -177,6 +185,10 @@ namespace ProjectPrototype
                 enemies.RemoveAll(enemiesToRemove.Contains);
 
                 explosionManager.Update(gameTime);
+            }
+            else
+            {
+                music.Pause();
             }
         }
 
