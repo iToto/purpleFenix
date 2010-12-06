@@ -19,6 +19,8 @@ namespace ProjectPrototype
         ContentManager content;
         Texture2D backgroundTexture;
 
+        PlayerManager playerManager;
+
         Player playerOne;
         Player playerTwo;
         Player playerThree;
@@ -41,14 +43,18 @@ namespace ProjectPrototype
         const int MAX_ENEMIES = 10;
         const int SPAWN_TIME = 10;
 
+        int numberOfPlayers;
+
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public LevelOne()
+        public LevelOne(int numberOfPlayers)
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            this.numberOfPlayers = numberOfPlayers;
         }
 
 
@@ -86,38 +92,10 @@ namespace ProjectPrototype
             EnemyFactory.content = content;
             EnemyFactory.sfxBank = sfxSounds;
 
-            //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire, PlayerIndex.One, sfxSounds);
+            //Initialize Players:
+            playerManager = new PlayerManager(numberOfPlayers, content, 
+                new Vector2(viewport.Width / 2, viewport.Height - 90), sfxSounds);
 
-            playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 90);
-            playerOne.boundingRectangle.X = (int)playerOne.position.X;
-            playerOne.boundingRectangle.Y = (int)playerOne.position.Y;
-
-            //Initialize Second Player
-            playerTwo = new Player(content.Load<Texture2D>("Sprites\\waterShip"), content, Element.Ice, PlayerIndex.Two, sfxSounds);
-
-            playerTwo.position = new Vector2(viewport.Width / 2 + 65, viewport.Height - 90);
-            playerTwo.boundingRectangle.X = (int)playerTwo.position.X;
-            playerTwo.boundingRectangle.Y = (int)playerTwo.position.Y;
-
-            //Initialize Third Player
-            playerThree = new Player(content.Load<Texture2D>("Sprites\\earthShip"), content, Element.Earth, PlayerIndex.Three, sfxSounds);
-
-            playerThree.position = new Vector2(viewport.Width / 2 + 130, viewport.Height - 90);
-            playerThree.boundingRectangle.X = (int)playerThree.position.X;
-            playerThree.boundingRectangle.Y = (int)playerThree.position.Y;
-
-            //Initialize Fourth Player
-            playerFour = new Player(content.Load<Texture2D>("Sprites\\elecShip"), content, Element.Lightning, PlayerIndex.Four, sfxSounds);
-
-            playerFour.position = new Vector2(viewport.Width / 2 + 195, viewport.Height - 90);
-            playerFour.boundingRectangle.X = (int)playerFour.position.X;
-            playerFour.boundingRectangle.Y = (int)playerFour.position.Y;
-
-            ShootingPattern.shootStraight(playerOne.bullets);
-            ShootingPattern.shootStraight(playerTwo.bullets);
-            ShootingPattern.shootStraight(playerThree.bullets);
-            ShootingPattern.shootStraight(playerFour.bullets);
 
             //Play Song
             music = soundBank.GetCue("Level Song 1");
@@ -136,39 +114,16 @@ namespace ProjectPrototype
                     music.Resume();
                 }
 
-                List<Player> players = new List<Player>();
-
                 Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
                 Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
-                //Update player One
-                playerOne.Update(ref viewportRect, gameTime, enemies);
-                playerTwo.Update(ref viewportRect, gameTime, enemies);
-                playerThree.Update(ref viewportRect, gameTime, enemies);
-                playerFour.Update(ref viewportRect, gameTime, enemies);
-
-                // Add playerOne to the alive players array.
-                if (playerOne.alive)
-                {
-                    players.Add(playerOne);
-                }
-
-                if (playerTwo.alive)
-                {
-                    players.Add(playerTwo);
-                }
-
-                if (playerThree.alive)
-                {
-                    players.Add(playerThree);
-                }
-
-                if (playerFour.alive)
-                {
-                    players.Add(playerFour);
-                }
+                //Update Players
+                playerManager.Update(gameTime, viewportRect, enemies);
 
                 levelOne.Update(enemies);
+
+
+                List<Player> players = playerManager.GetLivingPlayers();
 
                 //Update enemies
                 List<Enemy> enemiesToRemove = new List<Enemy>();
@@ -186,10 +141,18 @@ namespace ProjectPrototype
                 explosionManager.Update(gameTime);
 
 
-                //Check if all players are dead
-                if (players.Count < 1)
+                //Check if all players are dead.
+                if (playerManager.AllPlayersAreDead)
                 {
-                    LoadingScreen.Load(ScreenManager, false, null, new ContinueScreen(Levels.EARTH, gameTime));
+                    LoadingScreen.Load(ScreenManager, false, null, 
+                        new ContinueScreen(Levels.EARTH, gameTime, 
+                            playerManager.NumberOfPlayers));
+                }
+
+                //Check if level has ended.
+                if (levelOne.HasReachedEnd && enemies.Count < 1)
+                {
+                    GoToNextLevel();
                 }
             }
             else
@@ -210,11 +173,7 @@ namespace ProjectPrototype
 
             levelOne.Draw(ScreenManager.SpriteBatch);
 
-            playerOne.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
-            playerTwo.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
-            playerThree.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
-            playerFour.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
-
+            playerManager.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
             explosionManager.Draw(ScreenManager.SpriteBatch);
 
             foreach (Enemy enemy in enemies)
@@ -230,11 +189,13 @@ namespace ProjectPrototype
         {
             base.HandleInput(input);
 
-            playerOne.HandleInput(input, PlayerIndex.One, ScreenManager);
-            playerTwo.HandleInput(input, PlayerIndex.Two, ScreenManager);
-            playerThree.HandleInput(input, PlayerIndex.Three, ScreenManager);
-            playerFour.HandleInput(input, PlayerIndex.Four, ScreenManager);
+            playerManager.HandleInput(input, ScreenManager);
 
+        }
+
+        private void GoToNextLevel()
+        {
+            LoadingScreen.Load(ScreenManager, false, null, new CreditsScreen());
         }
     }
 }
