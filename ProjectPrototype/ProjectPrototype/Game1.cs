@@ -28,7 +28,7 @@ namespace ProjectPrototype
 
             if (!InitGraphicsMode(1280, 720, true))
             {
-                if (!InitGraphicsMode(800, 600, true))
+                if (!InitGraphicsMode(800, 600, false))
                 {
                     this.Exit();
                 }

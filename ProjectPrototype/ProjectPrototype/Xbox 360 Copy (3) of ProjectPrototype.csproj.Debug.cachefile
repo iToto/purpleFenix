@@ -1,9 +1,6 @@
 Content\Sprites\greenShip.xnb
-Content\Sprites\asteroid.xnb
 Content\Sprites\Bullet.xnb
 Content\Sprites\DevilHead.xnb
-Content\Sprites\Boobs.xnb
-Content\Sprites\tileSet.xnb
 Content\Sprites\zelda.xnb
 Content\Sprites\chopper.xnb
 Content\Sprites\earthShip.xnb
@@ -34,11 +31,13 @@ Content\Music\XACT\Level1.xwb
 Content\Music\XACT\Level2.xwb
 Content\Music\XACT\FrontEnd.xwb
 Content\Music\XACT\SoundFX.xwb
+Content\Music\XACT\Credits.xwb
 Content\Music\XACT\Level1.xsb
 Content\Music\XACT\FrontEnd.xsb
 Content\Music\XACT\Level2.xsb
 Content\Music\XACT\Boss.xsb
 Content\Music\XACT\SoundFX.xsb
+Content\Music\XACT\Sound Bank.xsb
 Content\Maps\test.xml
 Content\Maps\waterFestival.xml
 Content\Maps\testMap.xml
