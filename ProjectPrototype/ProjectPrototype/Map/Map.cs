@@ -86,15 +86,24 @@ namespace ProjectPrototype
                         {
                             mapData[row, col] = Convert.ToInt16(temp[col]);
                         }
-
-                        if (layer == 1)
-                        {
-                            enemyData[row, col] = Convert.ToInt16(temp[col]);
-                        }
                     }
                     xml.ReadToNextSibling("RowInfo");
                 }
-                xml.ReadToNextSibling("Layer");
+            }
+
+            xml.ReadToFollowing("TerrainLayer");
+            xml.ReadToFollowing("TerrainRowInfo");
+            for (int row = 0; row < mapHeight; ++row)
+            {
+                xml.Read();
+                string[] temp;
+                temp = xml.ReadContentAsString().Split(',');
+                for (int col = 0; col < mapWidth; ++col)
+                {
+                    enemyData[row, col] = Convert.ToInt16(temp[col]) - 1;
+                }
+
+                xml.ReadToNextSibling("TerrainRowInfo");
             }
 
             this.lowerBound = this.mapHeight;

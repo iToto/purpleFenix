@@ -33,8 +33,17 @@ namespace ProjectPrototype
             Random random = new Random();
 
             this.sfx = sfx;
+
             this.velocity.X = 1;
-            this.velocity.Y = 1;
+            if (path == 2)
+            {
+                this.velocity.Y = 2;
+            }
+            else
+            {
+                this.velocity.Y = 1;
+            }
+
             this.typeOfPath = path;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 800);
             timeSinceLastShot = new TimeSpan(0);
@@ -77,9 +86,13 @@ namespace ProjectPrototype
                 {
                     this.position = MovementPath.sineWave(this, this.MoveHeightVariation, this.MoveWidthVariation);
                 }
-                else
+                else if (this.typeOfPath == 1)
                 {
                     this.position = MovementPath.parabola(this, 0.003f, 800f);
+                }
+                else
+                {
+                    this.position.Y += this.velocity.Y;
                 }
 
                 this.boundingRectangle.X = (int)this.position.X;

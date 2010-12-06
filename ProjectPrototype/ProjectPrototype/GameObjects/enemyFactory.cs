@@ -77,7 +77,7 @@ namespace ProjectPrototype
 
         static private Enemy buildFiral(ContentManager content, float heightVariation, float widthVariation)
         {
-            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"), 1, content, Element.Fire, 10, sfxBank); //Change sprite
+            Enemy firal = new Enemy(content.Load<Texture2D>("Sprites\\enemy3"), 2, content, Element.Fire, 10, sfxBank); //Change sprite
             firal.MoveHeightVariation = heightVariation;
             firal.MoveWidthVariation = widthVariation;
             firal.alive = true;
@@ -87,7 +87,7 @@ namespace ProjectPrototype
 
         static private Enemy buildAeraol(ContentManager content, float heightVariation, float widthVariation)
         {
-            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"), 0, content, Element.Earth, 10, sfxBank); //Change sprite
+            Enemy aeraol = new Enemy(content.Load<Texture2D>("Sprites\\enemy4"), 2, content, Element.Ice, 10, sfxBank); //Change sprite
             aeraol.MoveHeightVariation = heightVariation;
             aeraol.MoveWidthVariation = widthVariation;
             aeraol.alive = true;
