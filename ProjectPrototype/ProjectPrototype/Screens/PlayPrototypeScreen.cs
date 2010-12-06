@@ -28,7 +28,6 @@ namespace ProjectPrototype
 
         SoundBank sfxSounds;
         WaveBank sfxWaves;
-        
 
         Map levelOne;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ProjectPrototype
 {
@@ -15,6 +16,9 @@ namespace ProjectPrototype
         MenuEntry continueCountDown;
         GameTime time;
         Levels level;
+
+        SoundBank frontSounds;
+        WaveBank frontWaves;
 
         public ContinueScreen(Levels curentLevel, GameTime gameTime)
             : base("YOU NAUGHT COOKIN'?")
@@ -37,6 +41,18 @@ namespace ProjectPrototype
             MenuEntries.Add(continueCountDown);
             MenuEntries.Add(playAgainScreen);
             MenuEntries.Add(quitMenuEntry);
+        }
+
+        public override void LoadContent()
+        {
+            base.LoadContent();
+            //Load Front-End Music
+            frontSounds = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xsb");
+            frontWaves = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xwb");
+
+            //Play Song
+            frontSounds.PlayCue("continue Song");
+
         }
 
         /// <summary>
