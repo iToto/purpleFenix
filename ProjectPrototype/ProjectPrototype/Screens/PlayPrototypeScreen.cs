@@ -25,7 +25,9 @@ namespace ProjectPrototype
         ExplosionManager explosionManager;
         BulletManager bulletManager;
         WaveBank waveBank;
-        
+
+        SoundBank sfxSounds;
+        WaveBank sfxWaves;
 
         Map levelOne;
 
@@ -68,10 +70,14 @@ namespace ProjectPrototype
             soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
             waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xwb");
 
+            //Load SFX
+            sfxSounds = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xsb");
+            sfxWaves = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xwb");
+
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
             //Initialize First Player
-            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire, PlayerIndex.One, soundBank);
+            playerOne = new Player(content.Load<Texture2D>("Sprites\\fireShip"), content, Element.Fire, PlayerIndex.One, sfxSounds);
 
             playerOne.position = new Vector2(viewport.Width / 2, viewport.Height - 60);
             playerOne.boundingRectangle.X = (int)playerOne.position.X;
@@ -98,12 +104,16 @@ namespace ProjectPrototype
                 Rectangle viewportRect = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
                 //Update player One
-                playerOne.Update(ref viewportRect, gameTime, enemies,soundBank);
+                playerOne.Update(ref viewportRect, gameTime, enemies);
 
                 // Add playerOne to the alive players array.
                 if (playerOne.alive)
                 {
                     players.Add(playerOne);
+                }
+                else
+                {
+                    ScreenManager.AddScreen(new ContinueScreen(Levels.TEST,gameTime), PlayerIndex.One);
                 }
 
                 levelOne.Update(enemies);

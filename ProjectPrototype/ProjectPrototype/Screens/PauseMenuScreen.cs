@@ -35,7 +35,7 @@ namespace ProjectPrototype
             // Create our menu entries.
             MenuEntry resumeGameMenuEntry = new MenuEntry("RESUME GAME");
             MenuEntry optionsGameMenuEntry = new MenuEntry("OPTIONS");
-            MenuEntry quitGameMenuEntry = new MenuEntry("QUIT GAMSE");
+            MenuEntry quitGameMenuEntry = new MenuEntry("QUIT GAME");
             
             // Hook up menu event handlers.
             resumeGameMenuEntry.Selected += OnCancel;

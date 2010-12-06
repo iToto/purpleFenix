@@ -9,13 +9,6 @@ namespace ProjectPrototype
     {
         int numberOfPlayers;
         MenuEntry selectedLevelEntry;
-        
-        enum Levels
-        {
-            EARTH,
-            SPACE,
-            BOSS,
-        }
 
         static Levels selectedLevel = Levels.EARTH; 
 
@@ -72,6 +65,9 @@ namespace ProjectPrototype
 
             switch (selectedLevel)
             {
+                case Levels.TEST:
+                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new PlayPrototypeScreen());
+                    break;
                 case Levels.EARTH:
                     LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne());
                     break;
@@ -83,13 +79,8 @@ namespace ProjectPrototype
                     break;
                 default:
                     break;
-            }
-            
+            }        
         }
-
-
         #endregion
-
-
     }
 }
