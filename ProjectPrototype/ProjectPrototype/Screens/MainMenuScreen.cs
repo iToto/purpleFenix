@@ -58,7 +58,6 @@ namespace ProjectPrototype
             //Play Song
             music = soundBank.GetCue("menuMusic");
             music.Play();
-            //soundBank.PlayCue("menuMusic");
         }
 
         #endregion

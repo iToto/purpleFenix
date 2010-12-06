@@ -101,8 +101,6 @@ namespace ProjectPrototype
 
             spriteBatch.Draw(backgroundTexture, fullscreen,
                              new Color(fade, fade, fade));
-            spriteBatch.DrawString(ScreenManager.Font, "HELLO", Vector2.Zero, Color.Green); 
-
             spriteBatch.End();
         }
 

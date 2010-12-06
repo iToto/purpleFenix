@@ -21,24 +21,6 @@ namespace ProjectPrototype
     {
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
-        
-        SpriteBatch spriteBatch;
-        Rectangle viewportRect;
-
-        Player playerOne;
-        List<Enemy> enemies = new List<Enemy>();
-        List<Bullet> bullets = new List<Bullet>();
-        
-
-#if !XBOX
-        KeyboardState previousKeyboardState;
-#endif
-        GamePadState previousGamepadState;
-
-        Random random = new Random();
-
-        const int maxAsteroids = 5;
-        const int maxBullets = 60;
 
         public Game1()
         {
@@ -46,7 +28,10 @@ namespace ProjectPrototype
 
             if (!InitGraphicsMode(1280, 720, true))
             {
-                //this.Exit();
+                if (!InitGraphicsMode(800, 600, true))
+                {
+                    this.Exit();
+                }
             }
 
             Content.RootDirectory = "Content";
@@ -57,7 +42,6 @@ namespace ProjectPrototype
 
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
-            //screenManager.AddScreen(new PlayPrototypeScreen(), null);
         }
 
         /// <summary>
