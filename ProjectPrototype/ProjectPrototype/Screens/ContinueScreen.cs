@@ -20,6 +20,8 @@ namespace ProjectPrototype
         SoundBank frontSounds;
         WaveBank frontWaves;
 
+        Cue music;
+
         public ContinueScreen(Levels curentLevel, GameTime gameTime)
             : base("YOU NAUGHT COOKIN'?")
         {
@@ -51,8 +53,8 @@ namespace ProjectPrototype
             frontWaves = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xwb");
 
             //Play Song
-            frontSounds.PlayCue("continue Song");
-
+            music = frontSounds.GetCue("continue Song");
+            music.Play();
         }
 
         /// <summary>
@@ -86,6 +88,7 @@ namespace ProjectPrototype
         {
             if (timeoutCount > TimeOutLimit)
             {
+                music.Stop(AudioStopOptions.Immediate);
                 LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(), new MainMenuScreen());                
             }
         }
@@ -101,7 +104,7 @@ namespace ProjectPrototype
         void PlayGame(object sender, PlayerIndexEventArgs e)
         {
             //Load Correct Screen
-
+            music.Stop(AudioStopOptions.Immediate);
             switch (level)
             {
                 case Levels.TEST:
@@ -128,6 +131,7 @@ namespace ProjectPrototype
         /// </summary>
         void ConfirmQuitMessageBoxAccepted(object sender, PlayerIndexEventArgs e)
         {
+            music.Stop(AudioStopOptions.Immediate);
             LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
                                                            new MainMenuScreen());
         }

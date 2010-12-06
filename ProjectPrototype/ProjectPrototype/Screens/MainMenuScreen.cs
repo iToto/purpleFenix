@@ -21,6 +21,7 @@ namespace ProjectPrototype
     {
         SoundBank soundBank;
         WaveBank waveBank;
+        Cue music;
 
         #region Initialization
 
@@ -55,7 +56,9 @@ namespace ProjectPrototype
             waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\FrontEnd.xwb");
 
             //Play Song
-            soundBank.PlayCue("menuMusic");
+            music = soundBank.GetCue("menuMusic");
+            music.Play();
+            //soundBank.PlayCue("menuMusic");
         }
 
         #endregion

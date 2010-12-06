@@ -120,7 +120,6 @@ namespace ProjectPrototype
             ShootingPattern.shootStraight(playerFour.bullets);
 
             //Play Song
-            //soundBank.PlayCue("Level Song 1");
             music = soundBank.GetCue("Level Song 1");
             music.Play();
         }
@@ -185,6 +184,13 @@ namespace ProjectPrototype
                 enemies.RemoveAll(enemiesToRemove.Contains);
 
                 explosionManager.Update(gameTime);
+
+
+                //Check if all players are dead
+                if (players.Count < 1)
+                {
+                    LoadingScreen.Load(ScreenManager, false, null, new ContinueScreen(Levels.EARTH, gameTime));
+                }
             }
             else
             {
