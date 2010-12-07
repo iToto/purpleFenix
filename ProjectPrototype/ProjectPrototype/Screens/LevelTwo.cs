@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace ProjectPrototype 
+namespace ProjectPrototype
 {
-    class LevelOne : GameScreen
+    class LevelTwo : GameScreen
     {
         ContentManager content;
 
@@ -31,7 +31,7 @@ namespace ProjectPrototype
 
         Cue music;
 
-        Map levelOne;
+        Map level;
 
         const int MAX_BULLETS = 60;
         const int MAX_ENEMIES = 10;
@@ -43,7 +43,7 @@ namespace ProjectPrototype
         /// <summary>
         /// Constructor.
         /// </summary>
-        public LevelOne(int numberOfPlayers)
+        public LevelTwo(int numberOfPlayers)
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -67,11 +67,11 @@ namespace ProjectPrototype
             GameObject.ExplosionManager = explosionManager;
 
             //Load Level
-            levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
+            level = new Map("Content\\Maps\\Space1.xml", content, "Sprites\\spaceTileset", ScreenManager.GraphicsDevice);
 
             //Load Music
-            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
-            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xwb");
+            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level2.xsb");
+            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Level2.xwb");
 
             //Load SFX
             sfxSounds = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xsb");
@@ -84,12 +84,12 @@ namespace ProjectPrototype
             EnemyFactory.sfxBank = sfxSounds;
 
             //Initialize Players:
-            playerManager = new PlayerManager(numberOfPlayers, content, 
+            playerManager = new PlayerManager(numberOfPlayers, content,
                 new Vector2(viewport.Width / 2, viewport.Height - 90), sfxSounds);
 
 
             //Play Song
-            music = soundBank.GetCue("Level Song 1");
+            music = soundBank.GetCue("Level Song 2");
             music.Play();
         }
 
@@ -111,7 +111,7 @@ namespace ProjectPrototype
                 //Update Players
                 playerManager.Update(gameTime, viewportRect, enemies);
 
-                levelOne.Update(enemies);
+                level.Update(enemies);
 
 
                 List<Player> players = playerManager.GetLivingPlayers();
@@ -135,13 +135,13 @@ namespace ProjectPrototype
                 //Check if all players are dead.
                 if (playerManager.AllPlayersAreDead)
                 {
-                    LoadingScreen.Load(ScreenManager, false, null, 
-                        new ContinueScreen(Levels.EARTH, gameTime, 
+                    LoadingScreen.Load(ScreenManager, false, null,
+                        new ContinueScreen(Levels.EARTH, gameTime,
                             playerManager.NumberOfPlayers));
                 }
 
                 //Check if level has ended.
-                if (levelOne.HasReachedEnd && enemies.Count < 1)
+                if (level.HasReachedEnd && enemies.Count < 1)
                 {
                     GoToNextLevel();
                 }
@@ -158,7 +158,7 @@ namespace ProjectPrototype
 
             ScreenManager.SpriteBatch.Begin();
 
-            levelOne.Draw(ScreenManager.SpriteBatch);
+            level.Draw(ScreenManager.SpriteBatch);
 
             playerManager.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
             explosionManager.Draw(ScreenManager.SpriteBatch);
@@ -182,7 +182,7 @@ namespace ProjectPrototype
 
         private void GoToNextLevel()
         {
-            LoadingScreen.Load(ScreenManager, false, null, new LevelTwo(numberOfPlayers));
+            LoadingScreen.Load(ScreenManager, false, null, new CreditsScreen());
         }
     }
 }

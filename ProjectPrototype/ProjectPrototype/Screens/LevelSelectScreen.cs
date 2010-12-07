@@ -72,10 +72,10 @@ namespace ProjectPrototype
                     LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne(numberOfPlayers));
                     break;
                 case Levels.SPACE:
-                    //ScreenManager.AddScreen(new LevelTwo(), e.PlayerIndex);
+                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelTwo(numberOfPlayers));
                     break;
                 case Levels.BOSS:
-                    ScreenManager.AddScreen(new BossLevel(numberOfPlayers), e.PlayerIndex);
+                    //ScreenManager.AddScreen(new BossLevel(numberOfPlayers), e.PlayerIndex);
                     break;
                 default:
                     break;

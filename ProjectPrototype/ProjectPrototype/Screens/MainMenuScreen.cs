@@ -92,6 +92,7 @@ namespace ProjectPrototype
 
         void CreditsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            music.Stop(AudioStopOptions.Immediate);
             LoadingScreen.Load(ScreenManager, false, null, new CreditsScreen());
         }
 
