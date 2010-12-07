@@ -202,9 +202,18 @@ namespace ProjectPrototype
             this.alive = false;
         }
 
-        public virtual void Damage(int damageTaken)
+        public virtual void Damage(int damageTaken, Defense defenseType)
         {
             this.Health -= damageTaken;
+        }
+
+        public bool isPlaying(String animation)
+        {
+            if (CurrentAnimation.Equals(Animations[animation]))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
