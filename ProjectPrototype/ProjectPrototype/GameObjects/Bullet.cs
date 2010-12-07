@@ -74,15 +74,15 @@ namespace ProjectPrototype
                     {
                         opponent.Kill();
                         if (this.element == Element.Fire && opponent.element == Element.Earth)
-                            score.score += 10;
+                            score.AddPoints(10);
                         else if (this.element == Element.Earth && opponent.element == Element.Lightning)
-                            score.score += 10;
+                            score.AddPoints(10);
                         else if (this.element == Element.Ice && opponent.element == Element.Fire)
-                            score.score += 10;
+                            score.AddPoints(10);
                         else if (this.element == Element.Lightning && opponent.element == Element.Ice)
-                            score.score += 10;
+                            score.AddPoints(10);
                         else
-                            score.score += 5;
+                            score.AddPoints(5);
 
                             
                     }
