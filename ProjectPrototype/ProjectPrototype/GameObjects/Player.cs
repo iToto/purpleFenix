@@ -24,6 +24,8 @@ namespace ProjectPrototype
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
         bool isShooting = false;
+        bool isFlashing = false;
+        Color flashColor;
         public List<Bullet> bullets = new List<Bullet>();
         ScoreManager score;
 
@@ -58,6 +60,7 @@ namespace ProjectPrototype
 
             this.element = element;
 
+            this.AddAnimation("flash", new int[1] { 1 }, 16, false);
             this.AddAnimation("normal", new int[1] {0}, 4, false);
             this.play("normal");
 
@@ -165,6 +168,12 @@ namespace ProjectPrototype
                     }
                 }
 
+                if (CurrentAnimation.Done && isPlaying("flash"))
+                {
+                    this.play("normal");
+                    this.isFlashing = false;
+                }
+
                 CheckEnemyCollision(enemies);
 
             }
@@ -185,9 +194,14 @@ namespace ProjectPrototype
             //spritebatch.Draw(this.sprite, this.position, Color.White);
             if (this.alive)
             {
+                Color drawColor = Color.White;
+                if (isFlashing)
+                {
+                    drawColor = this.flashColor;
+                }
                 spritebatch.Draw(this.sprite, 
                     new Rectangle((int)this.position.X, (int)this.position.Y, this.spriteWidth, this.spriteHeight), 
-                    this.frameRectangle, Color.White);
+                    this.frameRectangle, drawColor);
             }
 
             healthBar.Draw(spritebatch, this.playerIndex, font);
@@ -301,9 +315,29 @@ namespace ProjectPrototype
             this.sfx.PlayCue("explode");
         }
 
-        public override void Damage(int damageTaken)
+        public override void Damage(int damageTaken, Defense defenseType)
         {
             this.Health -= damageTaken;
+            if (!this.isFlashing)
+            {
+                this.play("flash");
+                this.isFlashing = true;
+                switch (defenseType)
+                {
+                    case Defense.Weak:
+                        this.flashColor = Color.Red;
+                        break;
+                    case Defense.Standard:
+                        this.flashColor = Color.White;
+                        break;
+                    case Defense.Strong:
+                        this.flashColor = Color.Green;
+                        break;
+                    default:
+                        this.flashColor = Color.White;
+                        break;
+                }
+            }
         }
     }
 }

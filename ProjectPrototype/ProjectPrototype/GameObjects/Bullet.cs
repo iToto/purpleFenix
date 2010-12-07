@@ -58,13 +58,13 @@ namespace ProjectPrototype
                     switch (opponent.CompareElements(this))
                     {
                         case Defense.Standard:
-                            opponent.Damage(2);
+                            opponent.Damage(2, Defense.Standard);
                             break;
                         case Defense.Strong:
-                            opponent.Damage(1);
+                            opponent.Damage(1, Defense.Strong);
                             break;
                         case Defense.Weak:
-                            opponent.Damage(4);
+                            opponent.Damage(4, Defense.Weak);
                             break;
                         default:
                             break;
@@ -99,13 +99,13 @@ namespace ProjectPrototype
                     switch (opponent.CompareElements(this))
                     {
                         case Defense.Standard:
-                            opponent.Damage(2);
+                            opponent.Damage(2, Defense.Standard);
                             break;
                         case Defense.Strong:
-                            opponent.Damage(1);
+                            opponent.Damage(1, Defense.Strong);
                             break;
                         case Defense.Weak:
-                            opponent.Damage(4);
+                            opponent.Damage(4, Defense.Weak);
                             break;
                         default:
                             break;

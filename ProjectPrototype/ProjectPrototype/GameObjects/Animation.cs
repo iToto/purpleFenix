@@ -70,6 +70,7 @@ namespace ProjectPrototype
         public void resetFrameIndex()
         {
             this.frameIndex = 0;
+            this.Done = false;
         }
     }
 }
