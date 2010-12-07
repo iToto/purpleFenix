@@ -16,31 +16,38 @@ using System.Diagnostics;
 
 namespace ProjectPrototype
 {
-    class DarkFyre : GameObject
+    class DarkFyre : Enemy
     {
         const int MAX_BULLETS = 200;
-        public float MoveHeightVariation { set; private get; }
-        public float MoveWidthVariation { set; private get; }
-        public List<Bullet> bullets = new List<Bullet>();
-        public List<Enemy> bossParts = new List<Enemy>();
+        const int NUM_ENEMIES = 4;
+        public List<Enemy> miniBosses = new List<Enemy>();
 
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
-        public bool hasActiveBullets;
 
         public DarkFyre(Texture2D loadedTexture, ContentManager content, Element el, int hp, SoundBank sfx)
-            : base(loadedTexture,el,hp)
+            : base(loadedTexture,content,el,50000,sfx)
         {
             Texture2D bulletSprite;
             Random random = new Random();
 
             this.sfx = sfx;
 
-            this.velocity.X = 1;
+            this.velocity.X = 0;
+            this.velocity.Y = 0.5f;
             
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 800);
             timeSinceLastShot = new TimeSpan(0);
             this.hasActiveBullets = false;
+
+            //Add miniEnemies
+            for (int i = 0; i < 1; ++i)
+            {
+                miniBosses.Add(new Enemy(content.Load<Texture2D>("Sprites\\enemy"), content, Element.Earth, 10, sfx));
+                miniBosses.Add(new Enemy(content.Load<Texture2D>("Sprites\\enemy2"), content, Element.Lightning, 10, sfx));
+                miniBosses.Add(new Enemy(content.Load<Texture2D>("Sprites\\enemy3"), content, Element.Fire, 10, sfx));
+                miniBosses.Add(new Enemy(content.Load<Texture2D>("Sprites\\enemy4"), content, Element.Ice, 10, sfx));
+            }
 
             //for (int i = 0; i < MAX_BULLETS; ++i)
             //{
@@ -48,11 +55,22 @@ namespace ProjectPrototype
             //}
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
+        public override void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
         {
             if (this.alive)
             {
                 //TODO Move the boss in some manner
+                if (this.position.Y >= viewportRect.Height / 3)
+                    this.velocity.Y = 0;
+
+                this.position.Y += this.velocity.Y;
+
+                //Update miniBoss' positions
+                foreach (Enemy enemy in this.miniBosses)
+                {   
+                    enemy.Update(ref viewportRect, gameTime, players);
+                    enemy.velocity.Y = this.velocity.Y;
+                }
 
                 this.boundingRectangle.X = (int)this.position.X;
                 this.boundingRectangle.Y = (int)this.position.Y;
@@ -74,7 +92,6 @@ namespace ProjectPrototype
                 }
             }
 
-
             //Update Bullets and collide with enemies
             foreach (Bullet bullet in bullets)
             {
@@ -88,7 +105,7 @@ namespace ProjectPrototype
             stillHasActiveBullets();
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public override void Draw(SpriteBatch spritebatch)
         {
             if (this.alive)
             {

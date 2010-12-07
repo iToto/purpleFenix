@@ -21,12 +21,8 @@ namespace ProjectPrototype
 
         PlayerManager playerManager;
 
-        Player playerOne;
-        Player playerTwo;
-        Player playerThree;
-        Player playerFour;
-
-        List<Enemy> enemies = new List<Enemy>();
+        DarkFyre boss;
+        List<Enemy> enemies;
         SoundBank soundBank;
         ExplosionManager explosionManager;
         BulletManager bulletManager;
@@ -72,19 +68,48 @@ namespace ProjectPrototype
             //Init the explosion manager for all game objects
             GameObject.ExplosionManager = explosionManager;
 
-            //Load Background
-            backgroundTexture = content.Load<Texture2D>("Sprites\\Lava");
-
             //Load Level
-            levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
+            levelOne = new Map("Content\\Maps\\Boss.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
 
             //Load Music
-            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
-            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xwb");
+            soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Boss.xsb");
+            waveBank = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\Boss.xwb");
 
             //Load SFX
             sfxSounds = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xsb");
             sfxWaves = new WaveBank(ScreenManager.engine, "Content\\Music\\XACT\\SoundFX.xwb");
+
+            //Load Boss
+            boss = new DarkFyre(content.Load<Texture2D>("Sprites\\bossMaybe"), content, Element.Fire, 50000, sfxSounds);
+            boss.position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - boss.sprite.Width / 2, -(boss.sprite.Height));
+            boss.alive = true;
+
+            for(int i = 0; i < boss.miniBosses.Count; ++i)
+            {
+                boss.miniBosses[i].velocity.Y = boss.velocity.Y;
+                boss.miniBosses[i].alive = true;
+                if (i==0)
+                {
+                    boss.miniBosses[i].position = new Vector2(boss.position.X + boss.sprite.Width + boss.miniBosses[i].sprite.Width, boss.position.Y - boss.miniBosses[i].sprite.Height/2);
+                }
+                if (i == 1)
+                {
+                    boss.miniBosses[i].position = new Vector2(boss.position.X - boss.miniBosses[i].sprite.Width*2, boss.position.Y - boss.miniBosses[i].sprite.Height/2);
+                }
+                if (i == 2)
+                {
+                    boss.miniBosses[i].position = new Vector2(boss.position.X - boss.miniBosses[i].sprite.Width*2, boss.position.Y + boss.sprite.Height + boss.miniBosses[i].sprite.Height*2);
+                }
+                if (i == 3)
+                {
+                    boss.miniBosses[i].position = new Vector2(boss.position.X + boss.sprite.Width + boss.miniBosses[i].sprite.Width, boss.position.Y + boss.sprite.Height + boss.miniBosses[i].sprite.Height*2);
+                }
+                
+            }
+            enemies = new List<Enemy>();
+            enemies.AddRange(boss.miniBosses);
+
+            enemies.Add(boss);        
 
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
 
@@ -98,7 +123,7 @@ namespace ProjectPrototype
 
 
             //Play Song
-            music = soundBank.GetCue("Level Song 1");
+            music = soundBank.GetCue("bossSong");
             music.Play();
         }
 
@@ -125,19 +150,9 @@ namespace ProjectPrototype
 
                 List<Player> players = playerManager.GetLivingPlayers();
 
-                //Update enemies
-                List<Enemy> enemiesToRemove = new List<Enemy>();
-                foreach (Enemy enemy in enemies)
-                {
-                    if (!enemy.alive && !enemy.hasActiveBullets)
-                    {
-                        enemiesToRemove.Add(enemy);
-                    }
-                    enemy.Update(ref viewportRect, gameTime, players);
-                }
-
-                enemies.RemoveAll(enemiesToRemove.Contains);
-
+                //Update Boss
+                boss.Update(ref viewportRect, gameTime, players);
+                
                 explosionManager.Update(gameTime);
 
 
@@ -167,10 +182,6 @@ namespace ProjectPrototype
 
             ScreenManager.SpriteBatch.Begin();
 
-            ScreenManager.SpriteBatch.Draw(backgroundTexture, 
-                new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height),  
-                Color.White);
-
             levelOne.Draw(ScreenManager.SpriteBatch);
 
             playerManager.Draw(ScreenManager.SpriteBatch, ScreenManager.Font);
@@ -195,6 +206,7 @@ namespace ProjectPrototype
 
         private void GoToNextLevel()
         {
+            music.Stop(AudioStopOptions.Immediate);
             LoadingScreen.Load(ScreenManager, false, null, new CreditsScreen());
         }
     }
