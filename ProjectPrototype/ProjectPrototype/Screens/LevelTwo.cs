@@ -136,7 +136,7 @@ namespace ProjectPrototype
                 if (playerManager.AllPlayersAreDead)
                 {
                     LoadingScreen.Load(ScreenManager, false, null,
-                        new ContinueScreen(Levels.EARTH, gameTime,
+                        new ContinueScreen(Levels.SPACE, gameTime,
                             playerManager.NumberOfPlayers));
                 }
 
