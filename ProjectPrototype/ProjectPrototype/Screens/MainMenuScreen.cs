@@ -34,20 +34,20 @@ namespace ProjectPrototype
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("PLAY GAME");
-            MenuEntry optionsMenuEntry = new MenuEntry("OPTIONS");
+            //MenuEntry optionsMenuEntry = new MenuEntry("OPTIONS");
             MenuEntry creditsMenuEntry = new MenuEntry("CREDITS");
             MenuEntry exitMenuEntry = new MenuEntry("QUIT");
 
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
-            optionsMenuEntry.Selected += OptionsMenuEntrySelected;
+            //optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             creditsMenuEntry.Selected += CreditsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);
-            MenuEntries.Add(optionsMenuEntry);
+            //MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(creditsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }

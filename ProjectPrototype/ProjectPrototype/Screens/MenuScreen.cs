@@ -165,7 +165,8 @@ namespace ProjectPrototype
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
 
-            Vector2 position = new Vector2(400, 250);
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 
+                ScreenManager.GraphicsDevice.Viewport.Height / 2);
 
             // Make the menu slide into place during transitions, using a
             // power curve to make things look more interesting (this makes
