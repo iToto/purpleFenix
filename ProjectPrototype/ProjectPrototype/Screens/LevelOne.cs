@@ -17,14 +17,8 @@ namespace ProjectPrototype
     class LevelOne : GameScreen
     {
         ContentManager content;
-        Texture2D backgroundTexture;
 
         PlayerManager playerManager;
-
-        Player playerOne;
-        Player playerTwo;
-        Player playerThree;
-        Player playerFour;
 
         List<Enemy> enemies = new List<Enemy>();
         SoundBank soundBank;
@@ -71,9 +65,6 @@ namespace ProjectPrototype
 
             //Init the explosion manager for all game objects
             GameObject.ExplosionManager = explosionManager;
-
-            //Load Background
-            backgroundTexture = content.Load<Texture2D>("Sprites\\Lava");
 
             //Load Level
             levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
@@ -166,10 +157,6 @@ namespace ProjectPrototype
             base.Draw(gameTime);
 
             ScreenManager.SpriteBatch.Begin();
-
-            ScreenManager.SpriteBatch.Draw(backgroundTexture, 
-                new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height),  
-                Color.White);
 
             levelOne.Draw(ScreenManager.SpriteBatch);
 
