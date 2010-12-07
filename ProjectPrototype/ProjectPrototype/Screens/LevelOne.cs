@@ -67,7 +67,7 @@ namespace ProjectPrototype
             GameObject.ExplosionManager = explosionManager;
 
             //Load Level
-            levelOne = new Map("Content\\Maps\\TestMap2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
+            levelOne = new Map("Content\\Maps\\Level2.xml", content, "Sprites\\lavaTileset", ScreenManager.GraphicsDevice);
 
             //Load Music
             soundBank = new SoundBank(ScreenManager.engine, "Content\\Music\\XACT\\Level1.xsb");
@@ -182,6 +182,7 @@ namespace ProjectPrototype
 
         private void GoToNextLevel()
         {
+            music.Stop(AudioStopOptions.Immediate);
             LoadingScreen.Load(ScreenManager, false, null, new LevelTwo(numberOfPlayers));
         }
     }

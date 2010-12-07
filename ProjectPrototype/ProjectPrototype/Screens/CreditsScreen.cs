@@ -46,10 +46,10 @@ namespace ProjectPrototype
             credits.Add("PROGRAMMING BY: \n BRONSON ZGEB \n ROBBIE CAPUTO \n SALVATORE D'AGOSTINO");
             credits.Add("MUSIC BY: SALVATORE D'AGOSTINO");
             credits.Add("CREDITS SONG BY: \n STATIKZ FT. J. ARTHUR KEENES");
-            credits.Add("SOUND CREATED USING: \nAS3SFXR");
+            credits.Add("SOUND CREATED USING: \n         AS3SFXR");
             credits.Add("ART BY: \n ROBBIE CAPUTO \n BRONSON ZGEB");
             credits.Add("ANIMATION BY: BRONSON ZGEB \n\n\n      FONT BY: BRONSON ZGEB");
-            credits.Add("LAVA TILESET PROVIDED BY: ");
+            credits.Add("LAVA TILESET PROVIDED BY: \n       L0RDPH0ENIX");
             credits.Add("THANKS FOR PLAYING!                     ");
         }
 

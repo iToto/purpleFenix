@@ -182,6 +182,7 @@ namespace ProjectPrototype
 
         private void GoToNextLevel()
         {
+            music.Stop(AudioStopOptions.Immediate);
             LoadingScreen.Load(ScreenManager, false, null, new CreditsScreen());
         }
     }
