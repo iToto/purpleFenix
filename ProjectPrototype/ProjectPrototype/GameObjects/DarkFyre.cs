@@ -28,7 +28,6 @@ namespace ProjectPrototype
         public DarkFyre(Texture2D loadedTexture, ContentManager content, Element el, int hp, SoundBank sfx)
             : base(loadedTexture,content,el,50000,sfx)
         {
-            Texture2D bulletSprite;
             Random random = new Random();
 
             this.sfx = sfx;
@@ -122,7 +121,7 @@ namespace ProjectPrototype
         {
             //TODO have different parts fire
 
-            BulletManager.Fire(this.bullets, this, 1);
+            BulletManager.Fire(this.bullets, this, 1, 0);
         }
     
         private void stillHasActiveBullets()

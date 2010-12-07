@@ -29,7 +29,7 @@ namespace ProjectPrototype
         }
 
         // Direction should be 1 (down) or -1 (up).
-        public static void Fire(List<Bullet> bullets, GameObject bulletOwner, int direction)
+        public static void Fire(List<Bullet> bullets, GameObject bulletOwner, int direction, int velocityModifier)
         {
             // shoot 5 bullets at once
             if (bullets[0].type == bulletType.spread)
@@ -43,7 +43,7 @@ namespace ProjectPrototype
                         bullet.alive = true;
                         bullet.element = bulletOwner.element;
 
-                        PositionBullet(bullet, bulletOwner.boundingRectangle, direction);
+                        PositionBullet(bullet, bulletOwner.boundingRectangle, direction, velocityModifier);
 
                         switch (bulletsFired)
                         {
@@ -83,7 +83,7 @@ namespace ProjectPrototype
                         bullet.alive = true;
                         bullet.element = bulletOwner.element;
 
-                        PositionBullet(bullet, bulletOwner.boundingRectangle, direction);
+                        PositionBullet(bullet, bulletOwner.boundingRectangle, direction, velocityModifier);
 
                         break;
                     }
@@ -104,7 +104,7 @@ namespace ProjectPrototype
                         bullet.alive = true;
                         bullet.element = bulletOwner.element;
 
-                        PositionBullet(bullet, bulletOwner.boundingRectangle, direction);
+                        PositionBullet(bullet, bulletOwner.boundingRectangle, direction, velocityModifier);
 
                         Random random = new Random();
 
@@ -134,7 +134,7 @@ namespace ProjectPrototype
             }
         }
 
-        private static Bullet PositionBullet(Bullet bullet, Rectangle boundingRectangle, int direction)
+        private static Bullet PositionBullet(Bullet bullet, Rectangle boundingRectangle, int direction, int velocityModifier)
         {
             if (direction < 0)
             {
@@ -148,6 +148,8 @@ namespace ProjectPrototype
                 bullet.position.Y = boundingRectangle.Bottom - bullet.boundingRectangle.Height / 2;
                 bullet.velocity.Y = 4.0f;
             }
+
+            bullet.velocity.Y += velocityModifier;
 
             return bullet;
         }

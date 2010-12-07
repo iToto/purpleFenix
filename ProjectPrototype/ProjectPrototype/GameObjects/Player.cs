@@ -20,7 +20,7 @@ namespace ProjectPrototype
     {
         const int MAX_BULLETS = 200;
 
-        public float speed = 4.0f;
+        public float speed = 5.0f;
         TimeSpan timeSinceLastShot;
         TimeSpan timeBetweenShots;
         bool isShooting = false;
@@ -121,6 +121,10 @@ namespace ProjectPrototype
             {
                 bullets.Add(new Bullet(bulletSprite, this.element));
             }
+
+            //Tighten up bounding rectangle
+            this.boundingRectangle.Width = 46;
+            this.boundingRectangle.Height = 46;
         }
 
         public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Enemy> enemies)
@@ -132,8 +136,11 @@ namespace ProjectPrototype
                 this.position.X += this.velocity.X;
                 this.position.Y += this.velocity.Y;
 
-                this.boundingRectangle.X = (int)this.position.X;
-                this.boundingRectangle.Y = (int)this.position.Y;
+                this.boundingRectangle.X = 
+                    (int)this.position.X + this.spriteWidth / 2 - this.boundingRectangle.Width / 2;
+                
+                this.boundingRectangle.Y = 
+                    (int)this.position.Y + this.spriteHeight / 2 - this.boundingRectangle.Height / 2;
 
                 if (this.position.X < 0)
                 {
@@ -303,7 +310,12 @@ namespace ProjectPrototype
 
         private void Fire()
         {
-            BulletManager.Fire(this.bullets, this, -1);
+            int bulletVelocityModifier = 0;
+            if (this.velocity.Y < 0)
+            {
+                bulletVelocityModifier = -1;
+            }
+            BulletManager.Fire(this.bullets, this, -1, bulletVelocityModifier);
             this.sfx.PlayCue("choot");
         }
 

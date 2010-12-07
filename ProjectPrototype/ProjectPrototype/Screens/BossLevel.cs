@@ -17,8 +17,7 @@ namespace ProjectPrototype
     class BossLevel : GameScreen
     {
         ContentManager content;
-        Texture2D backgroundTexture;
-
+        
         PlayerManager playerManager;
 
         DarkFyre boss;

@@ -188,7 +188,7 @@ namespace ProjectPrototype
 
         private void Fire()
         {
-            BulletManager.Fire(this.bullets, this, 1);
+            BulletManager.Fire(this.bullets, this, 1, 0);
         }
     
         private void stillHasActiveBullets()

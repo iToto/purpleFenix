@@ -36,7 +36,6 @@ namespace ProjectPrototype
         //XML variables
         private int tileSize;
        
-        private int totalTerrains;
         private int[,] mapData;
         private int[,] enemyData;
 
