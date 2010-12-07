@@ -50,6 +50,7 @@ namespace ProjectPrototype
             credits.Add("ART BY: \n ROBBIE CAPUTO \n BRONSON ZGEB");
             credits.Add("ANIMATION BY: BRONSON ZGEB \n\n\n      FONT BY: BRONSON ZGEB");
             credits.Add("LAVA TILESET PROVIDED BY: \n       L0RDPH0ENIX");
+            credits.Add("MAP EDITOR PROVIDED BY: \n    NANDOSOFT");
             credits.Add("THANKS FOR PLAYING!                     ");
         }
 

@@ -6,7 +6,7 @@ C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\GameThumbnail.png
 2010-12-01T15:21:41.8906250Z
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\ProjectPrototype.exe
-2010-12-07T08:02:12.0000000Z
+2010-12-07T18:16:58.9218750Z
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\Sprites\bossMaybe.xnb
 2010-12-07T07:29:11.2812500Z
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\Sprites\Bullet.xnb
@@ -96,7 +96,7 @@ C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\FrontEnd\blank.xnb
 2010-12-06T04:04:45.6488725Z
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\FrontEnd\gradient.xnb
-2010-12-07T07:00:30.0156250Z
+2010-12-07T18:16:57.4687500Z
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\FrontEnd\MainMenuBackground.xnb
 2010-12-06T04:04:46.5862645Z
 C:\dev\purpleFenix\ProjectPrototype\ProjectPrototype\bin\Xbox 360\Debug\Content\Fonts\BrownPixels.xnb
