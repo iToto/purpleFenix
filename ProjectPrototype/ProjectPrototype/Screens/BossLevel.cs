@@ -164,7 +164,7 @@ namespace ProjectPrototype
                 }
 
                 //Check if level has ended.
-                if (levelOne.HasReachedEnd && enemies.Count < 1)
+                if (boss.AllEnemiesAreDead())
                 {
                     GoToNextLevel();
                 }

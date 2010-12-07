@@ -26,7 +26,7 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
 
         public DarkFyre(Texture2D loadedTexture, ContentManager content, Element el, int hp, SoundBank sfx)
-            : base(loadedTexture,content,el,50000,sfx)
+            : base(loadedTexture,content,el,2200,sfx)
         {
             Random random = new Random();
 
@@ -52,10 +52,20 @@ namespace ProjectPrototype
             //{
             //    bullets.Add(new Bullet(bulletSprite, this.element));
             //}
+
+            this.boundingRectangle.Width = 400;
+            this.boundingRectangle.Height = 120;
         }
 
         public override void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
         {
+            //Update miniBoss' positions
+            foreach (Enemy enemy in this.miniBosses)
+            {
+                enemy.Update(ref viewportRect, gameTime, players);
+                enemy.velocity.Y = this.velocity.Y;
+            }
+
             if (this.alive)
             {
                 //TODO Move the boss in some manner
@@ -64,15 +74,11 @@ namespace ProjectPrototype
 
                 this.position.Y += this.velocity.Y;
 
-                //Update miniBoss' positions
-                foreach (Enemy enemy in this.miniBosses)
-                {   
-                    enemy.Update(ref viewportRect, gameTime, players);
-                    enemy.velocity.Y = this.velocity.Y;
-                }
+                this.boundingRectangle.X = 
+                    (int)this.position.X + this.spriteWidth / 2 - this.boundingRectangle.Width / 2;
 
-                this.boundingRectangle.X = (int)this.position.X;
-                this.boundingRectangle.Y = (int)this.position.Y;
+                this.boundingRectangle.Y = 
+                    (int)this.position.Y + this.spriteHeight / 2 - this.boundingRectangle.Height / 2;
 
                 if (timeSinceLastShot == new TimeSpan(0) && this.alive)
                 {
@@ -158,6 +164,24 @@ namespace ProjectPrototype
             }
 
             return false;
+        }
+
+        public bool AllEnemiesAreDead()
+        {
+            foreach (Enemy enemy in miniBosses)
+            {
+                if (enemy.alive)
+                {
+                    return false;
+                }
+            }
+
+            if (this.alive)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
