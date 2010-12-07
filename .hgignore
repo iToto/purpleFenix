@@ -77,3 +77,10 @@ glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Music/XACT/Level1.x
 glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Music/XACT/Level2.xwb
 glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Music/XACT/music.xgs
 glob:ProjectPrototype/ProjectPrototype/Content/obj/x86/Debug/Music/XACT/music.xml
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Maps/Level2.xml
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/lavaTileset.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Sprites/Lava.xnb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Music/XACT/SoundFX.xwb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Music/XACT/SoundFX.xsb
+glob:ProjectPrototype/ProjectPrototype/bin/x86/Debug/Content/Maps/TestMap2.xml
+glob:ProjectPrototype/ProjectPrototype/obj/Xbox 360/Debug/Xbox 360 Copy (3) of ProjectPrototype.csproj.FileListAbsolute.txt
