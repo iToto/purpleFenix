@@ -27,6 +27,7 @@ namespace ProjectPrototype
         bool isFlashing = false;
         Color flashColor;
         public List<Bullet> bullets = new List<Bullet>();
+
         ScoreManager score;
 
         PlayerIndex playerIndex;
@@ -70,26 +71,26 @@ namespace ProjectPrototype
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(50, 30);
-                this.score = new ScoreManager(new Vector2(50, 50), PlayerIndex.One);
+                this.score = new ScoreManager(new Vector2(50, 50), PlayerIndex.One, this);
 
             }
             else if (playerIndex == PlayerIndex.Two)
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(170, 30);
-                this.score = new ScoreManager(new Vector2(170, 50), PlayerIndex.Two);
+                this.score = new ScoreManager(new Vector2(170, 50), PlayerIndex.Two, this);
             }
             else if (playerIndex == PlayerIndex.Three)
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(290, 30);
-                this.score = new ScoreManager(new Vector2(290, 50), PlayerIndex.Three);
+                this.score = new ScoreManager(new Vector2(290, 50), PlayerIndex.Three, this);
             }
             else if (playerIndex == PlayerIndex.Four)
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(410, 30);
-                this.score = new ScoreManager(new Vector2(410, 50), PlayerIndex.Four);
+                this.score = new ScoreManager(new Vector2(410, 50), PlayerIndex.Four, this);
             }
 
             switch (this.element)

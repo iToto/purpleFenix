@@ -1,4 +1,6 @@
-﻿using System;
+﻿//LavaTileSet Reference: http://www.hbgames.org/forums/viewtopic.php?t=57100
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

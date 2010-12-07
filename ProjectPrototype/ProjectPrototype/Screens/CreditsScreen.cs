@@ -91,6 +91,7 @@ namespace ProjectPrototype
 
             if (input.IsPauseGame(null))
             {
+                music.Stop(AudioStopOptions.Immediate);
                 LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(), new MainMenuScreen());
             }
         }
