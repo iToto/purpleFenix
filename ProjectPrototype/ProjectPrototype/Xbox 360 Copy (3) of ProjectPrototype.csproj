@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\ScoreManager.cs" />
+    <Compile Include="GameObjects\PlayerManager.cs" />
     <Compile Include="GameObjects\ShootingPattern.cs">
       <SubType>Code</SubType>
     </Compile>

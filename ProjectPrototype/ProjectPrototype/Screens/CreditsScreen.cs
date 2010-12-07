@@ -20,7 +20,7 @@ namespace ProjectPrototype
 
         List<String> credits = new List<string>();
 
-        TimeSpan timePerCreditString = new TimeSpan(0, 0, 15);
+        TimeSpan timePerCreditString = new TimeSpan(0, 0, 13);
         TimeSpan timeOnCurrentString = new TimeSpan(0);
 
         public CreditsScreen()
@@ -43,13 +43,14 @@ namespace ProjectPrototype
             music = soundBank.GetCue("CreditsMusic");
             music.Play();
 
-            credits.Add("PROGRAMMING BY: BRONSON ZGEB \n ROBBIE CAPUTO \n SALVATORE D'AGOSTINO");
+            credits.Add("PROGRAMMING BY: \n BRONSON ZGEB \n ROBBIE CAPUTO \n SALVATORE D'AGOSTINO");
             credits.Add("MUSIC BY: SALVATORE D'AGOSTINO");
             credits.Add("CREDITS SONG BY: \n STATIKZ FT. J. ARTHUR KEENES");
-            credits.Add("ART BY: ROBBIE CAPUTO \n BRONSON ZGEB");
-            credits.Add("ANIMATION BY: BRONSON ZGEB \n\n\n          FONT BY: BRONSON ZGEB");
+            credits.Add("SOUND CREATED USING: \nAS3SFXR");
+            credits.Add("ART BY: \n ROBBIE CAPUTO \n BRONSON ZGEB");
+            credits.Add("ANIMATION BY: BRONSON ZGEB \n\n\n      FONT BY: BRONSON ZGEB");
             credits.Add("LAVA TILESET PROVIDED BY: ");
-            credits.Add("THANKS FOR PLAYING!       ");
+            credits.Add("THANKS FOR PLAYING!                     ");
         }
 
         public override void Draw(GameTime gametime)

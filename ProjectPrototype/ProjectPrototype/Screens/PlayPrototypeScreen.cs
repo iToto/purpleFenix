@@ -113,7 +113,7 @@ namespace ProjectPrototype
                 }
                 else
                 {
-                    ScreenManager.AddScreen(new ContinueScreen(Levels.TEST,gameTime), PlayerIndex.One);
+                    ScreenManager.AddScreen(new ContinueScreen(Levels.TEST, gameTime, 1), PlayerIndex.One);
                 }
 
                 levelOne.Update(enemies);

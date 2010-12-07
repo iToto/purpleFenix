@@ -13,6 +13,9 @@ namespace ProjectPrototype
         static private int TimeOutLimit = 10000; // 10 seconds
         // Amount of time that has passed.
         private double timeoutCount = 0;
+
+        int numberOfPlayers;
+
         MenuEntry continueCountDown;
         GameTime time;
         Levels level;
@@ -22,7 +25,7 @@ namespace ProjectPrototype
 
         Cue music;
 
-        public ContinueScreen(Levels curentLevel, GameTime gameTime)
+        public ContinueScreen(Levels curentLevel, GameTime gameTime, int numberOfPlayers)
             : base("YOU NAUGHT COOKIN'?")
         {
             time = gameTime;
@@ -43,6 +46,8 @@ namespace ProjectPrototype
             MenuEntries.Add(continueCountDown);
             MenuEntries.Add(playAgainScreen);
             MenuEntries.Add(quitMenuEntry);
+
+            this.numberOfPlayers = numberOfPlayers;
         }
 
         public override void LoadContent()
@@ -111,7 +116,7 @@ namespace ProjectPrototype
                     LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new PlayPrototypeScreen());
                     break;
                 case Levels.EARTH:
-                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne());
+                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne(numberOfPlayers));
                     break;
                 case Levels.SPACE:
                     //ScreenManager.AddScreen(new LevelTwo(), e.PlayerIndex);

@@ -69,7 +69,7 @@ namespace ProjectPrototype
                     LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new PlayPrototypeScreen());
                     break;
                 case Levels.EARTH:
-                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne());
+                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelOne(numberOfPlayers));
                     break;
                 case Levels.SPACE:
                     //ScreenManager.AddScreen(new LevelTwo(), e.PlayerIndex);

@@ -26,7 +26,7 @@ namespace ProjectPrototype
 
         const int ROWS_PER_SCREEN = 25;
 
-        bool hasReachedEnd = false;
+        public bool HasReachedEnd { private set; get; }
 
         public int upperBound;
         public int lowerBound;
@@ -46,6 +46,7 @@ namespace ProjectPrototype
 
             tileMap = new TileMap(content, tileSheetFilename, this.tileSize);
             viewport = graphicsDevice.Viewport;
+            this.HasReachedEnd = false;
         }
 
         public void Initialize()
@@ -136,7 +137,7 @@ namespace ProjectPrototype
 
         public void Update(List<Enemy> enemies)
         {
-            if (!hasReachedEnd)
+            if (!HasReachedEnd)
             {
                 distanceTravelled += this.scrollSpeed;
                 if (distanceTravelled % tileSize == 0)
@@ -151,7 +152,7 @@ namespace ProjectPrototype
                 {
                     this.upperBound = 0;
                     this.lowerBound = ROWS_PER_SCREEN;
-                    this.hasReachedEnd = true;
+                    this.HasReachedEnd = true;
                 }
             }
         }
