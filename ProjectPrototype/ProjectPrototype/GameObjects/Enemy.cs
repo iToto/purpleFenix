@@ -78,7 +78,51 @@ namespace ProjectPrototype
             }
         }
 
-        public void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
+        public Enemy(Texture2D loadedTexture, ContentManager content, Element el, int hp, SoundBank sfx)
+            : base(loadedTexture, el, hp)
+        {
+            Texture2D bulletSprite;
+            Random random = new Random();
+
+            this.sfx = sfx;
+
+            this.velocity.X = 0;
+            this.typeOfPath = 2;
+            
+            timeBetweenShots = new TimeSpan(0, 0, 0, 0, 800);
+            timeSinceLastShot = new TimeSpan(0);
+            this.hasActiveBullets = false;
+
+            switch (el)
+            {
+                case Element.Earth:
+                    bulletSprite = BulletManager.RockSprite;
+                    break;
+
+                case Element.Fire:
+                    bulletSprite = BulletManager.FireSprite;
+                    break;
+
+                case Element.Ice:
+                    bulletSprite = BulletManager.IceSprite;
+                    break;
+
+                case Element.Lightning:
+                    bulletSprite = BulletManager.LightningSprite;
+                    break;
+
+                default:
+                    bulletSprite = BulletManager.RockSprite;
+                    break;
+            }
+
+            for (int i = 0; i < MAX_BULLETS; ++i)
+            {
+                bullets.Add(new Bullet(bulletSprite, this.element));
+            }
+        }
+
+        public virtual void Update(ref Rectangle viewportRect, GameTime gameTime, List<Player> players)
         {
             if (this.alive)
             {
@@ -129,7 +173,7 @@ namespace ProjectPrototype
             stillHasActiveBullets();
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public virtual void Draw(SpriteBatch spritebatch)
         {
             if (this.alive)
             {

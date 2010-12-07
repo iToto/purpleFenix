@@ -62,7 +62,7 @@ namespace ProjectPrototype
         void PlayGame(object sender, PlayerIndexEventArgs e)
         {
             //Load Correct Screen
-
+            
             switch (selectedLevel)
             {
                 case Levels.TEST:
@@ -75,7 +75,7 @@ namespace ProjectPrototype
                     LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new LevelTwo(numberOfPlayers));
                     break;
                 case Levels.BOSS:
-                    //ScreenManager.AddScreen(new BossLevel(numberOfPlayers), e.PlayerIndex);
+                    LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new BossLevel(numberOfPlayers));
                     break;
                 default:
                     break;
