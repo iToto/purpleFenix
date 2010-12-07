@@ -22,6 +22,6 @@ namespace ProjectPrototype
 
     enum Levels
     {
-        TEST, EARTH, SPACE, BOSS,
+        EARTH, SPACE, BOSS
     }
 }
