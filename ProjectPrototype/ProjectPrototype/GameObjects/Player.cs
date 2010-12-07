@@ -25,6 +25,7 @@ namespace ProjectPrototype
         TimeSpan timeBetweenShots;
         bool isShooting = false;
         public List<Bullet> bullets = new List<Bullet>();
+        ScoreManager score;
 
         PlayerIndex playerIndex;
         
@@ -49,7 +50,6 @@ namespace ProjectPrototype
             : base(loadedTexture, new Vector2(64, 64))
         {
             Texture2D bulletSprite;
-
             this.sfx = sfx;
             this.alive = true;
             timeBetweenShots = new TimeSpan(0, 0, 0, 0, 150);
@@ -67,21 +67,26 @@ namespace ProjectPrototype
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(50, 30);
+                this.score = new ScoreManager(new Vector2(50, 50), PlayerIndex.One);
+
             }
             else if (playerIndex == PlayerIndex.Two)
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(170, 30);
+                this.score = new ScoreManager(new Vector2(170, 50), PlayerIndex.Two);
             }
             else if (playerIndex == PlayerIndex.Three)
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(290, 30);
+                this.score = new ScoreManager(new Vector2(290, 50), PlayerIndex.Three);
             }
             else if (playerIndex == PlayerIndex.Four)
             {
                 healthBar = new HealthBar(content.Load<Texture2D>("Sprites\\healthBar"), this.health);
                 healthBar.position = new Vector2(410, 30);
+                this.score = new ScoreManager(new Vector2(410, 50), PlayerIndex.Four);
             }
 
             switch (this.element)
@@ -170,7 +175,7 @@ namespace ProjectPrototype
                 bullet.Update(ref viewportRect, gameTime);
                 foreach (Enemy enemy in enemies)
                 {
-                    bullet.Collide(enemy);
+                    bullet.Collide(enemy,this.score);
                 }
             }
         }
@@ -186,6 +191,7 @@ namespace ProjectPrototype
             }
 
             healthBar.Draw(spritebatch, this.playerIndex, font);
+            score.Draw(spritebatch, font);
             
             foreach (Bullet bullet in bullets)
             {

@@ -49,6 +49,47 @@ namespace ProjectPrototype
  
         }
 
+        public void Collide(GameObject opponent,ScoreManager score)
+        {
+            if (opponent.alive && this.alive)
+            {
+                if (this.boundingRectangle.Intersects(opponent.boundingRectangle))
+                {
+                    switch (opponent.CompareElements(this))
+                    {
+                        case Defense.Standard:
+                            opponent.Damage(2);
+                            break;
+                        case Defense.Strong:
+                            opponent.Damage(1);
+                            break;
+                        case Defense.Weak:
+                            opponent.Damage(4);
+                            break;
+                        default:
+                            break;
+                    }
+                    this.alive = false;
+                    if (opponent.Health <= 0)
+                    {
+                        opponent.Kill();
+                        if (this.element == Element.Fire && opponent.element == Element.Earth)
+                            score.score += 10;
+                        else if (this.element == Element.Earth && opponent.element == Element.Lightning)
+                            score.score += 10;
+                        else if (this.element == Element.Ice && opponent.element == Element.Fire)
+                            score.score += 10;
+                        else if (this.element == Element.Lightning && opponent.element == Element.Ice)
+                            score.score += 10;
+                        else
+                            score.score += 5;
+
+                            
+                    }
+                }
+            }
+        }
+
         public void Collide(GameObject opponent)
         {
             if (opponent.alive && this.alive)

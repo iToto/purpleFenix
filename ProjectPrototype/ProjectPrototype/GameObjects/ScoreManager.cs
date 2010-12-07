@@ -9,33 +9,24 @@ namespace ProjectPrototype
 {
     class ScoreManager
     {
-        List<int> playerScores = new List<int>();
-        int numberOfPlayers;
-        
-        public ScoreManager(int numOfPlayers)
-        {
-            numberOfPlayers = numOfPlayers;
-            for(int i = 0; i < numberOfPlayers; ++i)
-            {
-                playerScores[i] = 0;
-            }
-        }
+        public int score;
+        public PlayerIndex playerNumber;
+        public Vector2 position;
 
-        public void updateScore(int player,int increment)
+        public ScoreManager(Vector2 pos, PlayerIndex player)
         {
-            playerScores[player - 1] += increment;
+            score = 0;
+            this.position = pos;
+            this.playerNumber = player;
         }
 
         public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
             string scoreString = string.Empty;
 
-            for(int i = 0; i < numberOfPlayers; ++i)
-            {
-                scoreString += "P" + (i + 1) + " SCORE: " + playerScores[i] + " ";
-            }
+            scoreString = "" + this.score;
 
-            spriteBatch.DrawString(font, scoreString, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, scoreString,this.position, Color.White);
         }
     }
 }
