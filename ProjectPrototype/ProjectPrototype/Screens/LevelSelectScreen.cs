@@ -75,7 +75,7 @@ namespace ProjectPrototype
                     //ScreenManager.AddScreen(new LevelTwo(), e.PlayerIndex);
                     break;
                 case Levels.BOSS:
-                    //ScreenManager.AddScreen(new Boss(), e.PlayerIndex);
+                    ScreenManager.AddScreen(new BossLevel(), e.PlayerIndex);
                     break;
                 default:
                     break;

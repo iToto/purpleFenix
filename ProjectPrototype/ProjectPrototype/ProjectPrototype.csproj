@@ -88,6 +88,7 @@
     <Compile Include="GameObjects\Animation.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\BulletManager.cs" />
+    <Compile Include="GameObjects\DarkFyre.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\EnemyFactory.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
@@ -98,6 +99,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\ScoreManager.cs" />
     <Compile Include="GameObjects\ShootingPattern.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,6 +112,7 @@
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
+    <Compile Include="Screens\BossLevel.cs" />
     <Compile Include="Screens\ContinueScreen.cs" />
     <Compile Include="Screens\CreditsScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
