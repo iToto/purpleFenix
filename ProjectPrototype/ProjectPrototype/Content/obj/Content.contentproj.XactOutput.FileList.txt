@@ -1,0 +1,13 @@
+Content\Music\XACT\music.xgs
+Content\Music\XACT\Boss.xwb
+Content\Music\XACT\Level1.xwb
+Content\Music\XACT\Level2.xwb
+Content\Music\XACT\FrontEnd.xwb
+Content\Music\XACT\SoundFX.xwb
+Content\Music\XACT\Credits.xwb
+Content\Music\XACT\Level1.xsb
+Content\Music\XACT\FrontEnd.xsb
+Content\Music\XACT\Level2.xsb
+Content\Music\XACT\Boss.xsb
+Content\Music\XACT\SoundFX.xsb
+Content\Music\XACT\Credits.xsb

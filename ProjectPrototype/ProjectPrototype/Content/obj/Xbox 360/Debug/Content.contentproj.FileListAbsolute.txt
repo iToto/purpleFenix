@@ -1,0 +1,2 @@
+C:\Users\Alienbot\Documents\Dev\Purple Fenix\ProjectPrototype\ProjectPrototype\Content\obj\Xbox 360\Debug\ResolveAssemblyReference.cache
+C:\Users\Alienbot\Documents\Dev\Purple Fenix\ProjectPrototype\ProjectPrototype\Content\obj\Xbox 360\Debug\Music\XACT\music.xml

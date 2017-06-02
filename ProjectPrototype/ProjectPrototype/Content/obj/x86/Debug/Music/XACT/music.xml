@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Sections>
+  <WaveBank Name="Boss">Wave Bank
+{
+    Name = Boss;
+    Xbox File = Xbox\Boss.xwb;
+    Windows File = Win\Boss.xwb;
+    Xbox Bank Path Edited = 0;
+    Windows Bank Path Edited = 0;
+    Seek Tables = 1;
+    Compression Preset Name = &lt;none&gt;;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 4187339172;
+    PC Bank Last Modified High = 30118893;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 3842026672;
+    Bank Last Revised High = 30118893;
+
+    Wave
+    {
+        Name = bossSong;
+        File = ..\bossSong.wav;
+        Build Settings Last Modified Low = 3842026672;
+        Build Settings Last Modified High = 30118893;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 13749100;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4170918272;
+            Last Modified High = 30118668;
+        }
+    }
+}
+
+</WaveBank>
+  <WaveBank Name="Level1">Wave Bank
+{
+    Name = Level1;
+    Xbox File = Xbox\Level1.xwb;
+    Windows File = Win\Level1.xwb;
+    Xbox Bank Path Edited = 0;
+    Windows Bank Path Edited = 0;
+    Seek Tables = 1;
+    Compression Preset Name = &lt;none&gt;;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 4194682922;
+    PC Bank Last Modified High = 30118893;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 4025151672;
+    Bank Last Revised High = 30118893;
+
+    Wave
+    {
+        Name = Level Song 1;
+        File = ..\Level Song 1.wav;
+        Build Settings Last Modified Low = 4025151672;
+        Build Settings Last Modified High = 30118893;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 23990400;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1595950976;
+            Last Modified High = 30118669;
+        }
+    }
+}
+
+</WaveBank>
+  <WaveBank Name="Level2">Wave Bank
+{
+    Name = Level2;
+    Xbox File = Xbox\Level2.xwb;
+    Windows File = Win\Level2.xwb;
+    Xbox Bank Path Edited = 0;
+    Windows Bank Path Edited = 0;
+    Seek Tables = 1;
+    Compression Preset Name = &lt;none&gt;;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 4202026672;
+    PC Bank Last Modified High = 30118893;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 3952651672;
+    Bank Last Revised High = 30118893;
+
+    Wave
+    {
+        Name = Level Song 2;
+        File = ..\Level Song 2.wav;
+        Build Settings Last Modified Low = 3952651672;
+        Build Settings Last Modified High = 30118893;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 28203284;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 405950976;
+            Last Modified High = 30118669;
+        }
+    }
+}
+
+</WaveBank>
+  <WaveBank Name="FrontEnd">Wave Bank
+{
+    Name = FrontEnd;
+    Xbox File = Xbox\FrontEnd.xwb;
+    Windows File = Win\FrontEnd.xwb;
+    Xbox Bank Path Edited = 0;
+    Windows Bank Path Edited = 0;
+    Seek Tables = 1;
+    Compression Preset Name = &lt;none&gt;;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 4211089172;
+    PC Bank Last Modified High = 30118893;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 4135776672;
+    Bank Last Revised High = 30118893;
+
+    Wave
+    {
+        Name = continue Song;
+        File = ..\continue Song.wav;
+        Build Settings Last Modified Low = 4135776672;
+        Build Settings Last Modified High = 30118893;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 11314084;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3269691264;
+            Last Modified High = 30113891;
+        }
+    }
+
+    Wave
+    {
+        Name = gameOverSong;
+        File = ..\gameOverSong.wav;
+        Build Settings Last Modified Low = 4101401672;
+        Build Settings Last Modified High = 30118893;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 2514244;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 270083712;
+            Last Modified High = 30113903;
+        }
+    }
+
+    Wave
+    {
+        Name = menuMusic;
+        File = ..\menuMusic.wav;
+        Build Settings Last Modified Low = 4069214172;
+        Build Settings Last Modified High = 30118893;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 13868644;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2205950976;
+            Last Modified High = 30118669;
+        }
+    }
+}
+
+</WaveBank>
+  <WaveBank Name="SoundFX">Wave Bank
+{
+    Name = SoundFX;
+    Xbox File = Xbox\SoundFX.xwb;
+    Windows File = Win\SoundFX.xwb;
+    Xbox Bank Path Edited = 0;
+    Windows Bank Path Edited = 0;
+    Seek Tables = 1;
+    Compression Preset Name = &lt;none&gt;;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 2072753606;
+    PC Bank Last Modified High = 30119264;
+    Bank Last Revised Low = 1524079386;
+    Bank Last Revised High = 30119120;
+
+    Wave
+    {
+        Name = choot;
+        File = ..\choot.wav;
+        Build Settings Last Modified Low = 1399411417;
+        Build Settings Last Modified High = 30119120;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 17450;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3940667776;
+            Last Modified High = 30119119;
+        }
+    }
+
+    Wave
+    {
+        Name = explode;
+        File = ..\explode.wav;
+        Build Settings Last Modified Low = 1399411417;
+        Build Settings Last Modified High = 30119120;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 61800;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1825635072;
+            Last Modified High = 30119118;
+        }
+    }
+}
+
+</WaveBank>
+  <WaveBank Name="Credits">Wave Bank
+{
+    Name = Credits;
+    Xbox File = Xbox\Credits.xwb;
+    Windows File = Win\Credits.xwb;
+    Xbox Bank Path Edited = 0;
+    Windows Bank Path Edited = 0;
+    Seek Tables = 1;
+    Compression Preset Name = &lt;none&gt;;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 2072909856;
+    PC Bank Last Modified High = 30119264;
+    Bank Last Revised Low = 1804941106;
+    Bank Last Revised High = 30119264;
+
+    Wave
+    {
+        Name = CreditsSong;
+        File = ..\CreditsSong.wav;
+        Build Settings Last Modified Low = 1726034856;
+        Build Settings Last Modified High = 30119264;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 37683744;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3280344448;
+            Last Modified High = 30119262;
+        }
+    }
+}
+
+</WaveBank>
+</Sections>
